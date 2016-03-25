@@ -29,6 +29,10 @@ module.exports = function(sequelize, DataTypes){
 		fechaBaja: {
 			type: DataTypes.DATEONLY,
 			allowNull: true
+		},
+		status: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
 		}
 	},{
 		classMethods: {
@@ -36,6 +40,7 @@ module.exports = function(sequelize, DataTypes){
 				Empleado.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
 				Empleado.belongsTo(models.tipoEmpleado, {foreignKey: {allowNull: false}});
 				Empleado.belongsTo(models.estadoEmpleado, {foreignKey: {allowNull: false}});
+				Empleado.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 
 				Empleado.hasMany(models.Usuario);
 				Empleado.hasMany(models.Factura);

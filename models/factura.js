@@ -24,8 +24,9 @@ module.exports = function(sequelize, DataTypes){
 				Factura.belongsTo(models.Cliente, {foreignKey: {allowNull: false}});
 				Factura.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
 				Factura.belongsTo(models.tipoPago, {foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.Empleado, {as: 'Vendedor', foreignKey: {name: 'vendedorId', field: 'vendedorId', allowNull:false}});
+				Factura.belongsTo(models.Empleado, {foreignKey: {allowNull: false}});
 				Factura.belongsTo(models.Usuario,{foreignKey: {allowNull: false}});
+				Factura.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 
 				Factura.hasMany(models.facturaDetalle);
 				Factura.hasMany(models.payProtection);

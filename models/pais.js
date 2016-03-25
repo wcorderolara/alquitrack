@@ -20,6 +20,7 @@ module.exports = function (sequelize, DataTypes){
 				Pais.hasOne(models.Cliente);
 				Pais.hasOne(models.Tractor);
 				Pais.hasOne(models.Factura);
+				Pais.hasMany(models.Sede);
 			}
 		},
 

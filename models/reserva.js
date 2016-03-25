@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes){
 		classMethods:{
 			associate: function(models){
 				Reserva.belongsTo(models.Cliente, {foreignKey: {allowNull: false}});
+				Reserva.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 				Reserva.hasMany(models.reservaDetalle);
 			}
 		},

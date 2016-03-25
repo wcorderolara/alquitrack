@@ -5,6 +5,10 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		simbolo: {
+			type: DataTypes.STRING(10),
+			allowNull: true
+		},
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true

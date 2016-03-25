@@ -36,6 +36,7 @@ module.exports = function(sequelize, DataTypes){
 				Tractor.belongsTo(models.tipoEquipo, {foreignKey: {allowNull: false}});
 				Tractor.belongsTo(models.estadoEquipo, {foreignKey: {allowNull: false}});
 				Tractor.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
+				Tractor.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 
 				Tractor.hasMany(models.reservaDetalle);
 				Tractor.hasMany(models.bitacoraTractor);

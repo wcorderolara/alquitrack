@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes){
 				bitacoraTractor.belongsTo(models.estadoEquipo, {foreignKey: {allowNull: true}});
 				bitacoraTractor.belongsTo(models.Cliente, {foreignKey: {allowNull: true}});
 				bitacoraTractor.belongsTo(models.Factura, {foreignKey: {allowNull: true}});
+				bitacoraTractor.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 			}
 		},
 		freezeTableName: true,

@@ -49,6 +49,7 @@ module.exports = function(sequelize, DataTypes){
 				Cliente.belongsTo(models.tipoCliente, {foreignKey: {allowNull:false}});
 				Cliente.belongsTo(models.Pais, {foreignKey: {allowNull:false}});
 				Cliente.belongsTo(models.tipoCredito, {foreignKey: {allowNull: true}});
+				Cliente.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
 
 				Cliente.hasMany(models.Factura);
 				Cliente.hasMany(models.payProtection);
