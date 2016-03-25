@@ -3,11 +3,11 @@ module.exports = function(sequelize, DataTypes){
 
 	var facturaDetalle = sequelize.define('facturaDetalle',{
 		fechaSale: {
-			DataTypes: DataTypes.DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull:true
 		},
 		fechaRegresa: {
-			DataTypes: DataTypes.DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull:true
 		},
 		subTotal:{
@@ -17,9 +17,9 @@ module.exports = function(sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				detalleFactura.belongsTo(models.Factura, {foreignKey: {allowNull: false}});
-				detalleFactura.belongsTo(models.Tractor, {foreignKey: {allowNull: false}});
-				detalleFactura.belongsTo(models.tipoAlquiler, {foreignKey: {allowNull: false}});
+				facturaDetalle.belongsTo(models.Factura, {foreignKey: {allowNull: false}});
+				facturaDetalle.belongsTo(models.Tractor, {foreignKey: {allowNull: false}});
+				facturaDetalle.belongsTo(models.tipoAlquiler, {foreignKey: {allowNull: false}});
 			}
 		},
 		freezeTableName: true,

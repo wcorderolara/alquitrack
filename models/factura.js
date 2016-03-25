@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: true
 		},
 		fechaCreacion:{
-			type: DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull: false
 		},
 		status: {

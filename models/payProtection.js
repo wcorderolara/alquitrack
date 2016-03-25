@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes){
 
 	var payProtection = sequelize.define('payProtection',{
 		fechaCobro: {
-			DataTypes: DataTypes.DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull:true
 		},
 		monto:{

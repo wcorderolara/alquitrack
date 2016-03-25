@@ -1,12 +1,12 @@
 
 module.exports = function(sequelize, DataTypes){
 
-	var detalleReserva = sequelize.define('detalleReserva',{
+	var reservaDetalle = sequelize.define('reservaDetalle',{
 		observacion: {
 			type: DataTypes.STRING(1000),
 			allowNull: true
 		},
-		status; {
+		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
@@ -14,11 +14,13 @@ module.exports = function(sequelize, DataTypes){
 	},{
 		classMethods:{
 			associate: function(models){
-				detalleReserva.belongsTo(models.Reserva, {foreignKey: {allowNull:false}});
-				detalleReserva.belongsTo(models.Tractor, {foreignKey: {allowNull:true}});
+				reservaDetalle.belongsTo(models.Reserva, {foreignKey: {allowNull:false}});
+				reservaDetalle.belongsTo(models.Tractor, {foreignKey: {allowNull:true}});
 			}
 		},
 		freezeTableName: true,
-		tableName: 'detalleReserva'
+		tableName: 'reservaDetalle'
 	})
+
+	return reservaDetalle;
 }

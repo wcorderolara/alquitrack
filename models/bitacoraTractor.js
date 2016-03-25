@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes){
 		fechaFactura: {
 			type: DataTypes.DATEONLY,
 			allowNull: true
-		}
+		},
 		observaciones: {
 			type: DataTypes.STRING,
 			allowNull: true

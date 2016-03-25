@@ -1,7 +1,7 @@
 
 module.exports = function(sequelize, DataTypes){
 
-	var Empleado = sequelize.define('empleado',{
+	var Empleado = sequelize.define('Empleado',{
 		nombre:{
 			type: DataTypes.STRING,
 			allowNull: false
@@ -32,10 +32,10 @@ module.exports = function(sequelize, DataTypes){
 		}
 	},{
 		classMethods: {
-			associate: function(modes){
+			associate: function(models){
 				Empleado.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
 				Empleado.belongsTo(models.tipoEmpleado, {foreignKey: {allowNull: false}});
-				Empleado.belognsTo(models.estadoEmpleado, {foreignKey: {allowNull: false}});
+				Empleado.belongsTo(models.estadoEmpleado, {foreignKey: {allowNull: false}});
 
 				Empleado.hasMany(models.Usuario);
 				Empleado.hasMany(models.Factura);

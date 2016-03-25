@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.DATEONLY,
 			allowNull: true
 		},
-		status; {
+		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
@@ -32,4 +32,6 @@ module.exports = function(sequelize, DataTypes){
 		freezeTableName: true,
 		tableName: 'tallerTractor'
 	})
+
+	return tallerTractor;
 }
