@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-container">
+            <div class="profile-header row">
+                <div class="col-lg-2 col-md-4 col-sm-12 text-center">
+                    <img src="{{datosGenerales.avatar}}" alt="" class="header-avatar" />
+                    <span ng-click="showChange();" class="btn btn-palegreen btn-sm btn-follow margin-bottom-10">
+                        <i class="fa fa-camera"></i>
+                        Editar fotograf&iacute;a
+                    </span>                    
+                </div>
+                <div class="col-lg-5 col-md-8 col-sm-12 profile-info">
+                    <div class="header-fullname col-sm-9">
+                        {{datosGenerales.firstName}} </br> {{datosGenerales.lastName}}
+                    </div>
+                    <a href="#" class="btn btn-palegreen btn-sm btn-follow col-sm-3">
+                        <i class="fa fa-globe"></i>
+                        {{datosGenerales.Pai.descripcion}}
+                    </a>
+                    <div class="header-information col-sm-12">
+                        {{datosGenerales.descripcion}}
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 profile-stats">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 stats-col">
+                            <div class="stats-value blue">{{totalAgentes}}</div>
+                            <div class="stats-title">Agentes</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 stats-col">
+                            <div class="stats-value blue">{{totalPropiedades}}</div>
+                            <div class="stats-title">Propiedades</div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 inlinestats-col">
+                            <a ui-sref="app.agentes">
+                                <i class="fa fa-users green"></i> 
+                                <span class="menu-text"> Agentes </span>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 inlinestats-col">
+                            <a ui-sref="app.propiedades">
+                                <i class="fa fa-home green"></i> 
+                                <span class="menu-text"> Propiedades </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div  ng-show="cambiarFoto==true" class="col-md-12 animated fadeInDown">
+                    <div class="col-md-12">
+                        <form name="myForm" class="upload-zone" class="col-md-12" enctype="multipart/form-data">
+                            <fieldset>
+                                <div class="col-md-4">
+                                    <input type="file" ngf-select ng-model="picFile" name="file"    
+                                        accept="image/*" ngf-max-size="2MB" required
+                                        ngf-model-invalid="errorFile">
+                                    <i ng-show="myForm.file.$error.required">*required</i><br>
+                                    <i ng-show="myForm.file.$error.maxSize">File too large 
+                                    {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+
+                                    <div class="col-md-12 padding-left-0">
+                                        <button ng-disabled="!myForm.$valid" class="btn btn-orange btn-xs" ng-click="uploadPic(picFile);">Guardar</button>
+                                        <button class="btn btn-orange btn-xs" ng-click="hideChange();">cancelar</button>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 margin-top-less-10">
+                                    <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="header-avatar"> 
+                                    <button class="btn btn-primary margin-left-10" ng-click="picFile = null" ng-show="picFile">Remove</button>
+                                </div>
+                                
+                            </fieldset>
+                            <br>
+                            
+                      </form>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-body">
+                <div class="col-lg-12">
+                    <tabset flat="true" justified="true">
+                        <tab heading="Información de Contacto">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="profile-contacts">
+
+                                        <div class="profile-badge green"><i class="fa fa-phone green"></i><span>Contacto</span></div>
+                                        <div class="contact-info">
+                                            <p>
+                                                <b>Teléfono</b>	: {{datosGenerales.telefono1}}
+                                            </p>
+                                            <p>
+                                                <b>PBX</b>     : {{datosGenerales.telefono2}}
+                                            </p>
+                                            <p>
+                                                <b>Email</b>		: {{datosGenerales.email}}
+                                            </p>
+                                            <p>
+                                                <b>Sitio Web</b>        : {{datosGenerales.website}}
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="profile-contacts">
+                                        <div class="profile-badge azure">
+                                            <i class="fa fa-map-marker azure"></i><span>Ubicación</span>
+                                        </div>
+                                        <div class="contact-info">
+                                            <p>
+                                                <b>Dirección:</b><br>
+                                                {{datosGenerales.direccion}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Configuración de Cuenta">
+                            <form role="form">
+                                <div class="form-title">
+                                    Información personal
+                                </div>
+                                <div class="row">   
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.firstName" type="text" class="form-control" placeholder="Nombre">
+                                                <i class="fa fa-user blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.lastName" type="text" class="form-control" placeholder="Apellido (opcional)">
+                                                <i class="fa fa-user blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.telefono1" type="text" class="form-control" placeholder="Telefono">
+                                                <i class="fa fa-phone blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.telefono2" type="text" class="form-control" placeholder="PBX">
+                                                <i class="fa fa-phone blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.userLogin" type="text" class="form-control" placeholder="correo Electronico">
+                                                <i class="fa fa-envelope blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-title">
+                                    Descripci&oacute;n del Cliente
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <textarea ng-model="putUserInfo.descripcion" class="form-control" placeholder="Descripcion el cliente"></textarea>
+                                                <!-- <input ng-model="putUserInfo.descripcion" type="text" class="form-control" placeholder="Descripcion"> -->
+                                                <i class="fa fa-align-justify blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-title">
+                                    Informaci&oacute;n de contacto
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.direccion" type="text" class="form-control" placeholder="Direccion">
+                                                <i class="fa fa-map-marker blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <input ng-model="putUserInfo.website" type="text" class="form-control" placeholder="Direccion de sitio Web">
+                                                <i class="fa fa-globe blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button ng-click="updateUsuario();" type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-check"></i>
+                                    Guardar Perfil
+                                </button>
+                            </form>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@ exports.getFacturas = function(req, res){
 	})
 };
 
-exports.getReserva = function(req, res){
+exports.getFactura = function(req, res){
 	models.Factura.findOne({
 		where: {
 			id: req.params.id,
@@ -135,7 +135,7 @@ function insertDetalleFactura (res, arrayTractores, facturaId){
 }
 
 //Empleado dado de baja
-exports.deleteReserva = function(req, res){
+exports.deleteFactura = function(req, res){
 	models.Factura.update({
 		status: 0
 	},{

@@ -1,7 +1,7 @@
 var models = require('../../models');
 var service = require('../services/service');
 
-exports.getTiposEmplado = function(req, res){
+exports.getTiposEmpleado = function(req, res){
 	models.tipoEmpleado.findAll({
 		where: {
 			status: 1

@@ -141,7 +141,6 @@ exports.putTractor = function(){
 	})
 }
 
-//Empleado dado de baja
 exports.deleteTractor = function(req, res){
 	models.Tractor.update({
 		status: 0
@@ -156,4 +155,11 @@ exports.deleteTractor = function(req, res){
 			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro eliminado del sistema..."});
 		}
 	})
+}
+
+//Metodos Adicionales al CRUD
+exports.uploadAvatar = function(req, res, next){
+	cloudinary.uploader.upload(req.files.file.path, function(result, callback){
+		sendJSONresponse(res,200,{"type":true,"data":result});
+	});
 }

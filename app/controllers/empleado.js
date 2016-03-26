@@ -199,33 +199,6 @@ exports.uploadAvatar = function(req, res, next){
 
 //Empleado Suspendido
 
-exports.postEmpleadoSuspendido = function(req, res){
-	models.empleadoSuspendido.create({
-		fechaDesde: req.body.fechaDesde,
-		fechaHasta: req.body.fechaHasta,
-		observaciones: req.body.observaciones,
-		imgSuspension: req.body.imgSuspension || null,
-		EmpleadoId: req.body.EmpleadoId
-	}).then(function (registro){
-		if(!registro){
-			service.sendJSONresponse(res, 500, {"type": false, "message": "Error al agregar el registro"});
-		}else{
-			models.Empleado.update({
-				estadoEmpleadoId: 2
-			},{
-				where:{
-					id: req.body.EmpleadoId
-				}
-			}).then(function (_registro){
-				if(!_registro){
-					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al Actualizar el Empleado"});
-				}
-			})
-			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Creado exitosamente"});
-		}
-	})
-}
-
 exports.getEmpleadosSuspendidos = function(req, res){
 	models.Empleado.findAll({
 		where:{
@@ -258,6 +231,33 @@ exports.getEmpleadosSuspendidos = function(req, res){
 	})
 }
 
+exports.postEmpleadoSuspendido = function(req, res){
+	models.empleadoSuspendido.create({
+		fechaDesde: req.body.fechaDesde,
+		fechaHasta: req.body.fechaHasta,
+		observaciones: req.body.observaciones,
+		imgSuspension: req.body.imgSuspension || null,
+		EmpleadoId: req.body.EmpleadoId
+	}).then(function (registro){
+		if(!registro){
+			service.sendJSONresponse(res, 500, {"type": false, "message": "Error al agregar el registro"});
+		}else{
+			models.Empleado.update({
+				estadoEmpleadoId: 2
+			},{
+				where:{
+					id: req.body.EmpleadoId
+				}
+			}).then(function (_registro){
+				if(!_registro){
+					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al Actualizar el Empleado"});
+				}
+			})
+			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Creado exitosamente"});
+		}
+	})
+}
+
 exports.putEmpleadoSuspendido = function(req,res){
 	models.empleadoSuspendido.update({
 		status: 0
@@ -286,34 +286,6 @@ exports.putEmpleadoSuspendido = function(req,res){
 }
 
 //Empleado Vacaciones
-
-exports.postEmpleadoVacaciones = function(req, res){
-	models.empleadoVacaciones.create({
-		fechaDesde: req.body.fechaDesde,
-		fechaHasta: req.body.fechaHasta,
-		observaciones: req.body.observaciones,
-		imgVacaciones: req.body.imgVacaciones || null,
-		EmpleadoId: req.body.EmpleadoId
-	}).then(function (registro){
-		if(!registro){
-			service.sendJSONresponse(res, 500, {"type": false, "message": "Error al agregar el registro"});
-		}else{
-			models.Empleado.update({
-				estadoEmpleadoId: 3
-			},{
-				where:{
-					id: req.body.EmpleadoId
-				}
-			}).then(function (_registro){
-				if(!_registro){
-					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al Actualizar el Empleado"});
-				}
-			})
-			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Creado exitosamente"});
-		}
-	})
-}
-
 exports.getEmpleadosVacaciones = function(req, res){
 	models.Empleado.findAll({
 		where:{
@@ -342,6 +314,33 @@ exports.getEmpleadosVacaciones = function(req, res){
 			service.sendJSONresponse(res,500,{"type":false,"message":"Error al Obtener los empleados en Vacaciones", "data":registros});
 		}else{
 			service.sendJSONresponse(res,200,{"type":true, "data":registros});
+		}
+	})
+}
+
+exports.postEmpleadoVacaciones = function(req, res){
+	models.empleadoVacaciones.create({
+		fechaDesde: req.body.fechaDesde,
+		fechaHasta: req.body.fechaHasta,
+		observaciones: req.body.observaciones,
+		imgVacaciones: req.body.imgVacaciones || null,
+		EmpleadoId: req.body.EmpleadoId
+	}).then(function (registro){
+		if(!registro){
+			service.sendJSONresponse(res, 500, {"type": false, "message": "Error al agregar el registro"});
+		}else{
+			models.Empleado.update({
+				estadoEmpleadoId: 3
+			},{
+				where:{
+					id: req.body.EmpleadoId
+				}
+			}).then(function (_registro){
+				if(!_registro){
+					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al Actualizar el Empleado"});
+				}
+			})
+			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Creado exitosamente"});
 		}
 	})
 }

@@ -15,7 +15,7 @@ exports.getPaises = function(req, res){
 	})
 };
 
-exports.getPaisById = function(req, res){
+exports.getPais = function(req, res){
 	models.Pais.findOne({
 		where: {
 			id: req.params.id,
