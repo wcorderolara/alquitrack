@@ -1,4 +1,4 @@
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .config([
         '$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
             $ocLazyLoadProvider.config({

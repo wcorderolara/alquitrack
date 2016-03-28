@@ -1,4 +1,4 @@
-﻿angular.module('probnsApp')
+﻿angular.module('alquitrackApp')
     .directive('fullscreen', function() {
             return {
                 restrict: 'AC',
@@ -43,7 +43,7 @@
         }
     );
 
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('refresh', [
         '$rootScope', '$state', '$stateParams',
         function($rootScope, $state, $stateParams) {
@@ -63,7 +63,7 @@ angular.module('probnsApp')
         }
     ]);
 
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('sidebarToggler', function() {
             return {
                 restrict: 'AC',
@@ -79,7 +79,7 @@ angular.module('probnsApp')
         }
     );
 
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('pageTitle', [
         '$rootScope', '$timeout',
         function($rootScope, $timeout) {
@@ -99,7 +99,7 @@ angular.module('probnsApp')
         }
     ]);
 
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('headerTitle', [
         '$rootScope', '$timeout',
         function ($rootScope, $timeout) {

@@ -1,4 +1,4 @@
-﻿angular.module('probnsApp')
+﻿angular.module('alquitrackApp')
   .directive('loadingContainer', function () {
       return {
           restrict: 'AC',

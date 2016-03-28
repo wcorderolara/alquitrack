@@ -1,5 +1,5 @@
 ﻿//Sidebar Menu Handle
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('sidebarMenu', function() {
         return {
             restrict: 'AC',

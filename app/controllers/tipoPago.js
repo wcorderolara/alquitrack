@@ -15,7 +15,7 @@ exports.getTiposPago = function(req, res){
 	})
 };
 
-exports.getTipoPagoId = function(req, res){
+exports.getTipoPago = function(req, res){
 	models.tipoPago.findOne({
 		where: {
 			id: req.params.id,

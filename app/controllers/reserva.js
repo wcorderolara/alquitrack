@@ -136,7 +136,7 @@ exports.putReserva = function(){
 	models.Reserva.update({
 		observaciones: req.body.observaciones || null,
 		adelanto: req.body.adelanto || null,
-		fechaReservacion; req.body.fechaReservacion
+		fechaReservacion: req.body.fechaReservacion
 	},{
 		where:{
 			id: req.params.id

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .controller('AppCtrl', [
         '$rootScope', '$localStorage', '$state', '$timeout',
         function ($rootScope, $localStorage, $state, $timeout) {

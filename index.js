@@ -6,7 +6,7 @@ var passport = require('passport');
 
 var models = require('./models');
 var cors = require('cors');
-// var routesApi = require('./app/api/routes');
+var routesApi = require('./app/api/routes');
 
 require('./config/passport');
 
@@ -19,7 +19,7 @@ app.use(cors());
 
 app.use(passport.initialize());
 
-// routesApi(app);
+routesApi(app);
 
 models.sequelize.sync();
 

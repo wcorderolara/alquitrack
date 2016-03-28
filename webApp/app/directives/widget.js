@@ -1,5 +1,5 @@
 ﻿//Maximize Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetMaximize', function () {
         return {
             restrict: 'A',
@@ -33,7 +33,7 @@ angular.module('app')
     });
 
 //Collapse Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetCollapse', function () {
         return {
             restrict: 'A',
@@ -70,7 +70,7 @@ angular.module('app')
     });
 
 //Expand Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetExpand', function () {
         return {
             restrict: 'A',
@@ -107,7 +107,7 @@ angular.module('app')
     });
 
 //Dispose Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetDispose', function () {
         return {
             restrict: 'A',
@@ -125,7 +125,7 @@ angular.module('app')
     });
 
 //Config Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetConfig', function () {
         return {
             restrict: 'A',
@@ -139,7 +139,7 @@ angular.module('app')
     });
 
 //Config Widget
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('widgetRefresh', function () {
         return {
             restrict: 'A',

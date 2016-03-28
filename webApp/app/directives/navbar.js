@@ -1,5 +1,5 @@
 ﻿//Sidebar Collapse
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('sidebarCollapse', function () {
         return {
             restrict: 'AC',
@@ -37,7 +37,7 @@ angular.module('probnsApp')
     });
 
 //Setting
-angular.module('probnsApp')
+angular.module('alquitrackApp')
     .directive('setting', function () {
         return {
             restrict: 'AC',

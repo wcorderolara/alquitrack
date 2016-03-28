@@ -124,7 +124,7 @@ function insertDetalleFactura (res, arrayTractores, facturaId){
 			TractorId: item.tractorId,
 			tipoAlquilerId: item.tipoAlquilerId,
 			fechaSale: item.fechaSale,
-			fechaRegresa: item.fechaRegresa.
+			fechaRegresa: item.fechaRegresa,
 			status: 1
 		}).then(function (tractor){
 			if(!tractor){

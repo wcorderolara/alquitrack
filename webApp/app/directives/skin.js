@@ -1,5 +1,5 @@
 ﻿//Chat Toggle Link
-angular.module('app')
+angular.module('alquitrackApp')
     .directive('skinChanger', ['$rootScope', '$filter','$state', '$stateParams', function ($rootScope, $filter, $state, $stateParams) {
         return {
             restrict: 'AC',

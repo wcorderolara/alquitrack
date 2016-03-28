@@ -1,5 +1,5 @@
-probnsApp.service('authService', function ($http, $q, probnsConf, $window){
-	var uri = probnsConf.api.url;
+alquitrackApp.service('authService', function ($http, $q, alquitrackConf, $window){
+	var uri = alquitrackConf.api.url;
 	var self = this;
 
 	self.saveToken = function(token){

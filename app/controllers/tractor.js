@@ -104,7 +104,7 @@ exports.postTractor = function(req, res){
 		estadoEquipoId: req.body.estadoEquipoId,
 		PaiId: req.body.PaiId,
 		SedeId: req.body.SedeId,
-		tipoequipoId; req.body.tipoEquipoId,
+		tipoequipoId: req.body.tipoEquipoId,
 		status: 1
 	}).then(function (registro){
 		if(!registro){
@@ -127,7 +127,7 @@ exports.putTractor = function(){
 		estadoEquipoId: req.body.estadoEquipoId,
 		PaiId: req.body.PaiId,
 		SedeId: req.body.SedeId,
-		tipoequipoId; req.body.tipoEquipoId
+		tipoequipoId: req.body.tipoEquipoId
 	},{
 		where:{
 			id: req.params.id

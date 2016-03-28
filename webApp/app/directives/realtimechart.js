@@ -1,4 +1,4 @@
-﻿angular.module('app').directive("flotChartRealtime", [
+﻿angular.module('alquitrackApp').directive("flotChartRealtime", [
     function() {
         return {
             restrict: "AE",
@@ -152,7 +152,7 @@
     }
 ]);
 
-angular.module('app').directive("databoxFlotChartRealtime", [
+angular.module('alquitrackApp').directive("databoxFlotChartRealtime", [
     function() {
         return {
             restrict: "AE",

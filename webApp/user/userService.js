@@ -1,5 +1,5 @@
-probnsApp.service('userService', function ($http, $q, probnsConf, authService){
-	var uri = probnsConf.api.url;
+alquitrackApp.service('userService', function ($http, $q, alquitrackConf, authService){
+	var uri = alquitrackConf.api.url;
 
 	this.getUserInfoById = function(userId){
 		var deferred = $q.defer();

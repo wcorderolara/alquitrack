@@ -1,4 +1,4 @@
-probnsApp.controller('authController', function($scope, $window,$location,
+alquitrackApp.controller('authController', function($scope, $window,$location,
 											    authService, ShareData, blockUI, Notification){
 
 	var auth = authService;

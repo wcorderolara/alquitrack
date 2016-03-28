@@ -1,4 +1,4 @@
-probnsApp.controller('userController', function($scope,$window, userService,ShareData,blockUI, authService){
+alquitrackApp.controller('userController', function($scope,$window, userService,ShareData,blockUI, authService){
 
 	var service = userService;
 	var auth = authService;
@@ -6,22 +6,22 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 	var userId = auth.getUserLogged();
 	$scope.datosGenerales = {};
 
-	if(!auth.isLoggedIn()){
-		$window.location = "#/login";
-	}
+	// if(!auth.isLoggedIn()){
+	// 	$window.location = "#/login";
+	// }
 
-	service.getUserInfoById(userId).then(		
-		function (data){
-			blockUI.start();
-			$scope.datosGenerales = data.data;	
-			$scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		
-			blockUI.stop();
-		}
-	)
+	// service.getUserInfoById(userId).then(		
+	// 	function (data){
+	// 		blockUI.start();
+	// 		$scope.datosGenerales = data.data;	
+	// 		$scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		
+	// 		blockUI.stop();
+	// 	}
+	// )
 
-	$scope.signOut = function(){
-		auth.logout();
-		$window.location = '#/login';
-	}
+	// $scope.signOut = function(){
+	// 	auth.logout();
+	// 	$window.location = '#/login';
+	// }
 
 })

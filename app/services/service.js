@@ -8,7 +8,7 @@ exports.createToken = function(user){
 		exp: moment().add(1,"days").unix()
 	};
 
-	return jwt.enconde(payload, process.env.JWT_SECRET);
+	return jwt.encode(payload, process.env.JWT_SECRET);
 }
 
 exports.sendJSONresponse = function(res, status, content){

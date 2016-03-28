@@ -66,7 +66,7 @@ exports.postPrecioEquipo = function(req, res){
 	models.precioEquipo.create({
 		precio: req.body.precio,
 		tipoAlquilerId: req.body.tipoAlquilerId,
-		tipoequipoId; req.body.tipoEquipoId,
+		tipoequipoId: req.body.tipoEquipoId,
 		status: 1
 	}).then(function (registro){
 		if(!registro){
@@ -81,7 +81,7 @@ exports.putPrecioEquipo = function(){
 	models.precioEquipo.update({
 		precio: req.body.precio,
 		tipoAlquilerId: req.body.tipoAlquilerId,
-		tipoequipoId; req.body.tipoEquipoId
+		tipoequipoId: req.body.tipoEquipoId
 	},{
 		where:{
 			id: req.params.id

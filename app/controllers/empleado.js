@@ -178,7 +178,7 @@ exports.deleteEmpleado = function(req, res){
 			}).then(function (usuario){
 				if(usuario){
 					usuario.update({
-						status: 0;
+						status: 0
 					}).then(function(){
 						service.sendJSONresponse(res,200,{"type":true,"message":"Se han removido los permisos del empleado"});
 					})
