@@ -65,8 +65,8 @@ angular.module('alquitrackApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [                                            
-                                            'dashboard/dashboardService.js',
-                                            'dashboard/dashboardController.js'
+                                            'modules/dashboard/dashboardService.js',
+                                            'modules/dashboard/dashboardController.js'
                                         ]
                                     })
                                 }

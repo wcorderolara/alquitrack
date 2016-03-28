@@ -3,11 +3,11 @@ alquitrackApp.service('authService', function ($http, $q, alquitrackConf, $windo
 	var self = this;
 
 	self.saveToken = function(token){
-		$window.localStorage['probns-token'] = token;
+		$window.localStorage['alquitrack-token'] = token;
 	};
 
 	self.getToken = function(){
-		return $window.localStorage['probns-token'];
+		return $window.localStorage['alquitrack-token'];
 	}
 
 	self.registrarUsuario = function(params){
@@ -61,7 +61,7 @@ alquitrackApp.service('authService', function ($http, $q, alquitrackConf, $windo
 	}
 
 	self.logout = function(){
-		$window.localStorage.removeItem('probns-token');
+		$window.localStorage.removeItem('alquitrack-token');
 	}
 
 	self.setHeaders = function(){
