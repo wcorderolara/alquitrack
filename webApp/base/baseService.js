@@ -44,7 +44,7 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.delete = function(data){
+	self.deleteRegistro = function(data){
 		var deferred = $q.defer();
 
 		$http.put(uri + data.url, authService.setHeaders())
@@ -87,12 +87,12 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.uploadImage = function(data){
+	self.uploadImage = function(data, file){		
 		var deferred = $q.defer();
 
 		file.upload = Upload.upload({
 			url: uri + data.url,
-			data: {file: data.file},
+			data: {file: file},
 		});
 
 		file.upload.then(function (response){
