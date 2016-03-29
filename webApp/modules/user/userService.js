@@ -1,14 +1,52 @@
-alquitrackApp.service('userService', function ($http, $q, alquitrackConf, authService){
-	var uri = alquitrackConf.api.url;
+alquitrackApp.service('userService', function ($http, $q, baseService, authService){
+	
+	var base = baseService;
+	var self = this;
 
-	this.getUserInfoById = function(userId){
-		var deferred = $q.defer();
 
-		$http.get(uri + '/usuario/get/clienteById/' + userId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+	self.registrarUsuario = function(params){
+		
+		var data = {
+			params: params,
+			url: '/empleado/post'
+		}
 
-		return deferred.promise;
+		var result = baseService.post(params);
+		console.log(result);
+
+		return result;
+
+	}
+
+	self.loginUser = function(params){
+
+		var data = {
+			params: params,
+			url: '/login/user'
+		}
+
+		var result = baseService.login(data);
+		console.log(result);
+
+		return result;
+	}
+
+	this.getEmpleadoInfo = function(empId){
+		var data = {
+			url: '/empleado/get/' + empId
+		}
+
+		var result = baseService.get(data);
+
+		return result;
+	}
+
+	this.getUsuarioInfo = function(userId){
+		var data = {
+			url: '/usuario/get/' + userId
+		}
+
+		var result = baseService.get(data);
+		return result;
 	}
 })

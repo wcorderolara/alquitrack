@@ -2,10 +2,10 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 	var uri = alquitrackConf.api.url;
 	var self = this;
 
-	self.get = function(url){
+	self.get = function(data){
 		var deferred = $q.defer();
 		
-		$http.get(uri + url, authService.setHeaders())
+		$http.get(uri + data.url, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -16,10 +16,10 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.post = function(url, params){
+	self.post = function(data){
 		var deferred = $q.defer();
 
-		$http.post(uri + url, params, authService.setHeaders())
+		$http.post(uri + data.url, data.params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -30,10 +30,10 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.put = function(url, params){
+	self.put = function(data){
 		var deferred = $q.defer();
 
-		$http.post(uri + url, params, authService.setHeaders())
+		$http.post(uri + data.url, data.params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -44,12 +44,27 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.uploadImage = function(url, file){
+	self.login = function(data){
+		var deferred = $q.defer();
+
+		$http.post(uri + data.url, data.params)
+		.success(function (response, status, config){
+			authService.saveToken(response.token);
+			deferred.resolve(response);
+		})
+		.error(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
+	self.uploadImage = function(data){
 		var deferred = $q.defer();
 
 		file.upload = Upload.upload({
-			url: uri + url,
-			data: {file: file},
+			url: uri + data.url,
+			data: {file: data.file},
 		});
 
 		file.upload.then(function (response){

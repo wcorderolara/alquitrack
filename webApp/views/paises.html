@@ -1,0 +1,57 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h1 class="row-title before-yellow">
+		<i class="fa fa-th-list yellow"></i>
+		Mantenimiento de Pa&iacute;ses
+	</h1>	
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					<div class="col-lg-12" style="padding: 0">
+						<button class="btn btn-default btn-md margin-bottom-20">
+							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
+						</button>
+					</div>
+					<table class="table table-striped">
+						<thead>
+							<th>Nombre Pa&iacute;s</th>
+							<th>Bandera</th>
+							<th>Acciones</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="pais in listPaises.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+								<td>{{pais.descripcion}}</td>
+								<td>
+									<img src="{{pais.flag}}" style="width:50px"/>
+								</td>
+								<td>
+									<button class="btn btn-primary" ng-click="edit(pais)">
+										<i class="fa fa-edit"></i>Editar</button>
+									<button class="btn btn-danger" ng-click="delete(pais)">
+										<i class="fa fa-times"></i>Eliminar</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row margin-top-5">
+						<div class="col-lg-6 col-sm-6 col-xs-6">
+							Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+								<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
+							</select> registros por p&aacute;gina.
+						</div>
+						<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+							Total de Registros: {{totalItems}} 
+						</div>
+					</div>
+
+    				<pagination total-items="totalItems" ng-model="currentPage" 
+    							class="pagination-sm" 
+    							items-per-page="itemsPerPage">
+    				</pagination>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

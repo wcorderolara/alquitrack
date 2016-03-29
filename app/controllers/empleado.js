@@ -58,7 +58,7 @@ exports.getEmpleado = function(req, res){
 	models.Empleado.findOne({
 		where: {
 			id: req.params.id,
-			SedeId: req.params.sedeId,
+			// SedeId: req.params.sedeId,
 			status: 1
 		},
 		include:[
@@ -87,8 +87,8 @@ exports.getEmpleado = function(req, res){
 				model: models.Sede,
 				attributes: ['descripcion','PaiId'],
 				where: {
-					status: 1,
-					id: req.params.sedeId
+					status: 1
+					// id: req.params.sedeId
 				}
 			}
 		]

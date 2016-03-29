@@ -1,6 +1,4 @@
-alquitrackApp.service('dashboardService', function ($http, $q, alquitrackConf,Upload, authService){
-	var uri = alquitrackConf.api.url;
-	var self = this;
+alquitrackApp.service('dashboardService', function ($http, $q, Upload, baseService){
 
 	// self.getUserInfoById = function(userId){
 	// 	var deferred = $q.defer();

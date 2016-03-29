@@ -14,7 +14,7 @@ angular.module('alquitrackApp')
             '$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
-                    .otherwise('/app/dashboard');
+                    .otherwise('/app/welcome');
                 $stateProvider
                     .state('login',{
                         url: '/login',
@@ -49,6 +49,29 @@ angular.module('alquitrackApp')
                         abstract: true,
                         url: '/app',
                         templateUrl: 'views/layout.html'
+                    })
+                    .state('app.paises', {
+                        url: '/paises',
+                        templateUrl: 'views/paises.html',
+                        controller: 'paisesController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento de Paises',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [                                            
+                                            'modules/paises/paisService.js',
+                                            'modules/paises/paisController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
                     })
                     .state('app.dashboard', {
                         url: '/dashboard',

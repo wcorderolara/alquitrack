@@ -47,12 +47,13 @@ exports.getUsuario = function(req, res){
 			id: req.params.id,
 			status: 1
 		},
+		attributes: ['EmpleadoId','id','tipoUsuarioId','RolId'],
 		include:[
 			{
 				model: models.Empleado,
 				where:{
 					status: 1,
-					estadoEmpleado: 1
+					estadoEmpleadoId: 1
 				}
 			},
 			{
