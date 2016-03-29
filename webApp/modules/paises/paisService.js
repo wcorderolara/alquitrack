@@ -3,12 +3,55 @@ alquitrackApp.service('paisService', function ($http, $q, baseService, authServi
 	var base = baseService;
 	var self = this;
 
-	this.getPaises = function(){
+	self.getPaises = function(){
 		var data = {
 			url: '/pais/get/all'
 		}
 
-		var result = baseService.get(data);
+		var result = base.get(data);
+		return result;
+	}
+
+	self.postPais = function(params){
+		var data = {
+			url: '/pais/post',
+			params: params
+		}
+
+		var result = base.post(data);
+
+		return result;
+	}
+
+	self.putPais = function(params){
+		var data = {
+			url: '/pais/put/' + params.id,
+			params: params
+		}
+
+		var result = base.put(data);
+
+		return result;
+	}
+
+	self.deletePais = function(params){
+		var data = {
+			url: '/pais/delete/' + params.id
+		}
+
+		var result = base.delete(data);
+
+		return result;
+	}
+
+	self.uploadFlag = function(file){
+		var data = {
+			url: '/pais/upload/flag',
+			data: {file: file}
+		}
+
+		var result = base.uploadImage(data);
+
 		return result;
 	}
 

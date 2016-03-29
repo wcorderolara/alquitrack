@@ -1,5 +1,12 @@
 var models = require('../../models');
 var service = require('../services/service');
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+	cloud_name: process.env.CDN_NAME,
+	api_key: process.env.CDN_API_KEY,
+	api_secret: process.env.CDN_API_SECRET
+})
 
 exports.getPaises = function(req, res){
 	models.Pais.findAll({
@@ -33,7 +40,8 @@ exports.getPais = function(req, res){
 exports.postPais = function(req, res){
 	models.Pais.create({
 		descripcion: req.body.descripcion,
-		flag: req.body.flag || null
+		flag: req.body.flag || null,
+		status: 1
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el regstro"});
@@ -74,4 +82,11 @@ exports.deletePais = function(req, res){
 			service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Eliminado exitosamente"});
 		}
 	})
+}
+
+//Metodos Adicionales al CRUD
+exports.uploadAvatar = function(req, res, next){
+	cloudinary.uploader.upload(req.files.file.path, function(result, callback){
+		sendJSONresponse(res,200,{"type":true,"data":result});
+	});
 }

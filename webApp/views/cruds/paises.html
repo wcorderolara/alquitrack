@@ -1,0 +1,126 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h1 class="row-title before-yellow">
+		<i class="fa fa-th-list yellow"></i>
+		Mantenimiento de Pa&iacute;ses
+	</h1>	
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					<div class="col-lg-12" style="padding: 0">
+						<button class="btn btn-default btn-md margin-bottom-20" 
+								ng-click="openModal('nuevo')">
+							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
+						</button>
+					</div>
+					<table class="table table-striped">
+						<thead>
+							<th>Nombre Pa&iacute;s</th>
+							<th>Bandera</th>
+							<th>Acciones</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="pais in listPaises.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+								<td>{{pais.descripcion}}</td>
+								<td>
+									<img src="{{pais.flag}}" style="width:50px"/>
+								</td>
+								<td>
+									<button class="btn btn-primary" ng-click="openModal('edit', pais)">
+										<i class="fa fa-edit"></i>Editar</button>
+									<button class="btn btn-danger" ng-click="delete(pais)">
+										<i class="fa fa-times"></i>Eliminar</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row margin-top-5">
+						<div class="col-lg-6 col-sm-6 col-xs-6">
+							Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+								<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
+							</select> registros por p&aacute;gina.
+						</div>
+						<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+							Total de Registros: {{totalItems}} 
+						</div>
+					</div>
+
+    				<pagination total-items="totalItems" ng-model="currentPage" 
+    							class="pagination-sm" 
+    							items-per-page="itemsPerPage">
+    				</pagination>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="crudForm.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"><i class="fa fa-user-plus"></i>{{title}}</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+
+	  <div class="text-align-center">
+	    <div class="col-sm-12 margin-bottom-10">
+	      <div class="col-md-12 margin-top-less-10">
+	        <img src="{{flag}}" class="header-avatar"> 
+	      </div>
+	      <button class="btn btn-labeled btn-blue" type="file" ngf-select="uploadPic($file, $invalidFiles)"
+	              accept="image/*" ngf-max-size="2MB">
+	        <i class="btn-label fa fa-flag"></i>Subir Bandera
+	      </button>
+
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <span class="input-icon icon-right inverted">
+	      <input ng-model="descripcion" type="text" class="form-control" placeholder="Nombre del Pais">
+	      <i class="fa fa-globe bg-blue"></i>
+	    </span>
+	  </div>
+
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-blue" ng-click="postRegistro()">
+			<i class="fa fa-floppy-o"></i> {{textButton}}
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel()">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="deleteRegistro.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"><i class="fa fa-user-plus"></i>Eliminar Registro</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+		<div class="form-group">
+			<h3 class="text-info">
+				¿Seguro que desea eliminar este registro? - {{registro.descripcion}}
+			</h3>
+		</div>
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="deleteRegistro()">
+			<i class="fa fa-times"></i> Eliminar
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel()">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>
