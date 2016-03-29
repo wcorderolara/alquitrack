@@ -87,6 +87,6 @@ exports.deletePais = function(req, res){
 //Metodos Adicionales al CRUD
 exports.uploadAvatar = function(req, res, next){
 	cloudinary.uploader.upload(req.files.file.path, function(result, callback){
-		sendJSONresponse(res,200,{"type":true,"data":result});
+		service.sendJSONresponse(res,200,{"type":true,"data":result});
 	});
 }

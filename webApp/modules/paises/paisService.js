@@ -39,18 +39,17 @@ alquitrackApp.service('paisService', function ($http, $q, baseService, authServi
 			url: '/pais/delete/' + params.id
 		}
 
-		var result = base.delete(data);
+		var result = base.deleteRegistro(data);
 
 		return result;
 	}
 
-	self.uploadFlag = function(file){
+	self.uploadFlag = function(file){		
 		var data = {
-			url: '/pais/upload/flag',
-			data: {file: file}
+			url: '/pais/upload/flag'
 		}
 
-		var result = base.uploadImage(data);
+		var result = base.uploadImage(data, file);
 
 		return result;
 	}
