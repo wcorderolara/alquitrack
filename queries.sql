@@ -14,16 +14,16 @@ Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Administrativo',1,NOW(),NOW());
 
 Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('Vendedor',1,NOW(),NOW());
+values('Operario',1,NOW(),NOW());
 
-Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('Facturador',1,NOW(),NOW());
+-- Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
+-- values('Facturador',1,NOW(),NOW());
 
-Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('Cobrador',1,NOW(),NOW());
+-- Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
+-- values('Cobrador',1,NOW(),NOW());
 
-Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('Operador',1,NOW(),NOW());
+-- Insert into tipoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
+-- values('Operador',1,NOW(),NOW());
 
 /*estados de empleado*/
 Insert into estadoempleado (`descripcion`,`status`,`createdAt`,`updatedAt`)
@@ -67,7 +67,7 @@ values('Sede de Costa Rica',1,NOW(),NOW(),3);
 
 /*Tipos de usuario*/
 Insert into tipousuario (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('Administrativo',1,NOW(),NOW());
+values('Administrador',1,NOW(),NOW());
 
 Insert into tipousuario (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Vendedor',1,NOW(),NOW());

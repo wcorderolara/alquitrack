@@ -1,0 +1,149 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h1 class="row-title before-yellow">
+		<i class="fa fa-th-list yellow"></i>
+		Mantenimiento Precios de Alquiler
+	</h1>	
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					<div class="clearfix" style="padding: 0">
+						<button class="btn btn-default btn-md margin-bottom-20 clearfix" 
+								ng-click="openModal('nuevo')">
+							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
+						</button>
+					</div>
+					<div ng-show="listItems.length>0">
+						<table class="table table-striped">
+							<thead>
+								<th>Nombre</th>
+								<th>Tel&eacute;fono</th>
+								<th>Direcci&oacute;n</th>
+								<th>Tipo Empleado</th>
+								<th>Estado Empleado</th>
+								<th>Pa&iacute;s</th>
+								<th>Sede</th>
+								<th>Acciones</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+									<td>{{item.nombre}} {{item.apellido}}</td>
+									<td>{{item.telefono}}</td>
+									<td>{{item.direccion}}</td>
+									<td>{{item.tipoEmpleado.descripcion}}</td>
+									<td>
+										<div class="estado-empleado" estado-empleado 
+											 estado="item.estadoEmpleado.descripcion">
+										</div>
+									</td>
+									<td>{{item.Pai.descripcion}}</td>
+									<td>{{item.Sede.descripcion}}</td>
+									<td>
+										<button class="btn btn-primary" ng-click="openModal('edit', item)">
+											<i class="fa fa-edit"></i>Editar</button>
+										<button class="btn btn-danger" ng-click="delete(item)">
+											<i class="fa fa-times"></i>Eliminar</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row margin-top-5">
+							<div class="col-lg-6 col-sm-6 col-xs-6">
+								Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
+								</select> registros por p&aacute;gina.
+							</div>
+							<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+								Total de Registros: {{totalItems}} 
+							</div>
+						</div>
+
+	    				<pagination total-items="totalItems" ng-model="currentPage" 
+	    							class="pagination-sm" 
+	    							items-per-page="itemsPerPage">
+	    				</pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="crudForm.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"></i>{{title}}</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+
+		<div class="form-group clearfix">
+	    	<select ng-model="tipoEquipoId" name="cmbTipoEquipo" class="col-sm-12"
+	      	id="cmbTipoEquipo" ng-options="equipo.id as equipo.descripcion for equipo in listEquipos">
+	      		<option value="">Tipo Equipo</option>
+	    	</select>
+	  	</div>
+
+	  	<div class="form-group clearfix">
+	    	<select ng-model="tipoAlquilerId" name="cmbTipoAlquiler" class="col-sm-12"
+	      	id="cmbTipoAlquiler" ng-options="alquiler.id as alquiler.descripcion for alquiler in listAlquileres">
+	      		<option value="">tipo Alquiler</option>
+	    	</select>
+	  	</div>
+
+	  	<div class="form-group clearfix">
+	    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12"
+	      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
+	      		<option value="">Pais sede</option>
+	    	</select>
+	  	</div>
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <input ng-model="precio" type="text" class="form-control" placeholder="Precio del Alquiler">
+			  <i class="fa fa-money bg-blue"></i>
+			</span>
+		</div>
+
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-blue" ng-click="postRegistro()">
+			<i class="fa fa-floppy-o"></i> {{textButton}}
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel()">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="deleteRegistro.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"></i>Eliminar Registro</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+		<div class="form-group">
+			<h3 class="text-info">
+				¿Seguro que desea eliminar este registro?<br/>
+				{{registro.tipoEquipo.descripcion}} - {{registro.tipoAlquiler.descripcion}} - {{registro.Pai.descripcion}} - {{registro.precio}}
+			</h3>
+		</div>
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="deleteRegistro()">
+			<i class="fa fa-trash"></i> Eliminar
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel()">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>

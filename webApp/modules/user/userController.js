@@ -5,7 +5,7 @@ alquitrackApp.controller('userController', function($scope,$window, userService,
 	var factory = ShareData;
 	var userId = auth.getUserLogged();
 	var empId = auth.getEmpleadoLogged();
-	$scope.datosGenerales = {};
+	var datosGenerales = {};
 
 	if(!auth.isLoggedIn()){
 		$window.location = "#/login";
@@ -15,7 +15,14 @@ alquitrackApp.controller('userController', function($scope,$window, userService,
 	service.getEmpleadoInfo(empId).then(		
 		function (data){
 			blockUI.start();
+			datosGenerales = data.data;
 			console.log(data);
+			factory.value = {
+				tipoEmpleado: datosGenerales.tipoEmpleado.descripcion,
+				paisId: datosGenerales.PaiId.id,
+				SedeId: datosGenerales.Sede.id,
+				Sede: datosGenerales.Sede.descripcion
+			}
 			blockUI.stop();
 		}
 	)

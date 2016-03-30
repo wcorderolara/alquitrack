@@ -167,6 +167,59 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.precioEquipo',{
+                        url: '/precioEquipo',
+                        templateUrl: 'views/cruds/precioEquipo.html',
+                        controller: 'precioEquipoController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento Precios por Tractor',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/paises/paisEquipoService.js',
+                                            'modules/tipoAlquiler/tipoAlquilerService.js',
+                                            'modules/tipoEquipo/tipoEquipoService.js',
+                                            'modules/precioEquipo/precioEquipoService.js',
+                                            'app/filters/monedaFilter.js',
+                                            'modules/precioEquipo/precioEquipoController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.empleados',{
+                        url: '/empleados',
+                        templateUrl: 'views/cruds/empleado.html',
+                        controller: 'empleadoController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento Precios por Tractor',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/paises/paisEquipoService.js',
+                                            'modules/sedes/sedeService.js',
+                                            'modules/empleado/empleadoService.js',
+                                            'app/directives/estadoEmpleado.js',
+                                            'modules/empleado/empleadoController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/profile.html',

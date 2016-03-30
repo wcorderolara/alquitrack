@@ -9,6 +9,51 @@ cloudinary.config({
 })
 
 exports.getEmpleados = function(req, res){
+		models.Empleado.findAll({
+		where: {
+			status: 1
+		},
+		include:[
+			{
+				model: models.Pais,
+				attributes: ['descripcion','flag', 'id'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.tipoEmpleado,
+				attributes: ['descripcion','id'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.estadoEmpleado,
+				attributes: ['descripcion','id'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Sede,
+				attributes: ['descripcion','PaiId','id'],
+				where: {
+					status: 1
+				}
+			}
+		],
+		order: 'PaiId'
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
+		}else{
+			service.sendJSONresponse(res,200, {"type":true, "data": registros});
+		}
+	})
+}
+
+exports.getEmpleadosBySede = function(req, res){
 	models.Empleado.findAll({
 		where: {
 			status: 1,
@@ -38,7 +83,7 @@ exports.getEmpleados = function(req, res){
 			},
 			{
 				model: models.Sede,
-				attributes: ['descripcion','PaiId'],
+				attributes: ['descripcion','PaiId','id'],
 				where: {
 					status: 1,
 					id: req.params.sedeId
@@ -85,7 +130,7 @@ exports.getEmpleado = function(req, res){
 			},
 			{
 				model: models.Sede,
-				attributes: ['descripcion','PaiId'],
+				attributes: ['descripcion','PaiId','id'],
 				where: {
 					status: 1
 					// id: req.params.sedeId

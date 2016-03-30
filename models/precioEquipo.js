@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes){
 			associate: function(models){
 				precioEquipo.belongsTo(models.tipoEquipo, {foreignKey: {allowNull: false}});
 				precioEquipo.belongsTo(models.tipoAlquiler, {foreignKey: {allowNull: false}});
+				precioEquipo.belongsTo(models.Pais, {foreignKey: {allowNull: false}})
 			}
 		},
 		freezeTableName: true,

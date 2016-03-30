@@ -20,6 +20,22 @@ exports.getPreciosEquipo = function(req, res){
 				where:{
 					status: 1
 				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['descripcion','id'],
+				where:{
+					status: 1
+				},
+				include: [
+					{
+						model: models.monedaPais, 
+						attributes: ['simbolo'],
+						where: {
+							status: 1
+						}
+					}
+				]
 			}
 		]
 	}).then(function (registros){
@@ -51,6 +67,13 @@ exports.getPrecioEquipo = function(req, res){
 				where:{
 					status: 1
 				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['descripcion','id'],
+				where:{
+					status: 1
+				}
 			}
 		]
 	}).then(function (registro){
@@ -67,6 +90,7 @@ exports.postPrecioEquipo = function(req, res){
 		precio: req.body.precio,
 		tipoAlquilerId: req.body.tipoAlquilerId,
 		tipoequipoId: req.body.tipoEquipoId,
+		PaiId: req.body.PaiId,
 		status: 1
 	}).then(function (registro){
 		if(!registro){

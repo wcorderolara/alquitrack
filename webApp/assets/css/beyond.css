@@ -304,7 +304,8 @@
 .darkcarbon {
   color: #262626 !important;
 }
-.blue {
+.blue,
+.vacaciones {
   color: #5db2ff !important;
 }
 .info {
@@ -331,13 +332,15 @@
 .ui-notification.success{
   color: #fff !important;
 }
-.green {
+.green,
+.activo {
   color: #8cc474 !important;
 }
 .lightyellow {
   color: #f6d52e !important;
 }
-.yellow {
+.yellow,
+.suspendido {
   color: #ffce55 !important;
 }
 .warning {
@@ -355,7 +358,8 @@
 .darkorange {
   color: #ed4e2a !important;
 }
-.red {
+.red,
+.despedido {
   color: #df5138 !important;
 }
 .pink {
