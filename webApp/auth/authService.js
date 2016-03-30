@@ -27,7 +27,12 @@ alquitrackApp.service('authService', function ($http, $window){
 		
 		if(token){
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
-			return payload.sub;
+			if(payload.exp > Date.now() / 1000){
+				return payload.sub;
+			}else{
+				$window.location = "#/login";
+				return false;
+			}
 		}else{
 			return false;
 		}
