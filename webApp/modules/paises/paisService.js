@@ -36,10 +36,11 @@ alquitrackApp.service('paisService', function ($http, $q, baseService, authServi
 
 	self.deletePais = function(params){
 		var data = {
-			url: '/pais/delete/' + params.id
+			url: '/pais/delete/' + params.id,
+			params: {}
 		}
 
-		var result = base.deleteRegistro(data);
+		var result = base.delete(data);
 
 		return result;
 	}

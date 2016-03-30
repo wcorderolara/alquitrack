@@ -14,7 +14,7 @@ angular.module('alquitrackApp')
             '$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
-                    .otherwise('/app/welcome');
+                    .otherwise('/app/dashboard');
                 $stateProvider
                     .state('login',{
                         url: '/login',
@@ -67,6 +67,100 @@ angular.module('alquitrackApp')
                                         files: [                                            
                                             'modules/paises/paisService.js',
                                             'modules/paises/paisController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.sedes',{
+                        url: '/sedes',
+                        templateUrl: 'views/cruds/sedes.html',
+                        controller: 'sedesController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento de Sedes',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [   
+                                            'modules/paises/paisService.js',                                         
+                                            'modules/sedes/sedeService.js',
+                                            'modules/sedes/sedeController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.monedas',{
+                        url: '/monedas',
+                        templateUrl: 'views/cruds/monedas.html',
+                        controller: 'monedasController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento de Monedas',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [   
+                                            'modules/paises/paisService.js',                                         
+                                            'modules/monedas/monedaService.js',
+                                            'modules/monedas/monedaController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.tipoAlquiler',{
+                        url: '/tiposAlquiler',
+                        templateUrl: 'views/cruds/tipoAlquiler.html',
+                        controller: 'tipoAlquilerController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento de Monedas',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [   
+                                            'modules/tipoAlquiler/tipoAlquilerService.js',
+                                            'modules/tipoAlquiler/tipoAlquilerController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.tipoEquipo',{
+                        url: '/tipoEqupo',
+                        templateUrl: 'views/cruds/tipoEquipo.html',
+                        controller: 'tipoEquipoController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento de Monedas',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [   
+                                            'modules/tipoEquipo/tipoEquipoService.js',
+                                            'modules/tipoEquipo/tipoEquipoController.js'
                                         ]
                                     })
                                 }
