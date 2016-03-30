@@ -33,7 +33,35 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 	self.put = function(data){
 		var deferred = $q.defer();
 
-		$http.post(uri + data.url, data.params, authService.setHeaders())
+		$http.put(uri + data.url, data.params, authService.setHeaders())
+		.success(function (response){
+			deferred.resolve(response);
+		})
+		.error(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
+	self.deleteRegistro = function(data){
+		var deferred = $q.defer();
+
+		$http.put(uri + data.url, authService.setHeaders())
+		.success(function (response){
+			deferred.resolve(response);
+		})
+		.error(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
+	self.deleteParams = function(data){
+		var deferred = $q.defer();
+
+		$http.put(uri + data.url, data.params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -59,12 +87,12 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.uploadImage = function(data){
+	self.uploadImage = function(data, file){		
 		var deferred = $q.defer();
 
 		file.upload = Upload.upload({
 			url: uri + data.url,
-			data: {file: data.file},
+			data: {file: file},
 		});
 
 		file.upload.then(function (response){

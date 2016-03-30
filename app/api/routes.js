@@ -24,6 +24,7 @@ var routesController = function(server){
 	server.get("/pais/get/all", auth, controllers.pais.getPaises);
 	server.get("/pais/get/:id", auth, controllers.pais.getPais);
 	server.post("/pais/post", auth, controllers.pais.postPais);
+	server.post("/pais/upload/flag", multipartMiddleware, controllers.pais.uploadAvatar);
 	server.put("/pais/put/:id", auth, controllers.pais.putPais);
 	server.put("/pais/delete/:id", auth, controllers.pais.deletePais);
 

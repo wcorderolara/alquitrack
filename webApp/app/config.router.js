@@ -52,7 +52,7 @@ angular.module('alquitrackApp')
                     })
                     .state('app.paises', {
                         url: '/paises',
-                        templateUrl: 'views/paises.html',
+                        templateUrl: 'views/cruds/paises.html',
                         controller: 'paisesController',
                         ncyBreadcrumb: {
                             label: 'Mantenimiento de Paises',
