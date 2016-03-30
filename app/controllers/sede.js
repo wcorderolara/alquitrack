@@ -5,7 +5,16 @@ exports.getSedes = function(req, res){
 	models.Sede.findAll({
 		where: {
 			status: 1
-		}
+		},
+		include:[
+			{
+				model: models.Pais,
+				attributes: ['descripcion', 'id'],
+				where:{
+					status: 1
+				}
+			}
+		]
 	}).then(function (registros){
 		if(!registros){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
@@ -20,7 +29,16 @@ exports.getSede = function(req, res){
 		where: {
 			id: req.params.id,
 			status: 1
-		}
+		},
+		include:[
+			{
+				model: models.Pais,
+				attributes: ['descripcion', 'id'],
+				where:{
+					status: 1
+				}
+			}
+		]
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res,500, {"type":false, "message": "registro no encontrado", "data": registro});
@@ -46,11 +64,11 @@ exports.postSede = function(req, res){
 
 exports.putSede = function(req, res){
 	models.Sede.update({
-		descripcion: req.body.descripcion
+		descripcion: req.body.descripcion,
+		PaiId: req.body.PaiId
 	},{
 		where: {
-			id: req.params.id,
-			paisId: req.params.paisId
+			id: req.params.id
 		}
 	}).then(function (registro){
 		if(!registro){

@@ -5,7 +5,16 @@ exports.getMonedasPais = function(req, res){
 	models.monedaPais.findAll({
 		where: {
 			status: 1
-		}
+		},
+		include:[
+			{
+				model: models.Pais,
+				attributes: ['descripcion', 'id'],
+				where:{
+					status: 1
+				}
+			}
+		]
 	}).then(function (registros){
 		if(!registros){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
@@ -20,7 +29,16 @@ exports.getMonedaPais = function(req, res){
 		where: {
 			id: req.params.id,
 			status: 1
-		}
+		},
+		include:[
+			{
+				model: models.Pais,
+				attributes: ['descripcion', 'id'],
+				where:{
+					status: 1
+				}
+			}
+		]
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res,500, {"type":false, "message": "registro no encontrado", "data": registro});
@@ -34,7 +52,7 @@ exports.postMonedaPais = function(req, res){
 	models.monedaPais.create({
 		descripcion: req.body.descripcion,
 		simbolo: req.body.simbolo,
-		paisId: req.body.paisId
+		PaiId: req.body.paisId
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el regstro"});
@@ -47,11 +65,10 @@ exports.postMonedaPais = function(req, res){
 exports.putMonedaPais = function(req, res){
 	models.monedaPais.update({
 		descripcion: req.body.descripcion,
-		simbolo: req.body.simbolo,
+		simbolo: req.body.simbolo
 	},{
 		where: {
-			id: req.params.id,
-			paisId: req.params.paisId
+			id: req.params.id
 		}
 	}).then(function (registro){
 		if(!registro){

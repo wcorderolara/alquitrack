@@ -44,10 +44,10 @@ alquitrackApp.service('baseService', function ($http, $q, alquitrackConf, Upload
 		return deferred.promise;
 	}
 
-	self.deleteRegistro = function(data){
+	self.delete = function(data){
 		var deferred = $q.defer();
 
-		$http.put(uri + data.url, authService.setHeaders())
+		$http.put(uri + data.url,data.params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
