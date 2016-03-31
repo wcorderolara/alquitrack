@@ -1,12 +1,10 @@
-angular.module('alquitrackApp')
-	.directive('estadoEmpleado', estadoEmpleado);
-
-function estadoEmpleado(){
+alquitrackApp.directive('estadoEmpleado', function(){
 	return {
 		restrict: 'EA',
-		scope: {
-			thisEstado: '=estado'
+		controller: 'empleadoController',
+		scope:{
+			estadoInfo: '=estado'
 		},
-		templateurl: 'views/partials/estadoEmpleado.html'
+		templateUrl: 'views/partials/estadoEmpleado.html'
 	}
-}
+});

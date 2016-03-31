@@ -54,7 +54,16 @@ exports.getUsuario = function(req, res){
 				where:{
 					status: 1,
 					estadoEmpleadoId: 1
-				}
+				},
+				include:[
+					{
+						model: models.Sede,
+						attributes: ['descripcion'],
+						where:{
+							status: 1
+						}
+					}
+				]
 			},
 			{
 				model: models.tipoUsuario,

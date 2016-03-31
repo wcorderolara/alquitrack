@@ -26,7 +26,6 @@ alquitrackApp.service('userService', function ($http, $q, baseService, authServi
 		}
 
 		var result = baseService.login(data);
-		console.log(result);
 
 		return result;
 	}

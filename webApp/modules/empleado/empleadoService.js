@@ -12,9 +12,9 @@ alquitrackApp.service('empleadoService', function ($http, $q, baseService, authS
 		return result;
 	}
 
-	self.getRegistrosBySede = function(params){
+	self.getRegistrosBySede = function(sedeId){
 		var data = {
-			url: '/empleado/get/all/' + params.sedeId
+			url: '/empleado/get/all/' + sedeId
 		}
 
 		var result = base.get(data);

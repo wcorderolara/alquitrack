@@ -12,6 +12,15 @@ alquitrackApp.service('sedeService', function ($http, $q, baseService, authServi
 		return result;
 	}
 
+	self.getRegistroByPais = function(PaiId){
+		var data = {
+			url: '/sede/get/pais/' + PaiId
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
 	self.postRegistro = function(params){
 		var data = {
 			url: '/sede/post',

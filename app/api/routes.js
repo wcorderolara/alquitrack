@@ -127,7 +127,7 @@ var routesController = function(server){
 	server.post("/login/user", controllers.usuario.loginUser);
 
 	//Empleados
-	server.get("/empleado/get/all", auth, controllers.getEmpleados);
+	server.get("/empleado/get/all", auth, controllers.empleado.getEmpleados);
 	server.get("/empleado/get/all/:sedeId", auth, controllers.empleado.getEmpleadosBySede);
 	server.get("/empleado/get/:id", auth, controllers.empleado.getEmpleado);
 	server.post("/empleado/post", auth, controllers.empleado.postEmpleado);
@@ -177,6 +177,7 @@ var routesController = function(server){
 
 	//Sedes
 	server.get("/sede/get/all", auth, controllers.sede.getSedes);
+	server.get("/sede/get/pais/:PaiId", auth, controllers.sede.getSedesByPais);
 	server.get("/sede/get/:id", auth, controllers.sede.getSede);
 	server.post("/sede/post", auth, controllers.sede.postSede);
 	server.put("/sede/put/:id", auth, controllers.sede.putSede);

@@ -333,14 +333,14 @@
   color: #fff !important;
 }
 .green,
-.activo {
+.Activo {
   color: #8cc474 !important;
 }
 .lightyellow {
   color: #f6d52e !important;
 }
 .yellow,
-.suspendido {
+.Suspendido {
   color: #ffce55 !important;
 }
 .warning {
@@ -359,7 +359,7 @@
   color: #ed4e2a !important;
 }
 .red,
-.despedido {
+.Despedido {
   color: #df5138 !important;
 }
 .pink {

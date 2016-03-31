@@ -1,9 +1,11 @@
-alquitrackApp.controller('tipoEquipoController', function($scope, $window, $location,
-											    precioEquipoService, ShareData, blockUI, Notification,
+alquitrackApp.controller('empleadoController', function($scope, $window, $location,
+											    empleadoService, ShareData, blockUI, Notification,
 											    $modal){
 
-	var service = precioEquipoService;
-	
+	var service = empleadoService;
+	var factory = ShareData;
+	var info = factory.value;
+
 	$scope.listItems = [];
 	$scope.viewby = 10;
 	$scope.totalItems = 0;
@@ -16,23 +18,33 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 		$scope.currentPage = 1; //reset to first paghe
 	}
 
-	$scope.getPreciosEquipo = function(){
-		service.getRegistros().then(
-			function (data){
-				$scope.listItems = data.data;
-				$scope.totalItems = $scope.listItems.length;
-			}
-		)
-	}	
+	$scope.getEmpleados = function(){
 
-	$scope.getPreciosEquipo();
+		if(info.rol == 'Administrador'){	
+			service.getRegistros().then(
+				function (data){
+					$scope.listItems = data.data;
+					$scope.totalItems = $scope.listItems.length;
+				}
+			)
+		}else{
+			service.getRegistrosBySede(info.SedeId).then(
+				function (data){
+					$scope.listItems = data.data;
+					$scope.totalItems = $scope.listItems.length;
+				}
+			)
+		}
+	}		
+
+	$scope.getEmpleados();
 
 	$scope.openModal = function(action, model){
 		var _model = model || {};
 		var modalInstance = $modal.open({
 			windowClass: '',
 			templateUrl: 'crudForm.html',
-			controller: 'crudPrecioEquipoController',
+			controller: 'crudEmpleadoController',
 			size: 'md',
 			resolve: {
 				action: function(){
@@ -47,7 +59,7 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 		modalInstance.result.then(function (data){
 			if(data.type){
 				Notification.success(data.message);
-				$scope.getPreciosEquipo();
+				$scope.getEmpleados();
 			}else{
 				Notification.error(data.message);
 				return false;
@@ -60,7 +72,7 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 		var modalInstance = $modal.open({
 			windowClass: '',
 			templateUrl: 'deleteRegistro.html',
-			controller: 'deletePrecioEquipoController',
+			controller: 'deleteEmpleadoController',
 			size: 'md',
 			resolve: {				
 				model: function(){
@@ -72,7 +84,7 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 		modalInstance.result.then(function (data){
 			if(data.type){
 				Notification.success(data.message);
-				$scope.getPreciosEquipo();
+				$scope.getEmpleados();
 			}else{
 				Notification.error(data.message);
 				return false;
@@ -82,8 +94,19 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 
 })
 
-alquitrackApp.controller('deletePrecioEquipoController', function($scope, $modalInstance, model, precioEquipoService){
-	var service = precioEquipoService;
+// alquitrackApp.directive('estadoEmpleado', function(){
+// 	return {
+// 		restrict: 'EA',
+// 		controller: 'empleadoController',
+// 		scope:{
+// 			estadoInfo: '=estado'
+// 		},
+// 		template: '<i class="fa fa-circle {{estadoInfo}}"></i>'
+// 	}
+// })
+
+alquitrackApp.controller('deleteEmpleadoController', function($scope, $modalInstance, model, empleadoService){
+	var service = empleadoService;
 	$scope.registro = model;
 
 	$scope.deleteRegistro = function(){
@@ -99,46 +122,43 @@ alquitrackApp.controller('deletePrecioEquipoController', function($scope, $modal
     }
 })
 
-alquitrackApp.controller('crudPrecioEquipoController', function ($scope, $modalInstance, action, model,
-															precioEquipoService, paisService, tipoAlquilerService, 
-															tipoEquipoService){
-	var service = precioEquipoService;
+alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInstance, action, model,
+															empleadoService, paisService, sedeService){
+	var service = empleadoService;
 	var paisService = paisService;
-	var alquilerService = tipoAlquilerService;
-	var equipoService = tipoEquipoService;
+	var sedeService = sedeService;
 
 	$scope.listPaises = [];
-	$scope.listAlquileres = [];
-	$scope.listEquipos = [];
+	$scope.listSedes = [];
 
 	$scope.state = action;
 	$scope.title = $scope.state == 'nuevo' ? 'Crear nuevo Registro' : 'Editar Registro';
 	$scope.textButton = $scope.state == 'nuevo' ? 'Agregar' : 'Editar';
-	$scope.precio = model.precio || "";
-	$scope.tipoEquipoId = $scope.state == 'nuevo' ? "" : model.tipoEquipoId;
-	$scope.tipoAlquilerId = $scope.state == 'nuevo' ? "" : model.tipoAlquilerId;
+	
+	$scope.nombre = model.nombre || "";
+	$scope.apellido = model.apelido || "";
+	$scope.telefono = model.telefono || "";
+	$scope.direccion = model.direccion || "";
+	$scope.fechaNacimiento = model.fechaNacimiento  || "";
+	$scope.fotografia = model.fotografia || "";
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
+	$scope.tipoEmpleadoId = $scope.state == 'nuevo' ? "" : model.tipoEmpleadoId;
+	$scope.SedeId = $scope.state == 'nuevo' ? "" : model.SedeId;
 
-	if(action == 'nuevo'){
-		paisService.getPaises().then(
-			function (data){
-				$scope.listPaises = data.data;
-			}
-		)
+	paisService.getPaises().then(
+		function (data){
+			$scope.listPaises = data.data;
+		}
+	)
 
-		alquilerService.getRegistros().then(
+	$scope.getSedes = function(PaiId){
+		sedeService.getRegistroByPais(paiId).then(
 			function (data){
-				$scope.listAlquileres = data.data;
-			}
-		)
-
-		equipoService.getRegistros().then(
-			function (data){
-				$scope.listEquipos = data.data;
+				$scope.listSedes = data.data;
 			}
 		)
 	}
-
+	
     $scope.postRegistro = function(){
     	$scope.formError = "";
 

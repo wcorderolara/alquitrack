@@ -16,13 +16,7 @@ alquitrackApp.controller('userController', function($scope,$window, userService,
 		function (data){
 			blockUI.start();
 			datosGenerales = data.data;
-			console.log(data);
-			factory.value = {
-				tipoEmpleado: datosGenerales.tipoEmpleado.descripcion,
-				paisId: datosGenerales.PaiId.id,
-				SedeId: datosGenerales.Sede.id,
-				Sede: datosGenerales.Sede.descripcion
-			}
+			console.log(data);			
 			blockUI.stop();
 		}
 	)

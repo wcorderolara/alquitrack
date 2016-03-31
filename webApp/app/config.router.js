@@ -182,7 +182,7 @@ angular.module('alquitrackApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [
-                                            'modules/paises/paisEquipoService.js',
+                                            'modules/paises/paisService.js',
                                             'modules/tipoAlquiler/tipoAlquilerService.js',
                                             'modules/tipoEquipo/tipoEquipoService.js',
                                             'modules/precioEquipo/precioEquipoService.js',
@@ -209,11 +209,11 @@ angular.module('alquitrackApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [
-                                            'modules/paises/paisEquipoService.js',
+                                            'modules/paises/paisService.js',
                                             'modules/sedes/sedeService.js',
                                             'modules/empleado/empleadoService.js',
-                                            'app/directives/estadoEmpleado.js',
-                                            'modules/empleado/empleadoController.js'
+                                            'modules/empleado/empleadoController.js',
+                                            'app/directives/estadoEmpleado.js'
                                         ]
                                     })
                                 }

@@ -1,4 +1,4 @@
-alquitrackApp.controller('tipoEquipoController', function($scope, $window, $location,
+alquitrackApp.controller('precioEquipoController', function($scope, $window, $location,
 											    precioEquipoService, ShareData, blockUI, Notification,
 											    $modal){
 
@@ -19,6 +19,8 @@ alquitrackApp.controller('tipoEquipoController', function($scope, $window, $loca
 	$scope.getPreciosEquipo = function(){
 		service.getRegistros().then(
 			function (data){
+				console.log('precio Equipo');
+				console.log(data);
 				$scope.listItems = data.data;
 				$scope.totalItems = $scope.listItems.length;
 			}
@@ -119,25 +121,23 @@ alquitrackApp.controller('crudPrecioEquipoController', function ($scope, $modalI
 	$scope.tipoAlquilerId = $scope.state == 'nuevo' ? "" : model.tipoAlquilerId;
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
 
-	if(action == 'nuevo'){
-		paisService.getPaises().then(
-			function (data){
-				$scope.listPaises = data.data;
-			}
-		)
+	paisService.getPaises().then(
+		function (data){
+			$scope.listPaises = data.data;
+		}
+	)
 
-		alquilerService.getRegistros().then(
-			function (data){
-				$scope.listAlquileres = data.data;
-			}
-		)
+	alquilerService.getRegistros().then(
+		function (data){
+			$scope.listAlquileres = data.data;
+		}
+	)
 
-		equipoService.getRegistros().then(
-			function (data){
-				$scope.listEquipos = data.data;
-			}
-		)
-	}
+	equipoService.getRegistros().then(
+		function (data){
+			$scope.listEquipos = data.data;
+		}
+	)
 
     $scope.postRegistro = function(){
     	$scope.formError = "";

@@ -89,7 +89,7 @@ exports.postPrecioEquipo = function(req, res){
 	models.precioEquipo.create({
 		precio: req.body.precio,
 		tipoAlquilerId: req.body.tipoAlquilerId,
-		tipoequipoId: req.body.tipoEquipoId,
+		tipoEquipoId: req.body.tipoEquipoId,
 		PaiId: req.body.PaiId,
 		status: 1
 	}).then(function (registro){
@@ -101,7 +101,7 @@ exports.postPrecioEquipo = function(req, res){
 	})
 }
 
-exports.putPrecioEquipo = function(){
+exports.putPrecioEquipo = function(req,res){
 	models.precioEquipo.update({
 		precio: req.body.precio,
 		tipoAlquilerId: req.body.tipoAlquilerId,

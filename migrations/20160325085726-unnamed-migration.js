@@ -6,7 +6,7 @@ module.exports = {
     //https://github.com/sequelize/sequelize/issues/966
 
 	queryInterface.addColumn(
-		'monedaPais', 
+		'precioEquipo', 
 		'PaiId',
 		{
         	type: Sequelize.INTEGER,

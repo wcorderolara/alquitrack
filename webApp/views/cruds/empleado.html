@@ -15,29 +15,26 @@
 							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
 						</button>
 					</div>
-					<div ng-show="listItems.length>0">
+					<div ng-show="listItems.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
 								<th>Nombre</th>
 								<th>Tel&eacute;fono</th>
-								<th>Direcci&oacute;n</th>
 								<th>Tipo Empleado</th>
-								<th>Estado Empleado</th>
 								<th>Pa&iacute;s</th>
 								<th>Sede</th>
 								<th>Acciones</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-									<td>{{item.nombre}} {{item.apellido}}</td>
-									<td>{{item.telefono}}</td>
-									<td>{{item.direccion}}</td>
-									<td>{{item.tipoEmpleado.descripcion}}</td>
 									<td>
-										<div class="estado-empleado" estado-empleado 
-											 estado="item.estadoEmpleado.descripcion">
-										</div>
+										<estado-empleado estado="item.estadoEmpleado.descripcion">
+										</estado-empleado>
+
+										{{item.nombre}} {{item.apellido}}
 									</td>
+									<td>{{item.telefono}}</td>
+									<td>{{item.tipoEmpleado.descripcion}}</td>
 									<td>{{item.Pai.descripcion}}</td>
 									<td>{{item.Sede.descripcion}}</td>
 									<td>
