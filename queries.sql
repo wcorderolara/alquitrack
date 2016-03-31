@@ -91,6 +91,19 @@ values('Facturador',1,NOW(),NOW());
 Insert into rol (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Reportes',1,NOW(),NOW());
 
+-- tipo credito
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('15 dias', 1, now(), now(), 15);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('30 dias', 1, now(), now(), 30);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('45 dias', 1, now(), now(), 45);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('60 dias', 1, now(), now(), 60);
+
 
 
 

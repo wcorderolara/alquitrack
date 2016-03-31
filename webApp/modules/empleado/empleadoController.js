@@ -94,17 +94,6 @@ alquitrackApp.controller('empleadoController', function($scope, $window, $locati
 
 })
 
-// alquitrackApp.directive('estadoEmpleado', function(){
-// 	return {
-// 		restrict: 'EA',
-// 		controller: 'empleadoController',
-// 		scope:{
-// 			estadoInfo: '=estado'
-// 		},
-// 		template: '<i class="fa fa-circle {{estadoInfo}}"></i>'
-// 	}
-// })
-
 alquitrackApp.controller('deleteEmpleadoController', function($scope, $modalInstance, model, empleadoService){
 	var service = empleadoService;
 	$scope.registro = model;
@@ -130,17 +119,35 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
 
 	$scope.listPaises = [];
 	$scope.listSedes = [];
+	$scope.listTipoEmpleado = [];
+	$scope.opened = false;
 
 	$scope.state = action;
 	$scope.title = $scope.state == 'nuevo' ? 'Crear nuevo Registro' : 'Editar Registro';
 	$scope.textButton = $scope.state == 'nuevo' ? 'Agregar' : 'Editar';
+
+	// console.log(model.fechaNacimiento); return false;
+
+	$scope.parseDates = function(dt, tp){
+		if(tp == 1){
+			var _dt = moment(dt).format("L");
+			var dt1 = _dt.split('/');
+			var result = dt1[2] + '-' + dt1[1] + '-' + dt1[0];
+			return result;
+		}else{
+			var result = moment(dt).format("L");
+			// var dt1 = dt.split('-');
+			// var result = dt1[2] + '/' + dt1[1] + '/' + dt1[0];
+			return result;
+		}
+	}
 	
 	$scope.nombre = model.nombre || "";
-	$scope.apellido = model.apelido || "";
+	$scope.apellido = model.apellido || "";
 	$scope.telefono = model.telefono || "";
 	$scope.direccion = model.direccion || "";
-	$scope.fechaNacimiento = model.fechaNacimiento  || "";
-	$scope.fotografia = model.fotografia || "";
+	$scope.fechaNacimiento = $scope.state == 'nuevo' ? "" : $scope.parseDates(model.fechaNacimiento, 0);
+	$scope.fotografia = model.fotografia || null;
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
 	$scope.tipoEmpleadoId = $scope.state == 'nuevo' ? "" : model.tipoEmpleadoId;
 	$scope.SedeId = $scope.state == 'nuevo' ? "" : model.SedeId;
@@ -151,8 +158,21 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
 		}
 	)
 
-	$scope.getSedes = function(PaiId){
-		sedeService.getRegistroByPais(paiId).then(
+	service.getTiposEmpleado().then(
+		function (data){
+			$scope.listTipoEmpleado = data.data;
+		}
+	)	
+
+	$scope.openCalendar = function($event){
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened = true;
+	}
+
+	$scope.getSedesPais = function(PaiId){
+		sedeService.getRegistroByPais(PaiId).then(
 			function (data){
 				$scope.listSedes = data.data;
 			}
@@ -162,17 +182,24 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
     $scope.postRegistro = function(){
     	$scope.formError = "";
 
-    	if(!$scope.precio || !$scope.tipoEquipoId || !$scope.tipoAlquilerId || !$scope.PaiId){
+    	if(!$scope.nombre || !$scope.apellido || !$scope.telefono || !$scope.direccion || !$scope.fechaNacimiento || 
+    	   !$scope.tipoEmpleadoId || !$scope.PaiId || !$scope.SedeId){
     		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
 
     	if($scope.state == 'nuevo'){
+
     		var params = {
-    			precio: $scope.precio,
-    			tipoEquipoId: $scope.tipoEquipoId,
-    			tipoAlquilerId: $scope.tipoAlquilerId,
-    			PaiId: $scope.PaiId
+    			nombre: $scope.nombre,
+				apellido: $scope.apellido,
+				telefono: $scope.telefono,
+				direccion: $scope.direccion,
+				fechaNacimiento: $scope.parseDates($scope.fechaNacimiento, 1),
+				fotografia: $scope.fotografia,
+				PaiId: $scope.PaiId,
+				tipoEmpleadoId: $scope.tipoEmpleadoId,
+				SedeId: $scope.SedeId
     		}
     		service.postRegistro(params).then(
     			function (response){
@@ -182,10 +209,15 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
     	}else{
     		var params = {
     			id: model.id,
-    			precio: $scope.precio,
-    			tipoEquipoId: $scope.tipoEquipoId,
-    			tipoAlquilerId: $scope.tipoAlquilerId,
-    			PaiId: $scope.PaiId
+    			nombre: $scope.nombre,
+				apellido: $scope.apellido,
+				telefono: $scope.telefono,
+				direccion: $scope.direccion,
+				fechaNacimiento: $scope.parseDates($scope.fechaNacimiento, 1),
+				fotografia: $scope.fotografia,
+				PaiId: $scope.PaiId,
+				tipoEmpleadoId: $scope.tipoEmpleadoId,
+				SedeId: $scope.SedeId
     		}
     		service.putRegistro(params).then(
     			function (response){
@@ -195,7 +227,10 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
     	}
     }
 
-    $scope.cancel = function(){
+    $scope.cancel = function($event){
+    	$event.preventDefault();
+		$event.stopPropagation();
+
     	$modalInstance.dismiss('cancel');
     }
 

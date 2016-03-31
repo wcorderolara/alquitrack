@@ -3,6 +3,54 @@ var service = require('../services/service');
 var crypto = require('crypto');
 var passport = require('passport');
 
+exports.getUsuariosBySede = function(req, res){
+	models.Usuario.findAll({
+		where: {
+			status: 1
+		},
+		include:[
+			{
+				model: models.Empleado,
+				attributes: ['nombre','apellido','fotografia','id', 'SedeId'],
+				where:{
+					status: 1,
+					estadoEmpleadoId: 1
+				},
+				include: [
+					{
+						model: models.Sede,
+						attributes: ['descripcion', 'id'],
+						where:{
+							status: 1,
+							id: req.params.SedeId
+						}
+					}
+				]
+			},
+			{
+				model: models.tipoUsuario,
+				attributes: ['descripcion','id'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Rol,
+				attributes: ['descripcion','id'],
+				where: {
+					status: 1
+				}
+			}
+		]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
+		}else{
+			service.sendJSONresponse(res,200, {"type":true, "data": registros});
+		}
+	})
+}
+
 exports.getUsuarios = function(req, res){
 	models.Usuario.findAll({
 		where: {
@@ -14,8 +62,17 @@ exports.getUsuarios = function(req, res){
 				attributes: ['nombre','apellido','fotografia','id', 'SedeId'],
 				where:{
 					status: 1,
-					estadoEmpleado: 1
-				}
+					estadoempleadoId: 1
+				},
+				include: [
+					{
+						model: models.Sede,
+						attributes: ['descripcion', 'id'],
+						where: {
+							status: 1
+						}
+					}
+				]
 			},
 			{
 				model: models.tipoUsuario,
@@ -111,7 +168,7 @@ exports.postUsuario = function(req, res){
 }
 
 exports.deleteUsuario = function(req, res){
-	models.Empleado.update({
+	models.Usuario.update({
 		status: 0
 	},{
 		where: {

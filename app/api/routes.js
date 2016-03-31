@@ -121,6 +121,7 @@ var routesController = function(server){
 
 	//Usuarios
 	server.get("/usuario/get/all", auth, controllers.usuario.getUsuarios);
+	server.get("/usuario/get/sede/:SedeId", auth, controllers.usuario.getUsuariosBySede);
 	server.get("/usuario/get/:id", auth, controllers.usuario.getUsuario);
 	server.post("/usuario/post", auth, controllers.usuario.postUsuario);
 	server.put("/usuario/delete/:id", auth, controllers.usuario.deleteUsuario);
@@ -128,7 +129,7 @@ var routesController = function(server){
 
 	//Empleados
 	server.get("/empleado/get/all", auth, controllers.empleado.getEmpleados);
-	server.get("/empleado/get/all/:sedeId", auth, controllers.empleado.getEmpleadosBySede);
+	server.get("/empleado/get/sede/:sedeId", auth, controllers.empleado.getEmpleadosBySede);
 	server.get("/empleado/get/:id", auth, controllers.empleado.getEmpleado);
 	server.post("/empleado/post", auth, controllers.empleado.postEmpleado);
 	server.put("/empleado/put/:id", auth, controllers.empleado.putEmpleado);
@@ -144,8 +145,9 @@ var routesController = function(server){
 	server.put("/empleado/vacaciones/put/:EmpleadoId", auth, controllers.empleado.putEmpleadoVacaciones);
 
 	//Clientes
-	server.get("/cliente/get/all/:sedeId", auth, controllers.cliente.getClientes);
-	server.get("/cliente/get/:id/:sedeId", auth, controllers.cliente.getCliente);
+	server.get("/cliente/get/all/", auth, controllers.cliente.getClientes);
+	server.get("/cliente/get/sede/:SedeId", auth, controllers.cliente.getClientesBySede);
+	server.get("/cliente/get/:id", auth, controllers.cliente.getCliente);
 	server.post("/cliente/post", auth, controllers.cliente.postCliente);
 	server.put("/cliente/put/:id", auth, controllers.cliente.putCliente);
 	server.put("/cliente/delete/:id", auth, controllers.cliente.deleteCliente);

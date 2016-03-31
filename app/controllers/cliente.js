@@ -3,6 +3,51 @@ var service = require('../services/service');
 var crypto = require('crypto');
 var passport = require('passport');
 
+exports.getClientesBySede = function(req, res){
+	models.Cliente.findAll({
+		where: {
+			status: 1,
+			SedeId: req.params.SedeId
+		},
+		include:[
+			{
+				model: models.tipoCliente,
+				attributes: ['descripcion','id'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['descripcion','id','flag'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.tipoCredito,
+				attributes: ['descripcion','id'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Sede,
+				attributes: ['descripcion','PaiId'],
+				where: {
+					status: 1
+				}
+			}
+		]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
+		}else{
+			service.sendJSONresponse(res,200, {"type":true, "data": registros});
+		}
+	})
+};
+
 exports.getClientes = function(req, res){
 	models.Cliente.findAll({
 		where: {
@@ -34,8 +79,7 @@ exports.getClientes = function(req, res){
 				model: models.Sede,
 				attributes: ['descripcion','PaiId'],
 				where: {
-					status: 1,
-					id: req.params.sedeId
+					status: 1
 				}
 			}
 		]
@@ -80,8 +124,7 @@ exports.getCliente = function(req, res){
 				model: models.Sede,
 				attributes: ['descripcion','PaiId'],
 				where: {
-					status: 1,
-					id: req.params.sedeId
+					status: 1
 				}
 			}
 		]
@@ -108,7 +151,7 @@ exports.postCliente = function(req, res){
 		status: 1,
 		tipoClienteId: req.body.tipoCliente,
 		PaiId: req.body.PaiId,
-		tipoCreditoId: req.body.tipoCreditoId,
+		tipoCreditoId: req.body.tipoCreditoId || null,
 		SedeId: req.body.SedeId
 	}).then(function (registro){
 		if(!registro){

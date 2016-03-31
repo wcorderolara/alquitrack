@@ -14,7 +14,16 @@ alquitrackApp.service('empleadoService', function ($http, $q, baseService, authS
 
 	self.getRegistrosBySede = function(sedeId){
 		var data = {
-			url: '/empleado/get/all/' + sedeId
+			url: '/empleado/get/sede/' + sedeId
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
+	self.getTiposEmpleado = function(){
+		var data = {
+			url: '/tipoEmpleado/get/all'
 		}
 
 		var result = base.get(data);

@@ -199,7 +199,7 @@ angular.module('alquitrackApp')
                         templateUrl: 'views/cruds/empleado.html',
                         controller: 'empleadoController',
                         ncyBreadcrumb: {
-                            label: 'Mantenimiento Precios por Tractor',
+                            label: 'Mantenimiento Empleados',
                             description: ''
                         },
                         resolve:{
@@ -214,6 +214,30 @@ angular.module('alquitrackApp')
                                             'modules/empleado/empleadoService.js',
                                             'modules/empleado/empleadoController.js',
                                             'app/directives/estadoEmpleado.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.usuarios',{
+                        url: '/usuarios',
+                        templateUrl: 'views/cruds/usuario.html',
+                        controller: 'usuarioController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento Usuarios',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/empleado/empleadoService.js',
+                                            'modules/usuario/usuarioService.js',
+                                            'modules/usuario/usuarioController.js'
                                         ]
                                     })
                                 }
