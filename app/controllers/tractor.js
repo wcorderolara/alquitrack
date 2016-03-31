@@ -144,7 +144,7 @@ exports.postTractor = function(req, res){
 		anio: req.body.anio || null,
 		fechaCompra: req.body.fechaCompra || null,
 		imagen: req.body.imagen || null,
-		estadoEquipoId: req.body.estadoEquipoId,
+		estadoEquipoId: req.body.estadoEquipoId || 1,
 		PaiId: req.body.PaiId,
 		SedeId: req.body.SedeId,
 		tipoEquipoId: req.body.tipoEquipoId,

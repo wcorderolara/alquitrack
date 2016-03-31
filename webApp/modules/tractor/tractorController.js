@@ -136,8 +136,8 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 	$scope.marca = model.marca  || "";
 	$scope.modelo = model.modelo || "";
 	$scope.anio = model.anio || "";
-	$scope.fechaCompra = model.fechaCompra || "";
-	$scope.imagen = model.imagen || "";
+	$scope.fechaCompra = model.fechaCompra || null;
+	$scope.imagen = model.imagen || null;
 	
 	$scope.estadoEquipoId = $scope.state == 'nuevo' ? 1 : model.estadoEquipoId;
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
@@ -186,18 +186,16 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 
     		var params = {
     			nombre: $scope.nombre,
-				apellido: $scope.apellido,
-				numeroTributacion: $scope.numeroTributacion,
-				numeroIdentificacion: $scope.numeroIdentificacion,
-				direccion: $scope.direccion,
-				telefono: $scope.telefono,
-				email: $scope.email,
-				website: $scope.website,
-				tieneCredito : $scope.tieneCredito,
-				tipoClienteId: $scope.tipoClienteId,
+				descripcion: $scope.descripcion,
+				marca: $scope.marca,
+				modelo: $scope.modelo,
+				anio: $scope.anio,
+				fechaCompra: $scope.fechaCompra,
+				imagen: $scope.imagen,
+				estadoEquipoId: $scope.estadoEquipoId,
 				PaiId: $scope.PaiId,
-				tipoCreditoId: $scope.tipoCreditoId,
-				SedeId: $scope.SedeId
+				SedeId: $scope.SedeId,
+				tipoEquipoId: $scope.tipoEquipoId
     		}
     		service.postRegistro(params).then(
     			function (response){
@@ -208,18 +206,16 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
     		var params = {
     			id: model.id,
     			nombre: $scope.nombre,
-				apellido: $scope.apellido,
-				numeroTributacion: $scope.numeroTributacion,
-				numeroIdentificacion: $scope.numeroIdentificacion,
-				direccion: $scope.direccion,
-				telefono: $scope.telefono,
-				email: $scope.email,
-				website: $scope.website,
-				tieneCredito : $scope.tieneCredito,
-				tipoClienteId: $scope.tipoClienteId,
+				descripcion: $scope.descripcion,
+				marca: $scope.marca,
+				modelo: $scope.modelo,
+				anio: $scope.anio,
+				fechaCompra: $scope.fechaCompra,
+				imagen: $scope.imagen,
+				estadoEquipoId: $scope.estadoEquipoId,
 				PaiId: $scope.PaiId,
-				tipoCreditoId: $scope.tipoCreditoId,
-				SedeId: $scope.SedeId
+				SedeId: $scope.SedeId,
+				tipoEquipoId: $scope.tipoEquipoId
     		}
     		service.postRegistro(params).then(
     			function (response){
