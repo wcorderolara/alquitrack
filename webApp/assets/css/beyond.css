@@ -305,7 +305,8 @@
   color: #262626 !important;
 }
 .blue,
-.vacaciones {
+.Vacaciones,
+.Alquiler {
   color: #5db2ff !important;
 }
 .info {
@@ -333,14 +334,16 @@
   color: #fff !important;
 }
 .green,
-.Activo {
+.Activo,
+.Disponible {
   color: #8cc474 !important;
 }
 .lightyellow {
   color: #f6d52e !important;
 }
 .yellow,
-.Suspendido {
+.Suspendido,
+.Reparacion {
   color: #ffce55 !important;
 }
 .warning {
@@ -359,7 +362,8 @@
   color: #ed4e2a !important;
 }
 .red,
-.Despedido {
+.Despedido,
+.Retirado {
   color: #df5138 !important;
 }
 .pink {

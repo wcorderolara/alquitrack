@@ -244,6 +244,58 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.clientes',{
+                        url: '/clientes',
+                        templateUrl: 'views/cruds/cliente.html',
+                        controller: 'clienteController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento Clientes',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/paises/paisService.js',
+                                            'modules/sedes/sedeService.js',
+                                            'modules/cliente/usuarioService.js',
+                                            'modules/cliente/usuarioController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.tractores',{
+                        url: '/tractores',
+                        templateUrl: 'views/cruds/tractor.html',
+                        controller: 'tractorController',
+                        ncyBreadcrumb: {
+                            label: 'Mantenimiento Tractores',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/paises/paisService.js',
+                                            'modules/sedes/sedeService.js',
+                                            'modules/tipoEquipo/tipoEquipoService.js',
+                                            'modules/tractor/tractorService.js',
+                                            'modules/tractor/tractorController.js',
+                                            'app/directives/estadoTractor.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/profile.html',

@@ -153,8 +153,9 @@ var routesController = function(server){
 	server.put("/cliente/delete/:id", auth, controllers.cliente.deleteCliente);
 
 	//Tractores
-	server.get("/tractor/get/all/:sedeId", auth, controllers.tractor.getTractores);
-	server.get("/tractor/get/:id/:sedeId", auth, controllers.tractor.getTractor);
+	server.get("/tractor/get/all", auth, controllers.tractor.getTractores);
+	server.get("/tractor/get/sede/:SedeId", auth, controllers.tractor.getTractoresBySede);
+	server.get("/tractor/get/:id", auth, controllers.tractor.getTractor);
 	server.post("/tractor/post", auth, controllers.tractor.postTractor);
 	server.put("/tractor/put/:id", auth, controllers.tractor.putTractor);
 	server.put("/tractor/delete/:id", auth, controllers.tractor.deleteTractor);

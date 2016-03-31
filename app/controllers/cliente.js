@@ -7,7 +7,7 @@ exports.getClientesBySede = function(req, res){
 	models.Cliente.findAll({
 		where: {
 			status: 1,
-			SedeId: req.params.SedeId
+			PaiId: req.params.SedeId
 		},
 		include:[
 			{

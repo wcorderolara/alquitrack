@@ -47,10 +47,10 @@ Insert into estadoequipo (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Disponible',1,NOW(),NOW());
 
 Insert into estadoequipo (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('En alquiler',1,NOW(),NOW());
+values('Alquiler',1,NOW(),NOW());
 
 Insert into estadoequipo (`descripcion`,`status`,`createdAt`,`updatedAt`)
-values('En Reparacion',1,NOW(),NOW());
+values('Reparacion',1,NOW(),NOW());
 
 Insert into estadoequipo (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Retirado',1,NOW(),NOW());

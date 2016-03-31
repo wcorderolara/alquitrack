@@ -1,0 +1,215 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h1 class="row-title before-yellow">
+		<i class="fa fa-th-list yellow"></i>
+		Mantenimiento Clientes
+	</h1>	
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					<div class="clearfix" style="padding: 0">
+						<button class="btn btn-default btn-md margin-bottom-20 clearfix" 
+								ng-click="openModal('nuevo')">
+							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
+						</button>
+					</div>
+					<div ng-show="listItems.length>0" class="table-scrollable">
+						<table class="table table-striped">
+							<thead>
+								<th>Tractor</th>
+								<th>Descripci&oacute;n</th>
+								<th>Marca</th>
+								<th>Modelo</th>
+								<th>Tipo Equipo</th>
+
+								<th ng-show="userRol == 'Administrador'">
+									Pa&iacute;s
+								</th>
+								<th ng-show="userRol == 'Administrador'">
+									Sede
+								</th>
+								
+								<th>Acciones</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+									<td>
+										<estado-tractor estado="item.estadoEquipo.descripcion">
+										</estado-tractor>
+										{{item.nombre}}
+									</td>
+									<td>{{item.descripcion}}</td>
+									<td>{{item.marca}}</td>
+									<td>{{item.modelo}}</td>
+									<td>{{item.tipoEquipo.descripcion}}</td>
+									
+									<td ng-show="userRol == 'Administrador'">
+										{{item.Pai.descripcion}}
+									</td>
+									<td ng-show="userRol == 'Administrador'">
+										{{item.Sede.descripcion}}
+									</td>
+									
+									<td>
+										<button class="btn btn-info"
+											    ng-click="showInfo(item)">
+											<i class="fa fa-eye"></i> Ver
+										</button>
+										<div ng-show="userRol == 'Administrador'">
+											<button class="btn btn-primary" 
+													ng-click="openModal('edit', item)">
+												<i class="fa fa-edit"></i>Editar
+											</button>
+											<button class="btn btn-danger" 
+													ng-click="delete(item)">
+												<i class="fa fa-times"></i>Eliminar
+											</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row margin-top-5">
+							<div class="col-lg-6 col-sm-6 col-xs-6">
+								Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
+								</select> registros por p&aacute;gina.
+							</div>
+							<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+								Total de Registros: {{totalItems}} 
+							</div>
+						</div>
+
+	    				<pagination total-items="totalItems" ng-model="currentPage" 
+	    							class="pagination-sm" 
+	    							items-per-page="itemsPerPage">
+	    				</pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="crudForm.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"></i>{{title}}</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+
+		<!--div class="text-align-center">
+	    	<div class="col-sm-12 margin-bottom-10">
+	      		<div class="col-md-12 margin-top-less-10">
+	        		<img src="{{flag}}" class="header-avatar"> 
+	      		</div>
+	      		<button class="btn btn-labeled btn-blue" type="file" 
+	      				ngf-select="uploadPic($file, $invalidFiles)"
+	              		accept="image/*" ngf-max-size="2MB">
+	        		<i class="btn-label fa fa-flag"></i>Subir Bandera
+	      		</button>
+	    	</div>
+	  	</div-->
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <input ng-model="nombre" type="text" class="form-control" placeholder="Tractor">
+			  <i class="fa fa-user bg-blue"></i> *
+			</span>
+		</div>
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <textarea ng-model="descripcion" type="text" class="form-control" 
+			  placeholder="Apellido Cliente"></textarea>
+			  <i class="fa fa-user bg-blue"></i> *
+			</span>
+		</div>
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <input ng-model="marca" type="text" class="form-control" 
+			   placeholder="Marca del Tractor">
+			  <i class="fa fa-align-left bg-blue"></i> *
+			</span>
+		</div>
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <input ng-model="modelo" type="text" class="form-control" 
+			    placeholder="Modelo del Tractor">
+			  <i class="fa fa-align-left bg-blue"></i>
+			</span>
+		</div>
+
+		<div class="form-group">
+			<span class="input-icon icon-right inverted">
+			  <input ng-model="anio" type="text" class="form-control" placeholder="Año del tractor">
+			  <i class="fa fa-map-marker bg-blue"></i> *
+			</span>
+		</div>
+
+		
+		<div class="form-group clearfix">
+	    	<select ng-model="tipoEquipoId" name="cmbTipoCliente" class="col-sm-12"
+	      	id="cmbTipoCliente" ng-options="tipo.id as tipo.descripcion for tipo in listTipoEquipo">
+	      		<option value="">Tipo Equipo</option>
+	    	</select> *
+	  	</div>
+
+		<div class="form-group clearfix">
+	    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12" ng-change="getSedesPais(PaiId);"
+	      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
+	      		<option value="">Pais Cliente</option>
+	    	</select> *
+	  	</div>		
+
+	  	<div class="form-group clearfix">
+	    	<select ng-model="SedeId" name="cmbSede" class="col-sm-12"
+	      	id="cmbSede" ng-options="sede.id as sede.descripcion for sede in listSedes">
+	      		<option value="">Sede creacion Cliente</option>
+	    	</select> *
+	  	</div>	  			
+
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-blue" ng-click="postRegistro()">
+			<i class="fa fa-floppy-o"></i> {{textButton}}
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel($event)">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="deleteRegistro.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"></i>Eliminar Registro</h3>
+	</div>
+	<div class="modal-body">
+	<form role="form">
+		<div class="form-group">
+			<h3 class="text-info">
+				¿Seguro que desea eliminar este registro? - <strong> {{registro.nombre}} </strong>
+			</h3>
+		</div>
+	</form>
+	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+	    {{formError}}
+	</alert>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="deleteRegistro()">
+			<i class="fa fa-trash"></i> Eliminar
+		</button>
+	  	<button class="btn btn-danger" ng-click="cancel()">
+	  		<i class="fa fa-times"></i>Cancelar
+	  	</button>
+	</div>
+</script>
