@@ -164,7 +164,7 @@ alquitrackApp.controller('crudClienteController', function ($scope, $modalInstan
 	)
 
 	$scope.getSedesPais = function(PaiId){
-		service.getRegistroByPais(PaiId).then(
+		sedeService.getRegistroByPais(PaiId).then(
 			function (data){
 				$scope.listSedes = data.data;
 			}

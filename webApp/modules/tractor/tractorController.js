@@ -151,7 +151,7 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 	)
 
 	$scope.getSedesPais = function(PaiId){
-		service.getRegistroByPais(PaiId).then(
+		sedeService.getRegistroByPais(PaiId).then(
 			function (data){
 				$scope.listSedes = data.data;
 			}
@@ -178,7 +178,7 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
     	if(!$scope.nombre || !$scope.apellido || !$scope.numeroTributacion || !$scope.direccion || 
     	   !$scope.telefono || !$scope.tieneCredito || !$scope.tipoClienteId || !$scope.PaiId ||
     	   !$scope.tipoCreditoId || !$scope.SedeId){
-    		$scope.formError = "Todos los campos con asterisco son obligatorios";
+    		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
 

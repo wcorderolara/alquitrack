@@ -104,6 +104,19 @@ values ('45 dias', 1, now(), now(), 45);
 insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
 values ('60 dias', 1, now(), now(), 60);
 
+/*tipo de Empleados*/
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Empresa',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Desarrolladora',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Constructora',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Persona Individual',1,NOW(),NOW());
+
 
 
 
