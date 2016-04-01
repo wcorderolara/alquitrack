@@ -46,7 +46,7 @@ alquitrackApp.controller('tractorController', function($scope, $window, $locatio
 			windowClass: '',
 			templateUrl: 'crudForm.html',
 			controller: 'crudTractorController',
-			size: 'md',
+			size: 'lg',
 			resolve: {
 				action: function(){
 					return action;
@@ -151,7 +151,7 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 	)
 
 	$scope.getSedesPais = function(PaiId){
-		service.getRegistroByPais(paiId).then(
+		service.getRegistroByPais(PaiId).then(
 			function (data){
 				$scope.listSedes = data.data;
 			}

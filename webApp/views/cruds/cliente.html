@@ -75,111 +75,117 @@
 	</div>
 	<div class="modal-body">
 	<form role="form">
+		<div class="row">
+			<div class="col-lg-6 col-sm-12 col-xs-12">
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="nombre" type="text" class="form-control" placeholder="Nombre Cliente">
+					  <i class="fa fa-user bg-blue"></i>
+					</span>
+				</div>
 
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="nombre" type="text" class="form-control" placeholder="Nombre Cliente">
-			  <i class="fa fa-user bg-blue"></i> *
-			</span>
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="apellido" type="text" class="form-control" placeholder="Descripcion Cliente">
+					  <i class="fa fa-user bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="numeroTributacion" type="text" class="form-control" 
+					   placeholder="Nit del Cliente">
+					  <i class="fa fa-align-left bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="numeroIdentificacion" type="text" class="form-control" 
+					    placeholder="Numero Identificacion Cliente">
+					  <i class="fa fa-align-left bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="direccion" type="text" class="form-control" placeholder="Direccion Cliente">
+					  <i class="fa fa-map-marker bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="telefono" type="text" class="form-control" placeholder="Telefono Cliente">
+					  <i class="fa fa-phone bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="email" type="text" class="form-control" 
+					  placeholder="Correo electronico Cliente">
+					  <i class="fa fa-envelope bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="website" type="text" class="form-control" placeholder="Sitio Web Cliente">
+					  <i class="fa fa-globe bg-blue"></i>
+					</span>
+				</div>
+
+			</div>
+
+			<div class="col-lg-6 col-sm-12 col-xs-12">
+				<div class="form-group clearfix">
+					<label><strong>Tiene Cr&eacute;dito el Cliente</stron></label>
+		            <div class="radio ">
+		                <label class="col-lg-5 col-sm-12 col-xs-12">
+		                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="1" 
+		                           class="form-control colored-blue">
+		                    <span class="text">Si </span>
+		                </label>
+		            </div>
+		            <div class="radio ">
+		                <label class="col-lg-5 col-sm-12 col-xs-12">
+		                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="0"
+		                           class="form-control colored-blue">
+		                    <span class="text">No</span>
+		                </label>
+		            </div>
+		        </div>
+
+				<div class="form-group clearfix">
+			    	<select ng-model="tipoClienteId" name="cmbTipoCliente" class="col-sm-12"
+			      	id="cmbTipoCliente" ng-options="tipo.id as tipo.descripcion for tipo in listTipoCliente">
+			      		<option value="">Tipo Cliente</option>
+			    	</select> 
+			  	</div>
+
+			  	<div class="form-group clearfix">
+			    	<select ng-model="tipoCreditoId" name="cmbTipoCredio" class="col-sm-12"
+			      	id="cmbTipoCredio" ng-options="tipo.id as tipo.descripcion for tipo in listTipoCredito">
+			      		<option value="">Tipo Credito</option>
+			    	</select>
+			  	</div>
+
+				<div class="form-group clearfix">
+			    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12" ng-change="getSedesPais(PaiId);"
+			      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
+			      		<option value="">Pais Cliente</option>
+			    	</select>
+			  	</div>		
+
+			  	<div class="form-group clearfix">
+			    	<select ng-model="SedeId" name="cmbSede" class="col-sm-12"
+			      	id="cmbSede" ng-options="sede.id as sede.descripcion for sede in listSedes">
+			      		<option value="">Sede creacion Cliente</option>
+			    	</select>
+			  	</div>
+			</div>	  			
 		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="apellido" type="text" class="form-control" placeholder="Apellido Cliente">
-			  <i class="fa fa-user bg-blue"></i> *
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="numeroTributacion" type="text" class="form-control" 
-			   placeholder="Nit del Cliente">
-			  <i class="fa fa-align-left bg-blue"></i> *
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="numeroIdentificacion" type="text" class="form-control" 
-			    placeholder="Numero Identificacion Cliente">
-			  <i class="fa fa-align-left bg-blue"></i>
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="direccion" type="text" class="form-control" placeholder="Direccion Cliente">
-			  <i class="fa fa-map-marker bg-blue"></i> *
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="telefono" type="text" class="form-control" placeholder="Telefono Cliente">
-			  <i class="fa fa-phone bg-blue"></i> *
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="email" type="text" class="form-control" 
-			  placeholder="Correo electronico Cliente">
-			  <i class="fa fa-envelope bg-blue"></i> *
-			</span>
-		</div>
-
-		<div class="form-group">
-			<span class="input-icon icon-right inverted">
-			  <input ng-model="website" type="text" class="form-control" placeholder="Sitio Web Cliente">
-			  <i class="fa fa-globe bg-blue"></i>
-			</span>
-		</div>
-
-		<div class="form-group">
-			<label>Tiene Cr&eacute;dito *</label>
-            <div class="radio">
-                <label>
-                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="1" 
-                           class="form-control inverted colored-blue">
-                    <span class="text">Si </span>
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="0"
-                           class="form-control inverted colored-blue">
-                    <span class="text">No</span>
-                </label>
-            </div>
-        </div>
-
-		<div class="form-group clearfix">
-	    	<select ng-model="tipoClienteId" name="cmbTipoCliente" class="col-sm-12"
-	      	id="cmbTipoCliente" ng-options="tipo.id as tipo.descripcion for tipo in listTipoCliente">
-	      		<option value="">Tipo Cliente</option>
-	    	</select> *
-	  	</div>
-
-	  	<div class="form-group clearfix">
-	    	<select ng-model="tipoCreditoId" name="cmbTipoCredio" class="col-sm-12"
-	      	id="cmbTipoCredio" ng-options="tipo.id as tipo.descripcion for tipo in listTipoCredito">
-	      		<option value="">Tipo Credito</option>
-	    	</select> *
-	  	</div>
-
-		<div class="form-group clearfix">
-	    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12" ng-change="getSedesPais(PaiId);"
-	      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
-	      		<option value="">Pais Cliente</option>
-	    	</select> *
-	  	</div>		
-
-	  	<div class="form-group clearfix">
-	    	<select ng-model="SedeId" name="cmbSede" class="col-sm-12"
-	      	id="cmbSede" ng-options="sede.id as sede.descripcion for sede in listSedes">
-	      		<option value="">Sede creacion Cliente</option>
-	    	</select> *
-	  	</div>	  			
 
 	</form>
 	<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">

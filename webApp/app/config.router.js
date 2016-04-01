@@ -261,8 +261,8 @@ angular.module('alquitrackApp')
                                         files: [
                                             'modules/paises/paisService.js',
                                             'modules/sedes/sedeService.js',
-                                            'modules/cliente/usuarioService.js',
-                                            'modules/cliente/usuarioController.js'
+                                            'modules/cliente/clienteService.js',
+                                            'modules/cliente/clienteController.js'
                                         ]
                                     })
                                 }

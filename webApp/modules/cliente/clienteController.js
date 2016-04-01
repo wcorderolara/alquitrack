@@ -45,7 +45,7 @@ alquitrackApp.controller('clienteController', function($scope, $window, $locatio
 			windowClass: '',
 			templateUrl: 'crudForm.html',
 			controller: 'crudClienteController',
-			size: 'md',
+			size: 'lg',
 			resolve: {
 				action: function(){
 					return action;
@@ -164,7 +164,7 @@ alquitrackApp.controller('crudClienteController', function ($scope, $modalInstan
 	)
 
 	$scope.getSedesPais = function(PaiId){
-		service.getRegistroByPais(paiId).then(
+		service.getRegistroByPais(PaiId).then(
 			function (data){
 				$scope.listSedes = data.data;
 			}
@@ -189,7 +189,7 @@ alquitrackApp.controller('crudClienteController', function ($scope, $modalInstan
     	if(!$scope.nombre || !$scope.apellido || !$scope.numeroTributacion || !$scope.direccion || 
     	   !$scope.telefono || !$scope.tieneCredito || !$scope.tipoClienteId || !$scope.PaiId ||
     	   !$scope.tipoCreditoId || !$scope.SedeId){
-    		$scope.formError = "Todos los campos con asterisco son obligatorios";
+    		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
 
