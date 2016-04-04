@@ -186,6 +186,20 @@ var routesController = function(server){
 	server.put("/reserva/delete/:id", auth, controllers.reserva.deleteReserva);
 	server.put("/reserva/detalle/delete/:id", auth, controllers.reserva.deleteDetalleReserva);
 
+	//Pedidos
+	server.get("/pedido/get/all", auth, controllers.pedido.getPedidos);
+	server.get("/pedido/get/all/:SedeId", auth, controllers.pedido.getPedidosBySede);
+	server.get("/pedido/get/empleado/:EmpleadoId", auth, controllers.pedido.getPedidosByEmpleado);
+
+	server.get("/pedido/get/:id", auth, controllers.pedido.getPedido);
+	server.get("/pedido/detalle/get/:id", auth, controllers.pedido.getDetallePedido);
+
+	server.post("/pedido/post", auth, controllers.pedido.postPedido);
+	server.post("/pedido/detalle/post", auth, controllers.pedido.postPedidoDetalle);
+	// server.put("/pedido/put/:id", auth, controllers.pedido.putReserva); no hay put
+	server.put("/pedido/delete/:id", auth, controllers.pedido.deletePedido);
+	server.put("/pedido/detalle/delete/:id", auth, controllers.pedido.deletePedidoDetalle);
+
 	//Sedes
 	server.get("/sede/get/all", auth, controllers.sede.getSedes);
 	server.get("/sede/get/pais/:PaiId", auth, controllers.sede.getSedesByPais);

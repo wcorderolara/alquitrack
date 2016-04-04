@@ -6,6 +6,7 @@ exports.getPedidos = function(req, res){
 		where: {
 			status: 1
 		},
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
 		include:[
 			{
 				model: models.Cliente,
@@ -51,6 +52,7 @@ exports.getPedidosBySede = function(req, res){
 			status: 1,
 			SedeId: req.params.SedeId
 		},
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
 		include:[
 			{
 				model: models.Cliente,
@@ -96,10 +98,11 @@ exports.getPedidosByEmpleado = function(req, res){
 			status: 1,
 			EmpleadoId: req.params.EmpleadoId
 		},
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
 		include:[
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email'],
+				attributes: ['nombre','apellido', 'telefono', 'email', 'id'],
 				where:{
 					status: 1
 				}
@@ -114,6 +117,13 @@ exports.getPedidosByEmpleado = function(req, res){
 			{
 				model: models.estadoPedido,
 				attributes: ['descripcion', 'id'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Empleado,
+				attributes: ['nombre', 'apellido', 'id'],
 				where:{
 					status: 1
 				}
@@ -134,6 +144,7 @@ exports.getPedido = function(req, res){
 			id: req.params.id,
 			status: 1
 		},
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
 		include:[
 			{
 				model: models.Cliente,
@@ -172,7 +183,22 @@ exports.getDetallePedido = function(req, res){
 		where:{
 			ReservaId: req.params.id,
 			status: 1
-		}
+		},
+		attributes:['id','ReservaId','TractorId', 'tipoAlquilerId','fechaSale','fechaRegresa','subTotal','cantidadHoras'],
+		include:[
+			{
+				model: models.Tractor,
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.tipoAlquiler,
+				where:{
+					status: 1
+				}
+			}
+		]		
 	}).then(function (registros){
 		if(!registros){
 			service.sendJSONresponse(res,500, {"type":false, "message": "registros no encontrado", "data": registros});
@@ -212,15 +238,27 @@ function insertPedidoDetalle (res, arrayTractores, reservaId){
 			ReservaId: reservaId,
 			TractorId: item.tractorId,
 			tipoAlquilerId: item.tipoAlquilerId,
-			fechaSale: item.fechaSale,
-			fechaRegresa: item.fechaRegresa,
+			fechaSale: item.fechaDespacho,
+			fechaRegresa: item.fechaRegreso,
 			subTotal: item.subTotal,
-			cantidadHoras: item.cantidadHoras,
+			cantidadHoras: item.horasAlquiler,
 			observacion: item.observacion || null,
 			status: 1
 		}).then(function (tractor){
 			if(!tractor){
-				sendJSONresponse(res,400,{"type":false, "message": "Error al agregar el tractor a la Reserva", "data": tractor});
+				service.sendJSONresponse(res,400,{"type":false, "message": "Error al agregar el tractor a la Reserva", "data": tractor});
+			}else{
+				models.Tractor.update({
+					estadoEquipoId: 2
+				},{
+					where:{
+						id: item.tractorId,
+					}
+				}).then(function (_tractor){
+					if(!_tractor){
+						service.sendJSONresponse(res,400,{"type":false, "message": "Error al actualizar el estado del Tractor", "data": tractor})
+					}
+				})
 			}
 		})
 	})
@@ -242,6 +280,17 @@ exports.postPedidoDetalle = function(req, res){
 		if(!detalle){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
 		}else{
+			models.Tractor.update({
+				estadoEquipoId: 2
+			},{
+				where:{
+					id: req.body.tractorId,
+				}
+			}).then(function (_tractor){
+				if(!_tractor){
+					service.sendJSONresponse(res,400,{"type":false, "message": "Error al actualizar el estado del Tractor", "data": tractor})
+				}
+			})
 			service.sendJSONresponse(res, 200, {"type":true, "message": "Registro agregado exitosamente"})
 		}
 	})

@@ -5,7 +5,7 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 
 	self.getRegistros = function(){
 		var data = {
-			url: '/tractor/get/all'
+			url: '/pedido/get/all'
 		}
 
 		var result = base.get(data);
@@ -14,7 +14,16 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 
 	self.getRegistrosBySede = function(sedeId){
 		var data = {
-			url: '/tractor/get/sede/' + sedeId
+			url: '/pedido/get/all/' + sedeId
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
+	self.getRegistrosByEmpleado = function(empleadoId){
+		var data = {
+			url: '/pedido/get/empleado/' + empleadoId
 		}
 
 		var result = base.get(data);
@@ -23,7 +32,7 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 
 	self.postRegistro = function(params){
 		var data = {
-			url: '/tractor/post',
+			url: '/pedido/post',
 			params: params
 		}
 
@@ -32,20 +41,10 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 		return result;
 	}
 
-	self.putRegistro = function(params){
-		var data = {
-			url: '/tractor/put/' + params.id,
-			params: params
-		}
-
-		var result = base.put(data);
-
-		return result;
-	}
 
 	self.deleteRegistro = function(params){
 		var data = {
-			url: '/tractor/delete/' + params.id,
+			url: '/pedido/delete/' + params.id,
 			params: {}
 		}
 
@@ -54,22 +53,12 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 		return result;
 	}
 
-	self.getTiposEquipo = function(){
+	self.getDetalleRegistro = function(params){
 		var data = {
-			url: '/tipoEquipo/get/all'
+			url: '/pedido/detalle/get/' + params.EmpleadoId
 		}
 
 		var result = base.get(data);
-		return result;
-	}
-
-	self.uploadImagen = function(file){		
-		var data = {
-			url: '/tractor/upload/avatar'
-		}
-
-		var result = base.uploadImage(data, file);
-
 		return result;
 	}
 

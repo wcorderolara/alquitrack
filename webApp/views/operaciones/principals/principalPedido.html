@@ -21,10 +21,11 @@
 								       typeahead-on-select="getInfoCliente(clienteSelected)">								       
 							</div>
 							
-							<button class="btn btn-darkorange btn-md" 
+							<!-- Si da tiempo agrego la opcion de addCliente -->
+							<!-- <button class="btn btn-darkorange btn-md" 
 									ng-click="addCliente('nuevo')">
 								<i class="fa fa-plus-circle"></i> Crear nuevo Cliente
-							</button>
+							</button> -->
 
 						</form>
 					</div>
@@ -104,9 +105,16 @@
 										{{item.horasAlquiler}}
 									</td>
 									<td>
-										{{item.subTotal | monedaFilter: moneda }}
+										{{item.subTotal | currency: moneda }}
 									</td>								
-								</tr>
+								</tr>								
+			                    <tr>
+			                        <td colspan="5" class="invisible bg-snow"></td>
+			                        <td class="text-center"><strong>Total</strong></td>
+			                        <td class="text-center ">
+			                        	<strong>{{totalPedido | currency: moneda</strong>
+			                        </td>
+			                    </tr>
 							</tbody>
 						</table>
 					</div>

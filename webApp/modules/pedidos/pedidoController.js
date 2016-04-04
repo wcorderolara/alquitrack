@@ -20,6 +20,7 @@ alquitrackApp.controller('pedidoController', function($scope, $window, $location
 	$scope.itemsPerPage = $scope.viewby;
 	$scope.maxSize = 5; //Number of pager buttons to show
 	$scope.userRol = info.rol;
+	$scope.totalPedido = 0;
 
 
 	//Elementos del principal
@@ -87,6 +88,33 @@ alquitrackApp.controller('pedidoController', function($scope, $window, $location
 		}
 	}
 
+	$scope.crearPedido = function(){
+		var params = {
+			observaciones: null,
+			adelanto: null,
+			fechaReservacion: moment(new Date()).format('L'),
+			ClienteId: $scope.infoCliente.id,
+			SedeId: info.SedeId,
+			estadoPedidoId: 1,
+			EmpleadoId: info.empleado,
+			status: 1,
+			detalleReserva: JSON.stringify($scope.listItemsDetalle);
+		}
+
+		service.postRegistro(params).then(
+			function (response){
+				if(response.type){
+					Notification.success(response.message);
+					setTimeout(function(){
+						$window.location = '#/app/ver/pedidos'
+					}, 1250);
+				}else{
+					Notification.error(response.message);
+				}
+			}
+		)
+	}
+
 	$scope.agregarDetallePedido = function(){
 		var _model = {
 			tractorId: "",
@@ -119,12 +147,9 @@ alquitrackApp.controller('pedidoController', function($scope, $window, $location
 
 			objResponse.forEach(function (item){
 				$scope.listItemsDetalle.push(item);
+				%scope.totalPedido = parseFloat($scope.totalPedido) + parseFloat(item.subTotal);
 			})
-
-			// for each(var item in objResponse){
-			// 	$scope.listItemsDetalle.push(item);
-			// }
-			console.log($scope.listItemsDetalle);
+			// console.log($scope.listItemsDetalle);
 		})
 	}
 

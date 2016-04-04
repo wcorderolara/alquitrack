@@ -296,6 +296,32 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.verPedidos',{
+                        url: '/ver/pedidos',
+                        templateUrl: 'views/operaciones/pedidos.html',
+                        controller: 'verPedidosController',
+                        ncyBreadcrumb: {
+                            label: 'Pedidos Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/pedidos/pedidoService.js',
+                                            'modules/pedidos/verPedidosController.js',
+                                            
+                                            'app/directives/estadoPedido.js',
+                                            'app/filters/monedaFilter.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.pedidos',{
                         url: '/pedidos',
                         templateUrl: 'views/operaciones/principals/principalPedido.html',

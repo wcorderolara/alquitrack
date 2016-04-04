@@ -121,10 +121,27 @@
                         <span class="menu-text">Reservas</span>
                     </a>
                 </li> -->
-                <li ui-sref-active="active">
-                    <a ui-sref="app.pedidos">
-                        <span class="menu-text">Pedidos</span>
+                <li>
+                    <a href="#" class="menu-dropdown">
+                        <span class="menu-text">
+                            Pedidos
+                        </span>
+                        <i class="menu-expand"></i>
                     </a>
+                    <ul class="submenu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.verPedidos">
+                                <i class="menu-icon fa fa-shopping-cart"></i>
+                                <span class="menu-text">Ver Pedidos</span>
+                            </a>
+                            <a ui-sref="app.pedidos">
+                                <i class="menu-icon fa fa-cart-plus"></i>
+                                <span class="menu-text">Crear Pedido</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="app.facturacion">

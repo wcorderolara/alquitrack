@@ -29,7 +29,7 @@
 									<td>{{item.tipoEquipo.descripcion}}</td>
 									<td>{{item.tipoAlquiler.descripcion}}</td>
 									<td>{{item.Pai.descripcion}}</td>
-									<td>{{item.precio | monedaFilter: item.Pai.monedaPai.simbolo}}</td>
+									<td>{{item.precio | currency: item.Pai.monedaPai.simbolo}}</td>
 									<td>
 										<button class="btn btn-primary" ng-click="openModal('edit', item)">
 											<i class="fa fa-edit"></i>Editar</button>
