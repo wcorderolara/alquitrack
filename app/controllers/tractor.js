@@ -1,12 +1,22 @@
 var models = require('../../models');
 var service = require('../services/service');
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+	cloud_name: process.env.CDN_NAME,
+	api_key: process.env.CDN_API_KEY,
+	api_secret: process.env.CDN_API_SECRET
+})
 
 exports.getTractoresBySede = function(req, res){
 	models.Tractor.findAll({
 		where: {
 			status: 1,
-			SedeId: req.params.SedeId
+			SedeId: req.params.SedeId,
+			estadoEquipoId: 1
 		},
+		attributes: ['id', 'nombre','marca','modelo', 'anio', 'imagen', 'estadoEquipoId', 'PaiId', 'SedeId',
+		             'tipoEquipoId', 'status', 'horometro', 'capacidadPeso', 'descripcion'],
 		include:[
 			{
 				model: models.estadoEquipo,
@@ -148,7 +158,9 @@ exports.postTractor = function(req, res){
 		PaiId: req.body.PaiId,
 		SedeId: req.body.SedeId,
 		tipoEquipoId: req.body.tipoEquipoId,
-		status: 1
+		status: 1,
+		horometro: req.body.horometro || 0,
+		capacidadPeso: req.body.capacidadPeso || 0,
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
@@ -170,7 +182,9 @@ exports.putTractor = function(){
 		estadoEquipoId: req.body.estadoEquipoId,
 		PaiId: req.body.PaiId,
 		SedeId: req.body.SedeId,
-		tipoEquipoId: req.body.tipoEquipoId
+		tipoEquipoId: req.body.tipoEquipoId,
+		horometro: req.body.horometro,
+		capacidadPeso: req.body.capacidadPeso
 	},{
 		where:{
 			id: req.params.id
@@ -203,6 +217,6 @@ exports.deleteTractor = function(req, res){
 //Metodos Adicionales al CRUD
 exports.uploadAvatar = function(req, res, next){
 	cloudinary.uploader.upload(req.files.file.path, function(result, callback){
-		sendJSONresponse(res,200,{"type":true,"data":result});
+		service.sendJSONresponse(res,200,{"type":true,"data":result});
 	});
 }

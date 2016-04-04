@@ -138,6 +138,8 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 	$scope.anio = model.anio || "";
 	$scope.fechaCompra = model.fechaCompra || null;
 	$scope.imagen = model.imagen || null;
+	$scope.horometro = model.horometro || "";
+	$scope.capacidadPeso = model.capacidadPeso || "";
 	
 	$scope.estadoEquipoId = $scope.state == 'nuevo' ? 1 : model.estadoEquipoId;
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
@@ -167,7 +169,8 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 	$scope.uploadPic = function(file, errFiles) {
 	    service.uploadImagen(file).then(
 	    	function (data){
-	    		$scope.listImagenes.push(data.data.data.url);
+	    		console.log(data);
+	    		$scope.imagen = data.data.data.url;
 	    	}
 	    )
     }
@@ -175,9 +178,8 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
     $scope.postRegistro = function(){
     	$scope.formError = "";
 
-    	if(!$scope.nombre || !$scope.apellido || !$scope.numeroTributacion || !$scope.direccion || 
-    	   !$scope.telefono || !$scope.tieneCredito || !$scope.tipoClienteId || !$scope.PaiId ||
-    	   !$scope.tipoCreditoId || !$scope.SedeId){
+    	if(!$scope.nombre || !$scope.descripcion || !$scope.marca || !$scope.modelo || 
+    	   !$scope.anio || !$scope.PaiId || !$scope.SedeId || !$scope.tipoEquipoId ){
     		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
@@ -195,7 +197,9 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 				estadoEquipoId: $scope.estadoEquipoId,
 				PaiId: $scope.PaiId,
 				SedeId: $scope.SedeId,
-				tipoEquipoId: $scope.tipoEquipoId
+				tipoEquipoId: $scope.tipoEquipoId,
+				horometro: $scope.horometro,
+				capacidadPeso: $scope.capacidadPeso
     		}
     		service.postRegistro(params).then(
     			function (response){
@@ -215,7 +219,9 @@ alquitrackApp.controller('crudTractorController', function ($scope, $modalInstan
 				estadoEquipoId: $scope.estadoEquipoId,
 				PaiId: $scope.PaiId,
 				SedeId: $scope.SedeId,
-				tipoEquipoId: $scope.tipoEquipoId
+				tipoEquipoId: $scope.tipoEquipoId,
+				horometro: $scope.horometro,
+				capacidadPeso: $scope.capacidadPeso
     		}
     		service.postRegistro(params).then(
     			function (response){

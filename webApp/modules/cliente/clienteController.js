@@ -43,7 +43,7 @@ alquitrackApp.controller('clienteController', function($scope, $window, $locatio
 		var _model = model || {};
 		var modalInstance = $modal.open({
 			windowClass: '',
-			templateUrl: 'crudForm.html',
+			templateUrl: 'views/modals/crudRegistroCliente.html',
 			controller: 'crudClienteController',
 			size: 'lg',
 			resolve: {
@@ -74,7 +74,7 @@ alquitrackApp.controller('clienteController', function($scope, $window, $locatio
 		var _model = item;
 		var modalInstance = $modal.open({
 			windowClass: '',
-			templateUrl: 'deleteRegistro.html',
+			templateUrl: 'views/modals/deleteRegistro.html',
 			controller: 'deleteClienteController',
 			size: 'md',
 			resolve: {				

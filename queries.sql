@@ -117,7 +117,30 @@ values('Constructora',1,NOW(),NOW());
 Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Persona Individual',1,NOW(),NOW());
 
+-- Estado Pedido
+Insert into estadoPedido (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Activo',1,NOW(),NOW());
 
+Insert into estadoPedido (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Facturado',1,NOW(),NOW());
+
+Insert into estadoPedido (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Rechazado',1,NOW(),NOW());
+
+Insert into estadoPedido (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Cancelado',1,NOW(),NOW());
+-- tipo Alquiler
+insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
+values('diario',1,NOW(),NOW(),8);
+
+insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
+values('semanal',1,NOW(),NOW(),44);
+
+insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
+values('mensual 176',1,NOW(),NOW(),176);
+
+insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
+values('mensual 200',1,NOW(),NOW(),200);
 
 
 

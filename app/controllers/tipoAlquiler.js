@@ -5,7 +5,42 @@ exports.getTiposAlquiler = function(req, res){
 	models.tipoAlquiler.findAll({
 		where: {
 			status: 1
+		},
+		attributes: ['id', 'descripcion', 'status', 'horasMinimas']//,
+		// include:[
+		// 	{
+		// 		model: models.precioEquipo,
+		// 		attributes: ['precio', 'id'],
+		// 		where:{
+		// 			status: 1
+		// 		}
+		// 	}
+		// ]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
+		}else{
+			service.sendJSONresponse(res,200, {"type":true, "data": registros});
 		}
+	})
+};
+
+exports.getTipoAlquilerTractor = function(req, res){
+	models.tipoAlquiler.findAll({
+		where: {
+			status: 1
+		},
+		attributes: ['id', 'descripcion', 'status', 'horasMinimas'],
+		include:[
+			{
+				model: models.precioEquipo,
+				attributes: ['precio', 'id'],
+				where:{
+					status: 1,
+					tipoEquipoId: req.params.tipoEquipoId
+				}
+			}
+		]
 	}).then(function (registros){
 		if(!registros){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "error al obtener los registros", "data":registros});
@@ -20,7 +55,8 @@ exports.getTipoAlquiler = function(req, res){
 		where: {
 			id: req.params.id,
 			status: 1
-		}
+		},
+		attributes: ['id', 'descripcion', 'status', 'horasMinimas']
 	}).then(function (registro){
 		if(!registro){
 			service.sendJSONresponse(res,500, {"type":false, "message": "registro no encontrado", "data": registro});

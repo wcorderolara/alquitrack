@@ -13,6 +13,7 @@ alquitrackApp.service('clienteService', function ($http, $q, baseService, authSe
 	}
 
 	self.getRegistrosBySede = function(sedeId){
+		
 		var data = {
 			url: '/cliente/get/sede/' + sedeId
 		}

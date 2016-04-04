@@ -18,20 +18,20 @@
 					<div ng-show="listItems.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
-								<th>Tractor</th>
-								<th>Descripci&oacute;n</th>
-								<th>Marca</th>
-								<th>Modelo</th>
-								<th>Tipo Equipo</th>
+								<th style="width: 350px !important">Tractor</th>
+								<!-- <th>Descripci&oacute;n</th> -->
+								<th style="width: 200px !important">Marca</th>
+								<th style="width: 200px !important">Modelo</th>
+								<th style="width: 200px !important">Tipo Equipo</th>
 
-								<th ng-show="userRol == 'Administrador'">
+								<th ng-show="userRol == 'Administrador'" style="width: 200px !important">
 									Pa&iacute;s
 								</th>
-								<th ng-show="userRol == 'Administrador'">
+								<th ng-show="userRol == 'Administrador'" style="width: 350px !important">
 									Sede
 								</th>
 								
-								<th>Acciones</th>
+								<th style="width: 350px !important">Acciones</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
@@ -40,7 +40,7 @@
 										</estado-tractor>
 										{{item.nombre}}
 									</td>
-									<td>{{item.descripcion}}</td>
+									<!-- <td>{{item.descripcion}}</td> -->
 									<td>{{item.marca}}</td>
 									<td>{{item.modelo}}</td>
 									<td>{{item.tipoEquipo.descripcion}}</td>
@@ -57,16 +57,16 @@
 											    ng-click="showInfo(item)">
 											<i class="fa fa-eye"></i> Ver
 										</button>
-										<div ng-show="userRol == 'Administrador'">
-											<button class="btn btn-primary" 
-													ng-click="openModal('edit', item)">
-												<i class="fa fa-edit"></i>Editar
-											</button>
-											<button class="btn btn-danger" 
-													ng-click="delete(item)">
-												<i class="fa fa-times"></i>Eliminar
-											</button>
-										</div>
+										<button class="btn btn-primary" 
+												ng-show="userRol == 'Administrador'"
+												ng-click="openModal('edit', item)">
+											<i class="fa fa-edit"></i>Editar
+										</button>
+										<button class="btn btn-danger" 
+												ng-show="userRol == 'Administrador'"
+												ng-click="delete(item)">
+											<i class="fa fa-times"></i>Eliminar
+										</button>
 									</td>
 								</tr>
 							</tbody>
@@ -111,7 +111,7 @@
 				<div class="form-group">
 					<span class="input-icon icon-right inverted">
 					  <textarea ng-model="descripcion" type="text" class="form-control" 
-					  placeholder="Apellido Cliente"></textarea>
+					  placeholder="Descripcion Tractor"></textarea>
 					  <i class="fa fa-user bg-blue"></i>
 					</span>
 				</div>
@@ -141,6 +141,20 @@
 			</div>
 
 			<div class="col-lg-6 col-sm-12 col-xs-12">
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="horometro" type="text" class="form-control" placeholder="Horometro del Tractor">
+					  <i class="fa fa-clock-o bg-blue"></i>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<span class="input-icon icon-right inverted">
+					  <input ng-model="capacidadPeso" type="text" class="form-control" placeholder="Capacidad del Tractor">
+					  <i class="fa fa-balance-scale bg-blue"></i>
+					</span>
+				</div>
+
 				<div class="form-group clearfix">
 			    	<select ng-model="tipoEquipoId" name="cmbTipoCliente" class="col-sm-12"
 			      	id="cmbTipoCliente" ng-options="tipo.id as tipo.descripcion for tipo in listTipoEquipo">
@@ -151,21 +165,21 @@
 				<div class="form-group clearfix">
 			    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12" ng-change="getSedesPais(PaiId);"
 			      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
-			      		<option value="">Pais Cliente</option>
+			      		<option value="">Pais Tractor</option>
 			    	</select>
 			  	</div>		
 
 			  	<div class="form-group clearfix">
 			    	<select ng-model="SedeId" name="cmbSede" class="col-sm-12"
 			      	id="cmbSede" ng-options="sede.id as sede.descripcion for sede in listSedes">
-			      		<option value="">Sede creacion Cliente</option>
+			      		<option value="">Sede Tractor</option>
 			    	</select>
 			  	</div>
 
 			  	<div class="text-align-center">
 			    	<div class="col-sm-12 margin-bottom-10">
 			      		<div class="col-md-12 margin-top-less-10">
-			        		<img src="{{flag}}" class="profile-tractor"> 
+			        		<img src="{{imagen}}" class="profile-tractor"> 
 			      		</div>
 			      		<button class="btn btn-labeled btn-blue" type="file" 
 			      				ngf-select="uploadPic($file, $invalidFiles)"

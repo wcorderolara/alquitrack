@@ -109,7 +109,7 @@ exports.getEmpleado = function(req, res){
 		include:[
 			{
 				model: models.Pais,
-				attributes: ['descripcion','flag'],
+				attributes: ['descripcion','flag'],				
 				where:{
 					status: 1
 				}

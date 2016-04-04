@@ -44,6 +44,7 @@ module.exports = function(sequelize, DataTypes){
 
 				Empleado.hasMany(models.Usuario);
 				Empleado.hasMany(models.Factura);
+				Empleado.hasMany(models.Reserva);
 				// Empleado.hasMany(models.RutaCobro);
 			}
 		},

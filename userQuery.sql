@@ -22,3 +22,49 @@ select * from tipoalquiler;
 select * from tipoequipo;
 select * from precioEquipo;
 
+select * from usuario;
+select * from empleado;
+
+update empleado set status = 1 where id = 3;
+
+update usuario set status = 1 where id = 3;
+
+delete from usuario where id in(3,4);
+
+select * from tipousuario;
+select * from rol;
+
+select * from tipocredito;
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('15 dias', 1, now(), now(), 15);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('30 dias', 1, now(), now(), 30);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('45 dias', 1, now(), now(), 45);
+
+insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
+values ('60 dias', 1, now(), now(), 60);
+
+select* from tractor;
+
+select * from tipocliente;
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Empresa',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Desarrolladora',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Constructora',1,NOW(),NOW());
+
+Insert into tipocliente (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Persona Individual',1,NOW(),NOW());
+
+
+select * from estadoPedido;
+-- estadoPedido
+select * from reserva;

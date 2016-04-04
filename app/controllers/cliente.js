@@ -140,7 +140,7 @@ exports.getCliente = function(req, res){
 exports.postCliente = function(req, res){
 	models.Cliente.create({
 		nombre: req.body.nombre,
-		apellido: req.body.apellido,
+		apellido: req.body.apellido || null,
 		numeroTributacion: req.body.numeroTributacion,
 		numeroIdentificacion: req.body.numeroIdentificacion || null,
 		direccion: req.body.direccion,
@@ -149,7 +149,7 @@ exports.postCliente = function(req, res){
 		website: req.body.website || null,
 		tieneCredito : req.body.tieneCredito || 0,
 		status: 1,
-		tipoClienteId: req.body.tipoCliente,
+		tipoClienteId: req.body.tipoClienteId,
 		PaiId: req.body.PaiId,
 		tipoCreditoId: req.body.tipoCreditoId || null,
 		SedeId: req.body.SedeId

@@ -12,6 +12,15 @@ alquitrackApp.service('tipoAlquilerService', function ($http, $q, baseService, a
 		return result;
 	}
 
+	self.getRegistrosByTractor = function(tipoEquipoid){
+		var data = {
+			url: '/tipoAlquiler/get/tractor/' + tipoEquipoid
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
 	self.postRegistro = function(params){
 		var data = {
 			url: '/tipoAlquiler/post',

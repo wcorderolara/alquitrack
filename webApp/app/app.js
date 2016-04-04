@@ -15,3 +15,4 @@ angular.module('alquitrackApp', [
     'ui-notification',
     'ngFileUpload'
 ]);
+

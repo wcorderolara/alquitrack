@@ -119,6 +119,22 @@ exports.getUsuario = function(req, res){
 						where:{
 							status: 1
 						}
+					},
+					{
+						model: models.Pais,
+						attributes: ['id', 'descripcion'],
+						where: {
+							status: 1
+						},
+						include:[
+							{
+								model: models.monedaPais,
+								attributes: ['id', 'descripcion', 'simbolo'],
+								where:{
+									status: 1
+								}
+							}
+						]
 					}
 				]
 			},

@@ -296,6 +296,41 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.pedidos',{
+                        url: '/pedidos',
+                        templateUrl: 'views/operaciones/principals/principalPedido.html',
+                        controller: 'pedidoController',
+                        ncyBreadcrumb: {
+                            label: 'Pedidos Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/paises/paisService.js',
+                                            'modules/sedes/sedeService.js',
+                                            'modules/cliente/clienteService.js',
+                                            'modules/empleado/empleadoService.js',
+                                            'modules/tractor/tractorService.js',
+                                            'modules/tipoAlquiler/tipoAlquilerService.js',
+
+                                            'modules/pedidos/pedidoService.js',
+                                            'modules/pedidos/pedidoController.js',
+                                            'modules/pedidos/modalClienteController.js',
+                                            'modules/pedidos/modalTractorController.js',
+                                            
+                                            'app/directives/estadoPedido.js',
+                                            'app/filters/monedaFilter.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/profile.html',
@@ -313,85 +348,6 @@ angular.module('alquitrackApp')
                                         files: [                                            
                                             'modules/dashboard/dashboardService.js',
                                             'modules/dashboard/dashboardController.js'
-                                        ]
-                                    })
-                                }
-                            ]
-                        }
-                    })
-                    .state('app.propiedades',{
-                        url: '/propiedades',
-                        templateUrl: 'views/listings.html',                        
-                        ncyBreadcrumb: {
-                            label: 'Listado Propiedades'
-                        },
-                        resolve: {
-                            deps: [
-                                '$ocLazyLoad',
-                                function($ocLazyLoad){
-                                    return $ocLazyLoad.load({
-                                        serie: true,
-                                        files: [
-                                            'lib/jquery/fullcalendar/moment.min.js',
-                                            'lib/jquery/fullcalendar/fullcalendar.js',
-                                            'lib/main_utilities.js',
-                                            'lib/main_calendar.js',
-                                            'listings/listingsService.js',
-                                            'listings/listingsController.js'
-                                        ]
-                                    })
-                                }
-                            ]
-                        }
-                    })
-                    .state('app.nuevaPropiedad', {
-                        url: '/agregar/propiedad',
-                        templateUrl: 'views/new_property.html',
-                        // controller: 'propertyController',
-                        ncyBreadcrumb:{
-                            label: 'Publica tu nueva propiedad'
-                        },
-                        resolve: {
-                            deps: [
-                                '$ocLazyLoad',
-                                function($ocLazyLoad){
-                                    return $ocLazyLoad.load({
-                                        serie: true,
-                                        files: [
-                                            'lib/jquery/fuelux/wizard/wizard-custom.js',
-                                            'property/propertyService.js',
-                                            'property/propertyController.js',
-                                            'property/propertyStepOneController.js',
-                                            'property/propertyStepTwoController.js',
-                                            'property/propertyStepThreeController.js',
-                                            'property/propertyStepFourController.js',
-                                            'property/propertyStepFiveController.js'
-                                        ]
-                                    })
-                                }
-                            ]
-                        }
-                    })
-                    .state('app.agentes', {
-                        url: '/agentes',
-                        templateUrl: 'views/agents.html',
-                        ncyBreadcrumb: {
-                            label: 'Agentes'
-                        },
-                        resolve: {
-                            deps: [
-                                '$ocLazyLoad',
-                                function($ocLazyLoad){
-                                    return $ocLazyLoad.load({
-                                        serie: true,
-                                        files: [
-                                            'lib/jquery/fullcalendar/moment.min.js',
-                                            'lib/jquery/fullcalendar/fullcalendar.js',
-                                            'lib/main_utilities.js',
-                                            'lib/main_calendar.js',
-                                            'generalServices/generalServices.js',
-                                            'agents/agentService.js',
-                                            'agents/agentController.js'
                                         ]
                                     })
                                 }
@@ -1214,7 +1170,7 @@ angular.module('alquitrackApp')
                 //         ncyBreadcrumb: {
                 //             label: 'BeyondAdmin Asp.Net MVC Version'
                 //         }
-                //     });
+                //     });      
             }
         ]
     );

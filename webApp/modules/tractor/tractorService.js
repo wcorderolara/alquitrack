@@ -19,7 +19,7 @@ alquitrackApp.service('tractorService', function ($http, $q, baseService, authSe
 
 		var result = base.get(data);
 		return result;
-	}
+	}	
 
 	self.postRegistro = function(params){
 		var data = {

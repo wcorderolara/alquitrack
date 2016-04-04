@@ -14,8 +14,12 @@ alquitrackApp.controller('rolesController', function($scope,$window, userService
 			console.log(data);
 			datosGenerales = data.data;
 			factory.value = {
+				empleado: datosGenerales.EmpleadoId,
+				rolId: datosGenerales.RolId,
+				usuarioId: datosGenerales.id,
 				rol: datosGenerales.Rol.descripcion,
 				paisId: datosGenerales.Empleado.PaiId,
+				monedaPais: datosGenerales.Empleado.Pai.monedaPai.simbolo,
 				SedeId: datosGenerales.Empleado.SedeId,
 				Sede: datosGenerales.Empleado.Sede.descripcion
 			}

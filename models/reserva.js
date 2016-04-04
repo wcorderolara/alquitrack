@@ -22,6 +22,9 @@ module.exports = function(sequelize, DataTypes){
 			associate: function(models){
 				Reserva.belongsTo(models.Cliente, {foreignKey: {allowNull: false}});
 				Reserva.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
+				Reserva.belongsTo(models.estadoPedido, {foreignKey: {allowNull:true}});
+				Reserva.belongsTo(models.Empleado, {foreignKey: {allowNull:true}});
+
 				Reserva.hasMany(models.reservaDetalle);
 			}
 		},

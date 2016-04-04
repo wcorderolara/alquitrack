@@ -1,4 +1,4 @@
-/*#region Animations*/
+3753/*#region Animations*/
 @-webkit-keyframes borderPulse {
   15% {
     opacity: 1;
@@ -327,7 +327,8 @@
 .palegreen {
   color: #a0d468 !important;
 }
-.success {
+.success,
+.Facturado {
   color: #53a93f !important;
 }
 .ui-notification.success{
@@ -343,7 +344,8 @@
 }
 .yellow,
 .Suspendido,
-.Reparacion {
+.Reparacion,
+.Rechazado {
   color: #ffce55 !important;
 }
 .warning {
@@ -363,7 +365,8 @@
 }
 .red,
 .Despedido,
-.Retirado {
+.Retirado,
+.Cancelado {
   color: #df5138 !important;
 }
 .pink {
@@ -1085,6 +1088,11 @@
 }
 .margin-bottom-50 {
   margin-bottom: 50px !important;
+}
+
+.tractor-selected{
+  border: 3px solid #a0d468 !important;
+  padding: 5px;
 }
 /*#region Fonts*/
 .font-10 {
@@ -3749,7 +3757,7 @@ a:active {
 }
 .databox .databox-text {
   display: block;
-  font-size: 11px;
+  font-size: 14px;
   margin: 4px 0 2px;
   position: relative;
 }

@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes){
 			associate: function(models){
 				tipoAlquiler.hasMany(models.facturaDetalle);
 				tipoAlquiler.hasMany(models.precioEquipo);
+				tipoAlquiler.hasMany(models.reservaDetalle);
 			}
 		},
 		freezeTableName: true,

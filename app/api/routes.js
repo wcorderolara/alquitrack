@@ -42,6 +42,13 @@ var routesController = function(server){
 	server.put("/estadoEquipo/put/:id", auth, controllers.estadoEquipo.putEstadoEquipo);
 	server.put("/estadoEquipo/delete/:id", auth, controllers.estadoEquipo.deleteEstadoEquipo);
 
+	//Estados Pedido
+	server.get("/estadoPedido/get/all", auth, controllers.estadoPedido.getEstadosPedido);
+	server.get("/estadoPedido/get/:id", auth, controllers.estadoPedido.getEstadoPedido);
+	server.post("/estadoPedido/post", auth, controllers.estadoPedido.postEstadoPedido);
+	server.put("/estadoPedido/put/:id", auth, controllers.estadoPedido.putEstadoPedido);
+	server.put("/estadoPedido/delete/:id", auth, controllers.estadoPedido.deleteEstadoPedido);
+
 	//Estados Empleado
 	server.get("/estadoEmpleado/get/all", auth, controllers.estadoEmpleado.getEstadosEmpleado);
 	server.get("/estadoEmpleado/get/:id", auth, controllers.estadoEmpleado.getEstadoEmpleado);
@@ -115,6 +122,7 @@ var routesController = function(server){
 	//Tipos de Alquiler
 	server.get("/tipoAlquiler/get/all", auth, controllers.tipoAlquiler.getTiposAlquiler);
 	server.get("/tipoAlquiler/get/:id", auth, controllers.tipoAlquiler.getTipoAlquiler);
+	server.get("/tipoAlquiler/get/tractor/:tipoEquipoId", auth, controllers.tipoAlquiler.getTipoAlquilerTractor);
 	server.post("/tipoAlquiler/post", auth, controllers.tipoAlquiler.postTipoAlquiler);
 	server.put("/tipoAlquiler/put/:id", auth, controllers.tipoAlquiler.putTipoAlquiler);
 	server.put("/tipoAlquiler/delete/:id", auth, controllers.tipoAlquiler.deleteTipoAlquiler);

@@ -1,0 +1,118 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h1 class="row-title before-yellow">
+		<i class="fa fa-edit yellow"></i>
+		Crear nuevo Pedido
+	</h1>
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					
+					<div class="col-lg-12 col-sm-12 col-xs-12 margin-bottom-20">
+						<form class="form-inline" role="form">
+
+							<div class="form-group col-md-8">
+								<label>Cliente Alquitrack</label>
+								<input ng-model="clienteSelected" type="text" class="form-control" style="width:85% !important" 
+								       placeholder="Busqueda clientes por nombre"
+								       typeahead="cliente for cliente in listClientes | filter:$viewValue | limitTo:10"
+								       typeahead-on-select="getInfoCliente(clienteSelected)">								       
+							</div>
+							
+							<button class="btn btn-darkorange btn-md" 
+									ng-click="addCliente('nuevo')">
+								<i class="fa fa-plus-circle"></i> Crear nuevo Cliente
+							</button>
+
+						</form>
+					</div>
+
+					<div class="col-lg-12 col-sm-12 col-xs-12 margin-bottom-20">
+						<form class="form-inline" role="form">
+							<div class="form-group col-md-2">
+								<label>Nit: </label>
+								<input type="text" class="form-control" style="width:70% !important"
+									   ng-model="infoCliente.NitCliente">
+							</div>
+
+							<div class="form-group col-md-5">
+								<label>Cliente: </label>
+								<input class="form-control" type="text" style="width:85% !important"
+								ng-model="infoCliente.nombreCliente"/>
+							</div>
+
+							<div class="form-group col-md-5">
+								<label>Direccion: </label>
+								<input class="form-control" type="text" style="width:85% !important"
+								ng-model="infoCliente.direccionCliente"/>
+							</div>
+						</form>
+					</div>
+
+
+					<div class="clearfix" style="padding: 0">
+						<button class="btn btn-warning btn-md margin-bottom-20 clearfix" 
+								ng-click="agregarDetallePedido('nuevo')">
+							<i class="fa fa-plus-circle"></i> Agregar detalle Pedido
+						</button>
+						<button class="btn btn-primary btn-md margin-bottom-20 clearfix" 
+								ng-click="crearPedido()">
+							<i class="fa fa-floppy-o"></i>Crear pedido
+						</button>
+						<button class="btn btn-danger btn-md margin-bottom-20 clearfix" 
+								ng-click="cancelarPedido()">
+							<i class="fa fa-times"></i>Cancelar
+						</button>
+					</div>
+
+					<div ng-show="listItemsDetalle.length>0" class="table-scrollable">
+						<table class="table table-striped">
+							<thead>
+								<th style="width: 200px !important">Tractor</th>
+								<!-- <th>Descripci&oacute;n</th> -->
+								<th style="width: 150px !important">Hor&oacute;metro</th>
+								<th style="width: 150px !important">Fecha despacho</th>
+								<th style="width: 150px !important">Fecha regreso</th>
+
+								<th style="width: 150px !important">
+									Tipo alquiler
+								</th>
+								<th style="width: 150px !important">
+									Horas
+								</th>
+
+								<th style="width: 150px !important">
+									Sub Total 
+								</th>								
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listItemsDetalle.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+									<td>
+										{{item.nombre}}
+									</td>
+									<!-- <td>{{item.descripcion}}</td> -->
+									<td>{{item.horometro}}</td>
+									<td>{{item.fechaDespacho}}</td>
+									<td>{{item.fechaRegreso}}</td>
+									
+									<td >
+										{{item.tipoAlquiler}}
+									</td>
+									<td>
+										{{item.horasAlquiler}}
+									</td>
+									<td>
+										{{item.subTotal | monedaFilter: moneda }}
+									</td>								
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
