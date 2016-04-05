@@ -30,6 +30,14 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.TEXT,
 			allowNull: true
 		},
+		horometro: {
+			type: DataTypes.BIGINT(11),
+        	allowNull: true
+		},
+		capacidadPeso:{
+			type: DataTypes.BIGINT(11),
+        	allowNull: true
+		}
 	},{
 		classMethods: {
 			associate: function(models){

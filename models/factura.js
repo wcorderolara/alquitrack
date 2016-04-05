@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		correlativo: {
+			type:DataTypes.BIGINT(11),
+			allowNull: true
 		}
 	},{
 		classMethods: {
@@ -31,6 +35,8 @@ module.exports = function(sequelize, DataTypes){
 				Factura.hasMany(models.facturaDetalle);
 				Factura.hasMany(models.payProtection);
 				Factura.hasMany(models.bitacoraTractor);
+				Factura.hasMany(models.Caja);
+				Factura.hasMany(models.cuentaCorriente);
 			}
 		},
 		freezeTableName: true,

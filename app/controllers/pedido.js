@@ -1,5 +1,6 @@
 var models = require('../../models');
 var service = require('../services/service');
+var moment = require('moment');
 
 exports.getPedidos = function(req, res){
 	models.Reserva.findAll({
@@ -212,7 +213,7 @@ exports.postPedido = function(req, res){
 	models.Reserva.create({
 		observaciones: req.body.observaciones || null,
 		adelanto: req.body.adelanto || null,
-		fechaReservacion: req.body.fechaReservacion,
+		fechaReservacion: moment(new Date(req.body.fechaReservacion)).format("YYYY-MM-DD"),
 		ClienteId: req.body.ClienteId,
 		SedeId: req.body.SedeId,
 		estadoPedidoId: req.body.estadoPedidoId || 1,
@@ -222,7 +223,7 @@ exports.postPedido = function(req, res){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
 		}else{
-			insertPedidoDetalle(res, JSON.parse(req.body.detalleReserva), rgistro.id);
+			insertPedidoDetalle(res, JSON.parse(req.body.detalleReserva), registro.id);
 			service.sendJSONresponse(res, 200, {"type":true, "message": "Registro creado exitosamente"})
 		}
 	})
@@ -232,14 +233,13 @@ exports.postPedido = function(req, res){
 function insertPedidoDetalle (res, arrayTractores, reservaId){
 	var _arrayTractores = [];
 	_arrayTractores = arrayTractores;
-
 	arrayTractores.forEach(function (item){
 		models.reservaDetalle.create({
 			ReservaId: reservaId,
-			TractorId: item.tractorId,
+			TractorId: item.id,
 			tipoAlquilerId: item.tipoAlquilerId,
-			fechaSale: item.fechaDespacho,
-			fechaRegresa: item.fechaRegreso,
+			fechaSale: moment(new Date(item.fechaDespacho)).format("YYYY-MM-DD"),
+			fechaRegresa: moment(new Date(item.fechaRegreso)).format("YYYY-MM-DD"),
 			subTotal: item.subTotal,
 			cantidadHoras: item.horasAlquiler,
 			observacion: item.observacion || null,
@@ -252,7 +252,7 @@ function insertPedidoDetalle (res, arrayTractores, reservaId){
 					estadoEquipoId: 2
 				},{
 					where:{
-						id: item.tractorId,
+						id: item.id,
 					}
 				}).then(function (_tractor){
 					if(!_tractor){

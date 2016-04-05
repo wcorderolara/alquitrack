@@ -9,7 +9,23 @@ module.exports = function(sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
-		}
+		},
+		fechaSale:{
+	        type: DataTypes.DATEONLY,
+	        allowNull: true
+	   	},
+	   	fechaRegresa:{
+	   		type: DataTypes.DATEONLY,
+        	allowNull: true
+	   	},
+	   	subTotal:{
+	   		type: DataTypes.DECIMAL(15,2),
+	   		allowNull: true
+	   	},
+	   	cantidadHoras: {
+	   		type: DataTypes.INTEGER,
+	   		allowNull: true
+	   	}
 
 	},{
 		classMethods:{

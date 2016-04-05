@@ -68,3 +68,49 @@ values('Persona Individual',1,NOW(),NOW());
 select * from estadoPedido;
 -- estadoPedido
 select * from reserva;
+select * from reservadetalle;
+
+select * from factura;
+select * from facturadetalle;
+
+select * from cliente;
+
+
+
+select * from tipoalquiler;
+
+
+select * from tipoequipo;
+select * from precioequipo;
+
+select * from tractor;
+
+select * from monedapais;
+
+
+
+
+
+
+
+
+
+
+
+
+select * from reserva;
+
+select * from reservadetalle;
+
+
+select * from tractor;
+
+
+select * from precioequipo;
+
+select * from estadoequipo;
+
+update reserva set status = 0 where id in (1,2,3,4,5,6,7,8,9,10);
+update reservadetalle set status = 0 where id in (1,2,3,4,5,6,7,8,9,10);
+update tractor set estadoEquipoId = 1 where id =1;
+

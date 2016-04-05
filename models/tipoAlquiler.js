@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		horasMinimas:{
+			type: DataTypes.INTEGER,
+			allowNull: true
 		}
 	},{
 		classMethods: {

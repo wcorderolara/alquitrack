@@ -1,7 +1,7 @@
 alquitrackApp.directive('estadoPedido', function(){
 	return {
 		restrict: 'EA',
-		controller: 'pedidoController',
+		controller: 'verPedidosController',
 		scope:{
 			estadoInfo: '=estado'
 		},

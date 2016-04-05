@@ -35,19 +35,19 @@
 							<div class="form-group col-md-2">
 								<label>Nit: </label>
 								<input type="text" class="form-control" style="width:70% !important"
-									   ng-model="infoCliente.NitCliente">
+									   ng-model="infoCliente.NitCliente" disabled>
 							</div>
 
 							<div class="form-group col-md-5">
 								<label>Cliente: </label>
 								<input class="form-control" type="text" style="width:85% !important"
-								ng-model="infoCliente.nombreCliente"/>
+								ng-model="infoCliente.nombreCliente" disabled/>
 							</div>
 
 							<div class="form-group col-md-5">
 								<label>Direccion: </label>
 								<input class="form-control" type="text" style="width:85% !important"
-								ng-model="infoCliente.direccionCliente"/>
+								ng-model="infoCliente.direccionCliente" disabled/>
 							</div>
 						</form>
 					</div>
@@ -112,7 +112,7 @@
 			                        <td colspan="5" class="invisible bg-snow"></td>
 			                        <td class="text-center"><strong>Total</strong></td>
 			                        <td class="text-center ">
-			                        	<strong>{{totalPedido | currency: moneda</strong>
+			                        	<strong>{{totalPedido | currency: moneda}}</strong>
 			                        </td>
 			                    </tr>
 							</tbody>

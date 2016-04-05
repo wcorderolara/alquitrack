@@ -1,4 +1,4 @@
-alquitrackApp.controller('verPerdidosController', function($scope, $window, $location,
+alquitrackApp.controller('verPedidosController', function($scope, $window, $location,
 											    pedidoService,ShareData, blockUI, Notification,
 											    $modal){
 
@@ -7,7 +7,16 @@ alquitrackApp.controller('verPerdidosController', function($scope, $window, $loc
 	var factory = ShareData;
 	var info = factory.value;
 
+	// no se borran
+	$scope.viewby = 10;
+	$scope.totalItems = 0;
+	$scope.currentPage = 1;
+	$scope.itemsPerPage = $scope.viewby;
+	$scope.maxSize = 5;
+	// no se borran
+
 	$scope.listItems = [];
+
 
 	$scope.nuevoRegistro = function(){
 		$window.location = '#/app/pedidos';
@@ -52,7 +61,7 @@ alquitrackApp.controller('verPerdidosController', function($scope, $window, $loc
 
 		var modalInstance = $modal.open({
 			windowClass: '',
-			templateUrl:'views/modals/catalogoTractores.html',
+			templateUrl:'crudForm.html',
 			controller: 'detallePedidoController',
 			size: 'lg',
 			resolve: {
@@ -79,7 +88,7 @@ alquitrackApp.controller('detallePedidoController', function ($scope, $modalInst
 	service.getDetalleRegistro(model.id).then(
 		function (data){
 			$scope.listItemsDetalle = data.data
-
+			console.log(data.data);
 			$scope.listItemsDetalle.forEach(function (item){
 				$scope.totalDetallePedido = parseFloat($scope.totalDetallePedido) + parseFloat(item.subTotal);
 			})

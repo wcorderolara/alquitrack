@@ -1,6 +1,6 @@
 
 module.exports = function(sequelize, DataTypes){
-	var tipoPago = sequelize.define('tipoPago', {
+	var tipoOperacion = sequelize.define('tipoOperacion', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false
@@ -10,15 +10,14 @@ module.exports = function(sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		classMethods: {
+		classMethods:{
 			associate: function(models){
-				tipoPago.hasMany(models.Factura);
-				tipoPago.hasMany(models.Caja);
+				tipoOperacion.hasMany(models.Caja);
 			}
 		},
 		freezeTableName: true,
-		tableName: 'tipoPago'
+		tableName: 'tipoOperacion'
 	});
 
-	return tipoPago;
+	return tipoOperacion;
 }

@@ -92,13 +92,13 @@ alquitrackApp.controller('pedidoController', function($scope, $window, $location
 		var params = {
 			observaciones: null,
 			adelanto: null,
-			fechaReservacion: moment(new Date()).format('L'),
+			fechaReservacion: moment(new Date()).format('YYYY-MM-DD'),
 			ClienteId: $scope.infoCliente.id,
 			SedeId: info.SedeId,
 			estadoPedidoId: 1,
 			EmpleadoId: info.empleado,
 			status: 1,
-			detalleReserva: JSON.stringify($scope.listItemsDetalle);
+			detalleReserva: JSON.stringify($scope.listItemsDetalle)
 		}
 
 		service.postRegistro(params).then(
@@ -147,9 +147,8 @@ alquitrackApp.controller('pedidoController', function($scope, $window, $location
 
 			objResponse.forEach(function (item){
 				$scope.listItemsDetalle.push(item);
-				%scope.totalPedido = parseFloat($scope.totalPedido) + parseFloat(item.subTotal);
+				$scope.totalPedido = parseFloat($scope.totalPedido) + parseFloat(item.subTotal);
 			})
-			// console.log($scope.listItemsDetalle);
 		})
 	}
 
@@ -291,8 +290,8 @@ alquitrackApp.controller('catalogoTractoresPedidoController', function ($scope, 
 			id: item.id, //es el Id del Tractor
 			nombre: item.nombre,
 			horometro: item.horometro,
-			fechaDespacho: item.fechaDespacho,
-			fechaRegreso: item.fechaRegreso,
+			fechaDespacho: moment(item.fechaDespacho).format("L"),
+			fechaRegreso: moment(item.fechaRegreso).format("L"),
 			tipoAlquilerId: item.tipoAlquilerId,
 			tipoAlquiler: item.tipoAlquiler,
 			horasAlquiler: item.totalHorasAlquilado,

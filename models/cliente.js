@@ -53,6 +53,8 @@ module.exports = function(sequelize, DataTypes){
 
 				Cliente.hasMany(models.Factura);
 				Cliente.hasMany(models.payProtection);
+				Cliente.hasMany(models.Caja);
+				Cliente.hasMany(models.cuentaCorriente);
 				// Cliente.hasMany(models.reciboGenerado);
 				Cliente.hasMany(models.Reserva);
 				Cliente.hasMany(models.bitacoraTractor);
