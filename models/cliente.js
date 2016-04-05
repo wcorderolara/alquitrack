@@ -58,6 +58,7 @@ module.exports = function(sequelize, DataTypes){
 				// Cliente.hasMany(models.reciboGenerado);
 				Cliente.hasMany(models.Reserva);
 				Cliente.hasMany(models.bitacoraTractor);
+				Cliente.hasMany(models.Recibo);
 			}
 		},
 		freezeTableName: true,

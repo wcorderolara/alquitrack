@@ -176,6 +176,13 @@ var routesController = function(server){
 	server.put("/precioEquipo/put/:id", auth, controllers.precioEquipo.putPrecioEquipo);
 	server.put("/precioEquipo/delete/:id", auth, controllers.precioEquipo.deletePrecioEquipo);
 
+	//Correlativos Factura
+	server.get("/correlativosFactura/get/all", auth, controllers.correlativosFactura.getCorrelativosFactura);
+	server.get("/correlativosFactura/get/:id", auth, controllers.correlativosFactura.getCorrelativoFactura);
+	server.post("/correlativosFactura/post", auth, controllers.correlativosFactura.postCorrelativoFactura);
+	server.put("/correlativosFactura/put/:id", auth, controllers.correlativosFactura.putCorrelativoFactura);
+	server.put("/correlativosFactura/delete/:id", auth, controllers.correlativosFactura.deleteCorrelativoFactura);
+
 	//Reservas
 	server.get("/reserva/get/all/:SedeId", auth, controllers.reserva.getReservas);
 	server.get("/reserva/get/:id", auth, controllers.reserva.getReserva);

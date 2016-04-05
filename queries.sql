@@ -132,6 +132,7 @@ values('Rechazado',1,NOW(),NOW());
 
 Insert into estadoPedido (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Cancelado',1,NOW(),NOW());
+
 -- tipo Alquiler
 insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
 values('diario',1,NOW(),NOW(),8);
@@ -144,6 +145,28 @@ values('mensual 176',1,NOW(),NOW(),176);
 
 insert into tipoalquiler (`descripcion`,`status`,`createdAt`,`updatedAt`, `horasMinimas`)
 values('mensual 200',1,NOW(),NOW(),200);
+
+
+-- tipo Pago
+insert into tipopago (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('efectivo',1,NOW(),NOW());
+
+insert into tipopago (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('cheque',1,NOW(),NOW());
+
+--tipo Operacion
+
+insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Pago de Contado',1,NOW(),NOW());
+
+insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Credito',1,NOW(),NOW());
+
+insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Abono',1,NOW(),NOW());
+
+insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Pago Total',1,NOW(),NOW());
 
 
 

@@ -357,6 +357,30 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.correlativosFactura',{
+                        url: '/correlativosFactura',
+                        templateUrl: 'views/cruds/correlativosFactura.html',
+                        controller: 'correlativosFacturaController',
+                        ncyBreadcrumb: {
+                            label: 'correlativos Factura Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/pedidos/pedidoService.js',
+                                            'modules/correlativosFactura/correlativosFacturaService.js',
+                                            'modules/correlativosFactura/correlativosFacturaController.js',
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/profile.html',

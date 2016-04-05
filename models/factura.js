@@ -37,6 +37,7 @@ module.exports = function(sequelize, DataTypes){
 				Factura.hasMany(models.bitacoraTractor);
 				Factura.hasMany(models.Caja);
 				Factura.hasMany(models.cuentaCorriente);
+				Factura.hasMany(models.Recibo);
 			}
 		},
 		freezeTableName: true,

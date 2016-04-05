@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes){
 		classMethods:{
 			associate: function(models){
 				tipoOperacion.hasMany(models.Caja);
+				tipoOperacion.hasMany(models.Recibo);
 			}
 		},
 		freezeTableName: true,

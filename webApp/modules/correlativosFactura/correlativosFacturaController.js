@@ -1,8 +1,8 @@
-alquitrackApp.controller('precioEquipoController', function($scope, $window, $location,
-											    precioEquipoService, ShareData, blockUI, Notification,
+alquitrackApp.controller('correlativosFacturaController', function($scope, $window, $location,
+											    correlativosFacturaService, ShareData, blockUI, Notification,
 											    $modal){
 
-	var service = precioEquipoService;
+	var service = correlativosFacturaService;
 	
 	$scope.listItems = [];
 	$scope.viewby = 10;
@@ -16,7 +16,7 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 		$scope.currentPage = 1; //reset to first paghe
 	}
 
-	$scope.getPreciosEquipo = function(){
+	$scope.getCorrelativosFactura = function(){
 		service.getRegistros().then(
 			function (data){
 				$scope.listItems = data.data;
@@ -25,14 +25,14 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 		)
 	}	
 
-	$scope.getPreciosEquipo();
+	$scope.getCorrelativosFactura();
 
 	$scope.openModal = function(action, model){
 		var _model = model || {};
 		var modalInstance = $modal.open({
 			windowClass: '',
 			templateUrl: 'crudForm.html',
-			controller: 'crudPrecioEquipoController',
+			controller: 'crudCorrelativosFacturaController',
 			size: 'md',
 			resolve: {
 				action: function(){
@@ -47,7 +47,7 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 		modalInstance.result.then(function (data){
 			if(data.type){
 				Notification.success(data.message);
-				$scope.getPreciosEquipo();
+				$scope.getCorrelativosFactura();
 			}else{
 				Notification.error(data.message);
 				return false;
@@ -60,7 +60,7 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 		var modalInstance = $modal.open({
 			windowClass: '',
 			templateUrl: 'deleteRegistro.html',
-			controller: 'deletePrecioEquipoController',
+			controller: 'deleteCorrelativosFacturaController',
 			size: 'md',
 			resolve: {				
 				model: function(){
@@ -72,7 +72,7 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 		modalInstance.result.then(function (data){
 			if(data.type){
 				Notification.success(data.message);
-				$scope.getPreciosEquipo();
+				$scope.getCorrelativosFactura();
 			}else{
 				Notification.error(data.message);
 				return false;
@@ -82,8 +82,8 @@ alquitrackApp.controller('precioEquipoController', function($scope, $window, $lo
 
 })
 
-alquitrackApp.controller('deletePrecioEquipoController', function($scope, $modalInstance, model, precioEquipoService){
-	var service = precioEquipoService;
+alquitrackApp.controller('deleteCorrelativosFacturaController', function($scope, $modalInstance, model, correlativosFacturaService){
+	var service = correlativosFacturaService;
 	$scope.registro = model;
 
 	$scope.deleteRegistro = function(){
@@ -99,24 +99,20 @@ alquitrackApp.controller('deletePrecioEquipoController', function($scope, $modal
     }
 })
 
-alquitrackApp.controller('crudPrecioEquipoController', function ($scope, $modalInstance, action, model,
-															precioEquipoService, paisService, tipoAlquilerService, 
-															tipoEquipoService){
-	var service = precioEquipoService;
+alquitrackApp.controller('crudCorrelativosFacturaController', function ($scope, $modalInstance, action, model,
+															correlativosFacturaService, paisService){
+	var service = correlativosFacturaService;
 	var paisService = paisService;
-	var alquilerService = tipoAlquilerService;
-	var equipoService = tipoEquipoService;
 
 	$scope.listPaises = [];
-	$scope.listAlquileres = [];
-	$scope.listEquipos = [];
 
 	$scope.state = action;
 	$scope.title = $scope.state == 'nuevo' ? 'Crear nuevo Registro' : 'Editar Registro';
 	$scope.textButton = $scope.state == 'nuevo' ? 'Agregar' : 'Editar';
-	$scope.precio = model.precio || "";
-	$scope.tipoEquipoId = $scope.state == 'nuevo' ? "" : model.tipoEquipoId;
-	$scope.tipoAlquilerId = $scope.state == 'nuevo' ? "" : model.tipoAlquilerId;
+	
+	$scope.serie = model.serie || "";
+	$scope.resolucion = model.resolucion || "";
+	$scope.cantidadDisponibles = model.cantidadDisponibles || "";
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
 
 	paisService.getPaises().then(
@@ -125,31 +121,19 @@ alquitrackApp.controller('crudPrecioEquipoController', function ($scope, $modalI
 		}
 	)
 
-	alquilerService.getRegistros().then(
-		function (data){
-			$scope.listAlquileres = data.data;
-		}
-	)
-
-	equipoService.getRegistros().then(
-		function (data){
-			$scope.listEquipos = data.data;
-		}
-	)
-
     $scope.postRegistro = function(){
     	$scope.formError = "";
 
-    	if(!$scope.precio || !$scope.tipoEquipoId || !$scope.tipoAlquilerId || !$scope.PaiId){
+    	if(!$scope.serie || !$scope.resolucion || !$scope.cantidadDisponibles || !$scope.PaiId){
     		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
 
     	if($scope.state == 'nuevo'){
     		var params = {
-    			precio: $scope.precio,
-    			tipoEquipoId: $scope.tipoEquipoId,
-    			tipoAlquilerId: $scope.tipoAlquilerId,
+    			precio: $scope.serie,
+    			resolucion: $scope.resolucion,
+    			cantidadDisponibles: $scope.cantidadDisponibles,
     			PaiId: $scope.PaiId
     		}
     		service.postRegistro(params).then(
@@ -161,8 +145,8 @@ alquitrackApp.controller('crudPrecioEquipoController', function ($scope, $modalI
     		var params = {
     			id: model.id,
     			precio: $scope.precio,
-    			tipoEquipoId: $scope.tipoEquipoId,
-    			tipoAlquilerId: $scope.tipoAlquilerId,
+    			resolucion: $scope.resolucion,
+    			cantidadDisponibles: $scope.cantidadDisponibles,
     			PaiId: $scope.PaiId
     		}
     		service.putRegistro(params).then(
