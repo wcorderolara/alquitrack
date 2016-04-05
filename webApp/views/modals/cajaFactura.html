@@ -1,0 +1,161 @@
+<div class="modal-header">
+  <h3 class="modal-title blue"></i>Detalle del Pedido #{{pedido}}</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="well invoice-container">
+				<div class="row">
+	                <div class="col-xs-6">
+	                    <h3 class="">
+	                        <i class="fa fa-th-list"></i>
+	                        Pedido # {{numeroPedido}}
+	                    </h3>
+
+	                </div>
+	                <div class="col-xs-6 text-right">
+	                    <h1>
+	                        <a href="">
+	                            <img src="assets/img/logo-inverted.png" alt="" style="width:200px; height:45px; margin-right:-17px" />
+	                        </a>
+	                    </h1>
+	                    <div>
+	                        <span>Fecha:</span>
+	                        <span>{{fechaHoy}}</span>
+	                    </div>
+	                    <div class="horizontal-space"></div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-xs-5">
+	                    <div class="panel panel-default">
+	                        <div class="panel-heading">
+	                            <h6>Empleado: {{item.Empleado.nombre}} {{item.Empleado.apellido}}</h6>
+	                        </div>
+	                        <div class="panel-body">
+	                            <ul>
+	                                <li>
+	                                    {{item.Cliente.nombre}} {{item.Cliente.apellido}}
+	                                </li>
+	                                <li>{{item.Cliente.numeroTributacion}}</li>
+	                                <li>{{item.Cliente.direccion}}</li>
+	                                <li>{{item.Cliente.telefono}}</li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div> <!-- / end client details section -->
+	            <table class="table table-bordered table-striped">
+	                <thead>
+	                    <tr>
+	                        <th><h5 class="no-margin-bottom">Tractor</h5></th>
+	                        <th><h5 class="no-margin-bottom">Fecha Despacho</h5></th>
+	                        <th><h5 class="no-margin-bottom text-center">Fecha Regreso</h5></th>
+	                        <th><h5 class="no-margin-bottom text-center">Tipo Alquiler</h5></th>
+	                        <th><h5 class="no-margin-bottom text-center">Sub Total</h5></th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr ng-repeat="item in listItemsDetalle">
+	                        <td>{{item.Tractor.nombre}}</td>
+	                        <td class="text-center">{{item.fechaSale}}</td>
+	                        <td class="text-center">{{item.fechaRegresa}}</td>
+	                        <td class="text-center">{{item.tipoAlquiler.descripcion}}</td>
+	                        <td class="text-center">{{item.subTotal | currency: 'Q. '}}</td>
+	                    </tr>
+	                    
+	                    <tr>
+	                        <td colspan="3" class="invisible bg-snow"></td>
+	                        <td class="text-center"><strong>Total</strong></td>
+	                        <td class="text-center "><strong>{{item.totalFactura}}</strong></td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	            <hr class="wide" />
+	            <div class="row">
+	            	<form role="form">
+	            		<div class="col-lg-6 col-sm-12 col-xs-12">
+
+	            			<div class="form-group clearfix">
+								<label><strong>Tiene Cr&eacute;dito</strong></label>
+					            <div class="radio ">
+					                <label class="col-lg-5 col-sm-12 col-xs-12">
+					                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="1" 
+					                           class="form-control colored-blue">
+					                    <span class="text">Si </span>
+					                </label>
+					            </div>
+					            <div class="radio ">
+					                <label class="col-lg-5 col-sm-12 col-xs-12">
+					                    <input ng-model="tieneCredito" name="form-field-radio" type="radio" value="0"
+					                           class="form-control colored-blue">
+					                    <span class="text">No</span>
+					                </label>
+					            </div>
+					        </div>
+
+					        <div class="form-group">
+								<label>{{diasCreditoCliente}}</label>
+							</div>
+
+							<div class="form-group clearfix">
+						    	<select ng-model="tipoOperacionId" 
+						    			name="cmbOperacion" class="col-sm-12" 
+						      			id="cmbOperacion" 
+						      			ng-options="operacion.id as operacion.descripcion for operacion in listOperaciones">
+						      		<option value="">Tipo Operacion</option>
+						    	</select>
+						  	</div>
+
+						  	<div class="form-group clearfix">
+						    	<select ng-model="tipoPagoId" 
+						    			name="cmbPago" class="col-sm-12" 
+						      			id="cmbPago" 
+						      			ng-options="pago.id as pago.descripcion for pago in listPagos">
+						      		<option value="">Tipo Pago</option>
+						    	</select>
+						  	</div>
+
+	            		</div>
+	            		<div class="col-lg-6 col-sm-12 col-xs-12">
+	            			<div class="form-group" ng-show="tipoPagoId==2">
+		            			<span class="input-icon icon-right inverted">
+								  <input ng-model="numeroCheque" 				   
+								  		type="text" class="form-control" 
+								  	     placeholder="# de Cheque">
+								  <i class="fa fa-hashtag bg-warning"></i>
+								</span>
+							</div>
+
+	            			<div class="form-group" ng-show="tipoPagoId==2">
+		            			<span class="input-icon icon-right inverted">
+								  <input ng-model="fechaCheque" id="fechaDespacho" 				   
+								  		type="text" class="form-control" data-mask="99-99-9999"
+								  	     placeholder="Fecha Cheque (DD-MM-YYYY)">
+								  <i class="glyphicon glyphicon-calendar bg-warning"></i>
+								</span>
+							</div>
+
+							<div class="form-group">
+		            			<span class="input-icon icon-right inverted">
+								  <input ng-model="montoPagado" 				   
+								  		type="text" class="form-control" 
+								  	     placeholder="Cantidad a depositar">
+								  <i class="fa fa-money bg-warning"></i>
+								</span>
+							</div>
+	            		</div>
+	            	</form>
+	            </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="facturarPedido()">
+  		<i class="fa fa-times"></i>Facturar Pedido
+  	</button>
+  	<button class="btn btn-danger" ng-click="cancel($event)">
+  		<i class="fa fa-times"></i>Cancelar Operaci&oacute;n
+  	</button>
+</div>

@@ -11,7 +11,7 @@ exports.getPedidos = function(req, res){
 		include:[
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email'],
+				attributes: ['nombre','apellido', 'telefono', 'email','numeroTributacion','direccion'],
 				where:{
 					status: 1
 				}
@@ -51,13 +51,21 @@ exports.getPedidosBySede = function(req, res){
 	models.Reserva.findAll({
 		where: {
 			status: 1,
-			SedeId: req.params.SedeId
+			SedeId: req.params.SedeId,
+			estadoPedidoId: 1
 		},
-		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId', 'createdAt'],
 		include:[
 			{
+				model: models.reservaDetalle,
+				attributes: [ [ sequelize.fn('SUM', sequelize.col('subTotal')), 'Total' ] ],
+				where:{
+					status: 1
+				}
+			},
+			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email'],
+				attributes: ['nombre','apellido', 'telefono', 'email','numeroTributacion','direccion'],
 				where:{
 					status: 1
 				}
@@ -103,7 +111,7 @@ exports.getPedidosByEmpleado = function(req, res){
 		include:[
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email', 'id'],
+				attributes: ['nombre','apellido', 'telefono', 'email', 'id','numeroTributacion','direccion'],
 				where:{
 					status: 1
 				}
@@ -149,7 +157,7 @@ exports.getPedido = function(req, res){
 		include:[
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email'],
+				attributes: ['nombre','apellido', 'telefono', 'email','numeroTributacion','direccion'],
 				where:{
 					status: 1
 				}

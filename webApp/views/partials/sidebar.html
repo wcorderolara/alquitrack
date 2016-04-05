@@ -129,24 +129,44 @@
                                 <i class="menu-icon fa fa-shopping-cart"></i>
                                 <span class="menu-text">Ver Pedidos</span>
                             </a>
+                        </li>
+                        <li ui-sref-active="active">
                             <a ui-sref="app.pedidos">
                                 <i class="menu-icon fa fa-cart-plus"></i>
                                 <span class="menu-text">Crear Pedido</span>
                             </a>
                         </li>
-                    </ul>
-                    
+                    </ul>                    
+                </li>
 
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="app.facturacion">
-                        <span class="menu-text">Generar Factura</span>
+                <li>
+                    <a href="#" class="menu-dropdown">
+                        <span class="menu-text">
+                            Facturaci&oacute;n
+                        </span>
+                        <i class="menu-expand"></i>
                     </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="app.payprotection">
-                        <span class="menu-text">Contrase&ntilde;as de Pago</span>
-                    </a>
+                    <ul class="submenu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.facturacion">
+                                <span class="menu-text">Generar Factura</span>
+                            </a>
+                        </li>
+
+                        <li  ui-sref-active="active">
+                            <a ui-sref="app.verFacturas">
+                                <i class="menu-icon fa fa-cart-plus"></i>
+                                <span class="menu-text">ver Facturas</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.payprotection">
+                                <span class="menu-text">Contrase&ntilde;as de Pago</span>
+                            </a>
+                        </li>
+                        
+                    </ul>                    
                 </li>
             </ul>
         </li>

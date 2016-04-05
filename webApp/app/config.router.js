@@ -372,9 +372,35 @@ angular.module('alquitrackApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [
-                                            'modules/pedidos/pedidoService.js',
+                                            'modules/paises/paisService.js',
                                             'modules/correlativosFactura/correlativosFacturaService.js',
                                             'modules/correlativosFactura/correlativosFacturaController.js',
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.facturacion',{
+                        url: '/generar/facturas',
+                        templateUrl: 'views/operaciones/facturas.html',
+                        controller: 'facturaController',
+                        ncyBreadcrumb: {
+                            label: 'correlativos Factura Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/pedidos/pedidoService.js',
+                                            'modules/tipos/tipoOperacionService.js',
+                                            'modules/tipos/tipoPagoService.js',
+                                            'modules/facturacion/facturaService.js',
+                                            'modules/facturacion/facturaController.js',
                                         ]
                                     })
                                 }

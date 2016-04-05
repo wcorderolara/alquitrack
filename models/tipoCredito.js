@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
+		diasCredito:{
+			type: DataTypes.INTEGER,
+			allowNull: true
+		}
 	},{
 		classMethods: {
 			associate: function(models){

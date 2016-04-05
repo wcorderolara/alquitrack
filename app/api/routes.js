@@ -107,10 +107,10 @@ var routesController = function(server){
 
 	//Tipos de Pago
 	server.get("/tipoPago/get/all", auth, controllers.tipoPago.getTiposPago);
-	server.get("/tipoPago/get/:id", auth, controllers.tipoPago.getTipoPago);
-	server.post("/tipoPago/post", auth, controllers.tipoPago.postTipoPago);
-	server.put("/tipoPago/put/:id", auth, controllers.tipoPago.putTipoPago);
-	server.put("/tipoPago/delete/:id", auth, controllers.tipoPago.deleteTipoPago);
+	
+	//Tipo Operacion
+	server.get("/tipoOperacion/get/factura", auth, controllers.tipoPago.getTipoOperacionFactura);
+	server.get("/tipoOperacion/get/abono", auth, controllers.tipoPago.getTipoOperacionAbono);
 
 	//Tipos de Cliente
 	server.get("/tipoCliente/get/all", auth, controllers.tipoCliente.getTiposCliente);
