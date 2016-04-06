@@ -19,6 +19,94 @@ exports.postCaja = function(req, res){
 	})
 }
 
+exports.postAbonoCaja = function(req, res){
+	models.Caja.create({
+		monto: req.body.monto,
+		numeroCheque: req.body.numeroCheque,
+		fechaCobroCheque: req.body.fechaCobroCheque,
+		tipoOperacionId: req.body.tipoOperacionId,
+		tipoPagoId: req.body.tipoPagoId,
+		ClienteId: req.body.ClienteId,
+		FacturaId: req.body.FacturaId
+	}).then(function (registro){
+		if(!registro){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
+		}else{
+			if(req.body.tipoOperacionId == 4){
+				models.cuentaCorriente.update({
+					status: 0,
+					saldoFactura: 0
+				},{
+					where:{
+						FacturaId: req.body.FacturaId
+					}
+				}).then(function (cuenta){
+					if(!cuenta){
+						service.sendJSONresponse(res, 500, {"type":false, "message": "Error al actualizar la cuenta corriente"});
+					}else{
+						models.Factura.update({
+							status: 0
+						},{
+							where:{
+								id: req.body.FacturaId
+							}
+						}).then(function (factura){
+							if(!factura){
+								service.sendJSONresponse(res, 500, {"type":false, "message": "Error al actualizar la cuenta corriente"});
+							}else{
+								service.sendJSONresponse(res, 200, {"type":true, "message": "Abono creado exitosamente"})
+							}
+						});
+					}
+				});
+			}else if(req.body.tipoOperacionId == 3){
+				models.cuentaCorriente.findOne({
+					where:{
+						FacturaId: req.body.FacturaId
+					}
+				}).then(function (cuenta){
+					if( parseInt(cuenta.saldoFactura) == parseInt(req.body.monto) ){
+						cuenta.update({
+							status: 0,
+							saldoFactura: 0
+						}).then(function (_cuenta){
+							if(!_cuenta){
+								service.sendJSONresponse(res, 500, {"type":false, "message": "Error al actualizar la cuenta corriente"});
+							}else{
+								models.Factura.update({
+									status: 0
+								},{
+									where:{
+										id: req.body.FacturaId
+									}
+								}).then(function (factura){
+									if(!factura){
+										service.sendJSONresponse(res, 500, {"type":false, "message": "Error al actualizar la cuenta corriente"});
+									}else{
+										service.sendJSONresponse(res, 200, {"type":true, "message": "Abono creado exitosamente"})
+									}
+								});
+							}
+						});
+					}else{
+						var _saldoFactura = cuenta.saldoFactura;
+						var _nuevoSaldo = _saldoFactura - req.body.monto;
+						cuenta.update({
+							saldoFactura: _nuevoSaldo
+						}).then(function (_cuenta){
+							if(!_cuenta){
+								service.sendJSONresponse(res, 500, {"type":false, "message": "Error al actualizar la cuenta corriente"});
+							}else{
+								service.sendJSONresponse(res, 200, {"type":true, "message": "Abono creado exitosamente"})
+							}
+						});
+					}
+				});
+			}
+		}
+	});
+}
+
 // exports.getClientesBySede = function(req, res){
 // 	models.Cliente.findAll({
 // 		where: {

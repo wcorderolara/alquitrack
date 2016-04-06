@@ -430,6 +430,31 @@ angular.module('alquitrackApp')
                             ]
                         }
                     })
+                    .state('app.cuentaCorriente',{
+                        url: '/cuentaCorriente',
+                        templateUrl: 'views/operaciones/cuentaCorriente.html',
+                        controller: 'cuentaCorrienteController',
+                        ncyBreadcrumb: {
+                            label: 'correlativos Factura Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/tipos/tipoOperacionService.js',
+                                            'modules/tipos/tipoPagoService.js',
+                                            'modules/cuentaCorriente/cuentaCorrienteService.js',
+                                            'modules/cuentaCorriente/cuentaCorrienteController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/profile.html',

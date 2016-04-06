@@ -1,0 +1,132 @@
+<div class="col-lg-12 col-sm-12 col-xs-12">
+
+	<h3 class="row-title before-yellow">
+		<i class="fa fa-th-list yellow"></i>
+		Cuenta Corriente Alquitrack 
+	</h3>	
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="bordered-well-container">
+				<div class="well bordered-top bordered-warning">
+					
+					<div ng-show="listItems.length>0" class="table-scrollable">
+						<table class="table table-striped">
+							<thead>
+								<th style="width: 130px !important">No Factura</th>
+								<th style="width: 130px !important">Saldo Pendiente</th>
+								<!-- <th>Descripci&oacute;n</th> -->
+								<th style="width: 200px !important">Cliente</th>
+								<th style="width: 175px !important">D&iacute;as Cr&eacute;dito</th>
+								<th style="width: 125px !important">Fecha Vencimiento</th>
+								
+								<th style="width: 125px !important">Estado Cuenta</th>
+								
+								<th style="width: 250px !important">Acciones</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+									<td> {{item.Pai.correlativosFacturas[0].serie}}-{{item.Factura.correlativo}}</td>
+									<td> {{item.saldoFactura}} </td>
+									<td>{{item.Cliente.nombre}} {{item.Cliente.apellido}}</td>
+									<td>{{item.diasCredito}}</td>
+									<td>{{ item.fechaVencimiento | date: 'dd-MM-yyyy' }}</td>
+									
+									<td>
+										<span ng-bind-html="item.fechaVencimiento | diasFaltantesFilter: item.createdAt">
+										</span>
+									</td>	
+									
+									<td>
+										<button class="btn btn-success" ng-show="item.status == 1"
+											    ng-click="hacerPago(item)">
+											<i class="fa fa-money"></i> Abonar
+										</button>
+										<button class="btn btn-info"
+											    ng-click="verMovimiento(item)">
+											<i class="fa fa-eye"></i> Ver Movimientos
+										</button>										
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row margin-top-5">
+							<div class="col-lg-6 col-sm-6 col-xs-6">
+								Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
+								</select> registros por p&aacute;gina.
+							</div>
+							<div class="col-lg-5 col-sm-5 col-xs-5 text-align-right margin-top-5">
+								Total de Registros: {{totalItems}} 
+							</div>
+						</div>
+
+	    				<pagination total-items="totalItems" ng-model="currentPage" 
+	    							class="pagination-sm" 
+	    							items-per-page="itemsPerPage">
+	    				</pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="verCuentaCorrienteMovimiento.html">
+	<div class="modal-header">
+	  <h3 class="modal-title blue"></i>Detalle del Factura # {{pedido}}</h3>
+	</div>
+	<div class="modal-body">
+		<form role="form">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12">				
+					<div ng-show="listItemsDetalle.length>0" class="table-scrollable">
+						<table class="table table-striped">
+							<thead>
+								<th style="width: 200px !important">Tractor</th>
+								<th style="width: 150px !important">Fecha despacho</th>
+								<th style="width: 150px !important">Fecha regreso</th>
+
+								<th style="width: 150px !important">
+									Tipo alquiler
+								</th>
+								<th style="width: 150px !important">
+									Sub Total 
+								</th>								
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listItemsDetalle">
+									<td>
+										{{item.Tractor.nombre}}
+									</td>
+									<td>{{item.fechaSale | customDate}}</td>
+									<td>{{item.fechaRegresa | customDate}}</td>
+									
+									<td >
+										{{item.tipoAlquiler.descripcion}}
+									</td>
+									<td>
+										{{item.subTotal | currency: 'Q.' }}
+									</td>								
+								</tr>								
+			                    <tr>
+			                        <td colspan="3" class="invisible bg-snow"></td>
+			                        <td class="text-center"><strong>Total</strong></td>
+			                        <td class="text-left ">
+			                        	<strong>{{ totalDetallePedido | currency: 'Q.'}}</strong>
+			                        </td>
+			                    </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>				
+		  	</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+	  	<button class="btn btn-darkorange" ng-click="cancel($event)">
+	  		<i class="fa fa-times"></i>Cerrar
+	  	</button>
+	</div>
+</script>
+

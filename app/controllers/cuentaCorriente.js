@@ -1,6 +1,116 @@
 var models = require('../../models');
 var service = require('../services/service');
 
+exports.getCuentaCorrienteBySede = function (req, res){
+	models.cuentaCorriente.findAll({
+		where:{
+			status: 1,
+		},
+		include:[
+			{
+				model: models.Factura,
+				attributes: ['correlativo', 'monto','fechaCreacion','PaiId','SedeId', 'id'],
+				where: {
+					status: 0
+				},
+				include: [
+					{
+						model: models.Sede,
+						attributes: ['descripcion','id'],
+						where:{
+							status: 1,
+							id: req.params.SedeId
+						}
+					},
+					{
+						model: models.Pais,
+						where:{
+							status: 1
+						},
+						include:[
+							{
+								model. models.correlativosFactura,
+								attributes: ['serie','id']
+								where:{
+									status: 1
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				model: models.Cliente,
+				attributes: ['nombre', 'apellido', 'id']
+				where:{
+					status: 1
+				}
+			}
+		]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al obtener los registros"});
+		}else{
+			service.sendJSONresponse(res, 200, {"type":true, "data": registros});
+		}
+	})
+}
+
+
+exports.getCuentasCorrientes = function (req, res){
+	models.cuentaCorriente.findAll({
+		where:{
+			status: 1,
+		},
+		include:[
+			{
+				model: models.Factura,
+				attributes: ['correlativo', 'monto','fechaCreacion','PaiId','SedeId', 'id'],
+				where: {
+					status: 0
+				},
+				include: [
+					{
+						model: models.Sede,
+						attributes: ['descripcion','id'],
+						where:{
+							status: 1,
+						}
+					}
+					{
+						model: models.Pais,
+						where:{
+							status: 1
+						},
+						include:[
+							{
+								model. models.correlativosFactura,
+								attributes: ['serie','id']
+								where:{
+									status: 1
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				model: models.Cliente,
+				attributes: ['nombre', 'apellido', 'id']
+				where:{
+					status: 1
+				}
+			}
+		]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al obtener los registros"});
+		}else{
+			service.sendJSONresponse(res, 200, {"type":true, "data": registros});
+		}
+	})
+}
+
 exports.postCuentaCorriente = function(req, res){
 	models.cuentaCorriente.create({
 		saldoFactura: req.body.saldoFactura,
