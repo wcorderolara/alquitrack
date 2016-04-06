@@ -20,7 +20,7 @@ alquitrackApp.filter('diasFaltantesFilter', function(){
 		var difDiasHanPasado = newtoday - newfc;
 		var diasHanPasado = Math.floor(difDiasHanPasado / (1000 * 60 * 60 * 24) );
 
-		var porcentajeCredito = (diasHanPasado/diasCredito) * 100;
+		var porcentajeCredito = Math.round((diasHanPasado/diasCredito) * 100);
 
 		if(porcentajeCredito < 60){
 			return '<i class="fa fa-circle success"></i> En tiempo'
