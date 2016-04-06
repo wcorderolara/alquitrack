@@ -1,9 +1,9 @@
-alquitrackApp.controller('verPedidosController', function($scope, $window, $location,
-											    pedidoService,ShareData, blockUI, Notification,
+alquitrackApp.controller('verFacturasController', function($scope, $window, $location,
+											    facturaService,ShareData, blockUI, Notification,
 											    $modal){
 
 	// Servicios relacionados
-	var service = pedidoService;
+	var service = facturaService;
 	var factory = ShareData;
 	var info = factory.value;
 
@@ -18,16 +18,12 @@ alquitrackApp.controller('verPedidosController', function($scope, $window, $loca
 	$scope.listItems = [];
 
 
-	$scope.nuevoRegistro = function(){
-		$window.location = '#/app/pedidos';
-	}
-
 	$scope.setItemsPerPage = function(num) {
 		$scope.itemsPerPage = num;
 		$scope.currentPage = 1; //reset to first paghe
 	}
 
-	$scope.getPedidos = function(){
+	$scope.getFacturas = function(){
 
 		if(info.rol == 'Administrador'){	
 			service.getRegistros().then(
@@ -36,15 +32,8 @@ alquitrackApp.controller('verPedidosController', function($scope, $window, $loca
 					$scope.totalItems = $scope.listItems.length;
 				}
 			)
-		}else if (info.rol == 'Supervisor'){
-			service.getRegistrosBySede(info.SedeId).then(
-				function (data){
-					$scope.listItems = data.data;
-					$scope.totalItems = $scope.listItems.length;
-				}
-			)
 		}else{
-			service.getRegistrosByEmpleado(info.empleado).then(
+			service.getRegistrosBySede(info.SedeId).then(
 				function (data){
 					$scope.listItems = data.data;
 					$scope.totalItems = $scope.listItems.length;
@@ -53,7 +42,7 @@ alquitrackApp.controller('verPedidosController', function($scope, $window, $loca
 		}
 	}		
 
-	$scope.getPedidos();
+	$scope.getFacturas();
 
 	// Funciones para la pantalla principal del Pedido
 
@@ -61,8 +50,8 @@ alquitrackApp.controller('verPedidosController', function($scope, $window, $loca
 
 		var modalInstance = $modal.open({
 			windowClass: '',
-			templateUrl:'crudForm.html',
-			controller: 'detallePedidoController',
+			templateUrl:'verFacturasDetalle.html',
+			controller: 'detalleFacturaController',
 			size: 'lg',
 			resolve: {
 				model: function(){
@@ -78,12 +67,13 @@ alquitrackApp.controller('verPedidosController', function($scope, $window, $loca
 
 })
 
-alquitrackApp.controller('detallePedidoController', function ($scope, $modalInstance, model, objInfo,
-															pedidoService, blockUI){
-	var service = pedidoService;
+alquitrackApp.controller('detalleFacturaController', function ($scope, $modalInstance, model, objInfo,
+															facturaService, blockUI){
+
+	var service = facturaService;
 	$scope.listItemsDetalle = [];
 	$scope.totalDetallePedido = 0;
-	$scope.pedido = model.id;
+	$scope.pedido = model.Pai.correlativosFacturas[0].serie + '-' +model.id;
 
 	service.getDetalleRegistro(model.id).then(
 		function (data){

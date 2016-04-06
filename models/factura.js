@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes){
 		},
 		fechaCreacion:{
 			type: DataTypes.DATEONLY,
-			allowNull: false
+			allowNull: true
 		},
 		status: {
 			type: DataTypes.BOOLEAN,
@@ -25,12 +25,13 @@ module.exports = function(sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Factura.belongsTo(models.Cliente, {foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.tipoPago, {foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.Empleado, {foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.Usuario,{foreignKey: {allowNull: false}});
-				Factura.belongsTo(models.Sede, {foreignKey: {allowNull:false}});
+				Factura.belongsTo(models.Cliente, {foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.Pais, {foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.tipoPago, {foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.tipoOperacion, {foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.Empleado, {foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.Usuario,{foreignKey: {allowNull: true}});
+				Factura.belongsTo(models.Sede, {foreignKey: {allowNull:true}});
 
 				Factura.hasMany(models.facturaDetalle);
 				Factura.hasMany(models.payProtection);

@@ -129,16 +129,17 @@ alquitrackApp.controller('crudEmpleadoController', function ($scope, $modalInsta
 	// console.log(model.fechaNacimiento); return false;
 
 	$scope.parseDates = function(dt, tp){
+		// debugger;
 		if(tp == 1){
 			var _dt = moment(dt).format("L");
-			var dt1 = _dt.split('/');
-			var result = dt1[2] + '-' + dt1[1] + '-' + dt1[0];
+			var dtt = _dt.split('-');
+			var result = dtt[2] + '-' + dtt[1] + '-' + dtt[0];
 			return result;
 		}else{
-			var result = moment(dt).format("L");
-			// var dt1 = dt.split('-');
-			// var result = dt1[2] + '/' + dt1[1] + '/' + dt1[0];
-			return result;
+			var _do = dt.substring(0,10);
+			var dtt = _do.split('-');
+			var newf = new Date(dtt[1] + '-' + dtt[2] + '-' + dtt[0]);
+			return moment(newf).format('DD-MM-YYYY');
 		}
 	}
 	

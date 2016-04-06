@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		cantidadDisponibles: {
+		cantidadAprobadas: {
 			type: DataTypes.BIGINT(11),
 			allowNull: false
 		},
@@ -23,12 +23,12 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: true,
 			defaultValue: 0
 		},
-		cantidadAprobadas:{//son las Facturas Disponibles doh!
+		cantidadDisponibles:{//son las Facturas Disponibles doh!
 			type: DataTypes.BIGINT(11),
 			allowNull: true
 		}
 	},{
-		classMethods:{
+		classMethods: {
 			associate: function(models){
 				correlativosFactura.belongsTo(models.Pais, {foreignKey: {allowNull: true}})
 			}

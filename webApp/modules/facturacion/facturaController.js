@@ -1,5 +1,5 @@
 alquitrackApp.controller('facturaController', function($scope, $window, $location,
-											    facturaService,pedidoService
+											    facturaService,pedidoService,
 											    ShareData, blockUI, Notification,
 											    $modal){
 
@@ -81,10 +81,7 @@ alquitrackApp.controller('facturaController', function($scope, $window, $locatio
 		modalInstance.result.then(function (response){
 			if(response.type == true){
 				Notification.success(response.message);
-				getPedidosActivos();
-				// setTimeout(function(){
-				// 	$window.location.reload();
-				// }, 1250);
+				$scope.getPedidosActivos();
 			}else{
 				Notification.error(response.message);
 			}
@@ -96,144 +93,159 @@ alquitrackApp.controller('facturaController', function($scope, $window, $locatio
 alquitrackApp.controller('facturarPedidoController', function ($scope, $modalInstance, model, objInfo,
 															facturaService, pedidoService, tipoOperacionService, 
 															tipoPagoService,blockUI){
+	// console.log(model);
+	$scope.dateServerClient = function(dt){
+		var _do = dt.substring(0,10);
+		var dtt = _do.split('-');
+		var newf = new Date(dtt[1] + '-' + dtt[2] + '-' + dtt[0]);
+		return moment(newf).format('DD-MM-YYYY');
+	}
 	var service = facturaService;
 	var pedidos = pedidoService;
 	var operaciones = tipoOperacionService;
 	var pagos = tipoPagoService;
 	var info = objInfo;
-	$scope.classSelected = "";
+	$scope.moneda = info.monedaPais;
 
-	$scope.listItems = [];
-	$scope.listTipoAlquiler = [];
+	$scope.fechaReservacion = $scope.dateServerClient(model.fechaReservacion);
+	$scope.tieneCredito = model.Cliente.tieneCredito == true ? 1 : 0;
+	$scope.item = model;
 
-	$scope.listTractoresSeleccionados = [];	
+	$scope.tipoOperacionId = "";
+	$scope.tipoPagoId = "";
+	$scope.numeroCheque = "";
+	$scope.fechaCheque = "";
+	$scope.montoPagado = "";
 
-	// traer informacion de tractores
-	tractorService.getRegistrosBySede(info.SedeId).then(
+	$scope.listItemsDetalle = [];
+	$scope.listOperaciones = [];
+	$scope.listPagos = [];
+
+	pedidos.getDetalleRegistro($scope.item.id).then(
 		function (data){
-			blockUI.start();
-			var items = data.data;
-			for(idx in items){
-				var newItem = {
-					id: items[idx].id,
-					nombre: items[idx].nombre,
-					imagen: items[idx].imagen,					
-					descripcion: items[idx].descripcion,
-					modelo: items[idx].modelo,
-					capacidadPeso: items[idx].capacidadPeso,
-					tipoEquipo: {descripcion: items[idx].tipoEquipo.descripcion},
-					fechaDespacho: "",
-					fechaRegreso: "",
-					tipoAlquilerId: "",
-					tipoAlquiler: "",
-					totalAlquilerTractor: "",
-					totalHorasAlquilado: 0,
-					selected: false,
-					formError: "",
-					horometro: items[idx].horometro,
-					classSelected: ""
-				};
-
-				$scope.listItems.push(newItem);
-			}
-
-			blockUI.stop();
-			//$scope.listItems = data.data;
+			$scope.listItemsDetalle = data.data;
 		}
 	)
 
-	$scope.getTipoAlquilerByTractor = function(item){
-		alquilerService.getRegistrosByTractor(item).then(
-			function (data){
-				$scope.listTipoAlquiler = data.data;
-			}
-		)
-	}
-
-	// formulario para el detalle
-
-	$scope.seleccionarTractor = function(item){
-		item.selected = true;
-		$scope.getTipoAlquilerByTractor(item.id);
-	}
-	
-	$scope.cancelTractorpedido = function(item){
-		item.selected = false;
-	}
-
-	$scope.openFechaDespacho = function($event, item){
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		item.fechaD.opened = true;
-	}
-
-	$scope.openFechaRegreso = function($event, item){
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		item.fechaR.opened = true;
-	}
-
-	$scope.restaFechas = function(dt1, dt2){
-		var aFecha1 = dt1.split('/'); 
-		var aFecha2 = dt2.split('/'); 
-		var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
-		var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]); 
-		var dif = fFecha2 - fFecha1;
-		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
-		return dias;
-	}
-
-	$scope.calcularSubTotal = function(item, alquilerId){
-		var _idx = $scope.listTipoAlquiler.map(function (e) {return e.id}).indexOf(alquilerId);
-		var _element = $scope.listTipoAlquiler[_idx];
-		item.tipoAlquiler = _element.descripcion;
-
-		if(_element.descripcion == 'diario'){
-			var dif = $scope.restaFechas(item.fechaDespacho, item.fechaRegreso);						
-			// item.totalAlquilerTractor = 0;
-			item.totalHorasAlquilado = dif * parseInt(_element.horasMinimas);
-			item.totalAlquilerTractor = dif * ( parseFloat(parseInt(_element.horasMinimas) * parseFloat(_element.precioEquipos[0].precio)) );
-		}else{
-			// item.totalAlquilerTractor = 0;
-			item.totalHorasAlquilado = parseInt(_element.horasMinimas);
-			item.totalAlquilerTractor = parseFloat(_element.precioEquipos[0].precio);
+	operaciones.getRegistrosFactura().then(
+		function (data){
+			$scope.listOperaciones = data.data
 		}
+	)
+
+	pagos.getRegistros().then(
+		function (data){
+			$scope.listPagos = data.data
+		}
+	)
+
+	$scope.dateClientServer = function(dt){
+		var dtt = dt.split('-');
+		var newf = new Date(dtt[2] + '-' + dtt[1] + '-' + dtt[0]);
+		return moment(newf).format('YYY-MM-DD');
 	}
 
-	$scope.agregarTractorPedido = function(item){		
-		if(!item.fechaDespacho || !item.fechaRegreso || !item.tipoAlquilerId){
-			item.formError = "todos los campos son requeridos";
-			return false;
-		}
-		var _newItem = {
-			id: item.id, //es el Id del Tractor
-			nombre: item.nombre,
-			horometro: item.horometro,
-			fechaDespacho: moment(item.fechaDespacho).format("L"),
-			fechaRegreso: moment(item.fechaRegreso).format("L"),
-			tipoAlquilerId: item.tipoAlquilerId,
-			tipoAlquiler: item.tipoAlquiler,
-			horasAlquiler: item.totalHorasAlquilado,
-			subTotal: item.totalAlquilerTractor
-		}
-		$scope.listTractoresSeleccionados.push(_newItem);
-		item.classSelected = "tractor-selected";
-	}
+	$scope.fechaVencimientoCredito = function(dt, diasCredito){
+		var dtt = dt.split('-');
+		var mth = parseInt(dtt[1]) - 1;
+		var mmtf = moment([dtt[0],mth,dtt[2]]).add(diasCredito,'d');
+		return moment(mmtf._d).format('YYYY-MM-DD');
 
+	}
 
 	$scope.facturarPedido = function(){
 		$scope.formError = "";
-		// console.log($scope.listTractoresSeleccionados);
-		
-		if($scope.listTractoresSeleccionados.length > 0){
-			$modalInstance.close($scope.listTractoresSeleccionados);
-		}else{
-			$scope.formError = "Debe seleccionar al menos un tractor..."
+		$scope.detalleFactura = [];
+
+		if(!$scope.tipoOperacionId){
+			$scope.formError = "Indique si el pago es de Contado o a Credito";
 			return false;
 		}
-		
+
+		if($scope.tipoOperacionId == 1){
+			if(!$scope.tipoPagoId){
+				$scope.formError = "Indique el Tipo de pago: Cheque o Efectivo";
+				return false;
+			}
+
+			if($scope.tipoPagoId == 1){
+				if(!$scope.montoPagado){
+					$scope.formError = "Ingrese el monto que el cliente ha Cancelado";
+					return false;
+				}
+			}else if($scope.tipoPagoId == 2){
+				if(!$scope.numeroCheque || !$scope.fechaCheque || !scope.montoPagado){
+					$scope.formError = "Ingrese los campos correspondientes al Cheque";
+					return false;
+				}
+			}
+
+		}
+
+		$scope.listItemsDetalle.forEach(function (item){
+			var objDetalle = {
+				fechaSale: item.fechaSale,
+				fechaRegresa: item.fechaRegresa,
+				subTotal: item.subTotal,
+				TractorId: item.Tractor.id,
+				tipoAlquilerId: item.tipoAlquiler.id
+			}
+			$scope.detalleFactura.push(objDetalle);
+		})
+
+		$scope.objFactura = {
+			PedidoId: model.id,
+			monto: model.reservaDetalles[0].Total,
+			aceptoContrato: 1,
+			fechaCreacion: moment(new Date()).format('YYYY-MM-DD'),
+			status: $scope.tipoOperacionId == 2 ? 1 : 0,
+			ClienteId: model.ClienteId,
+			PaiId: info.paisId,
+			EmpleadoId: info.empleado,
+			tipoPagoId: $scope.tipoOperacionId == 2 ? 1 : $scope.tipoPagoId,
+			UsuarioId: info.usuarioId,
+			SedeId: info.SedeId,
+			tipoOperacionId: $scope.tipoOperacionId,
+			detalleFactura: JSON.stringify($scope.detalleFactura)
+		}
+
+		service.postRegistro($scope.objFactura).then(
+			function (data){
+				if(data.type == true){
+					if($scope.tipoOperacionId == 1){
+						var cajaObj = {
+							monto: $scope.montoPagado,
+							numeroCheque: $scope.numeroCheque,
+							fechaCobroCheque: $scope.dateClientServer($scope.fechaCheque),
+							tipoOperacionId: $scope.tipoOperacionId,
+							tipoPagoId: $scope.tipoPagoId,
+							ClienteId: model.Cliente.id,
+							FacturaId: parseInt(data.factura)
+						}
+
+						service.postCaja(cajaObj).then(
+							function (data){
+								$modalInstance.close(data);							
+							}
+						)
+					}else if($scope.tipoOperacionId == 2){
+						var ccObj = {
+							saldoFactura: model.reservaDetalles[0].Total,
+							diasCredito: model.Cliente.tipoCredito.diasCredito,
+							fechaVencimiento: $scope.fechaVencimientoCredito(moment(new Date()).format('YYYY-MM-DD'), model.Cliente.tipoCredito.diasCredito),
+							ClienteId: model.ClienteId,
+							FacturaId: parseInt(data.factura)
+						}
+
+						service.postCuentaCorriente(ccObj).then(
+							function (data){
+								$modalInstance.close(data);
+							}
+						)
+					}
+				}
+			}
+		)
 	}
 
     $scope.cancel = function($event){

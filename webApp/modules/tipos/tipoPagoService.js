@@ -6,7 +6,7 @@ alquitrackApp.service('tipoPagoService', function ($http, $q, baseService, authS
 	self.getRegistros = function(){
 		var data = {
 			url: '/tipoPago/get/all'
-
+		}
 		var result = base.get(data);
 		return result;
 	}

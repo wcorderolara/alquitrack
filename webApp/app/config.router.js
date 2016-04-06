@@ -400,7 +400,30 @@ angular.module('alquitrackApp')
                                             'modules/tipos/tipoOperacionService.js',
                                             'modules/tipos/tipoPagoService.js',
                                             'modules/facturacion/facturaService.js',
-                                            'modules/facturacion/facturaController.js',
+                                            'modules/facturacion/facturaController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.verFacturas',{
+                        url: '/ver/facturas',
+                        templateUrl: 'views/operaciones/verFacturas.html',
+                        controller: 'verFacturasController',
+                        ncyBreadcrumb: {
+                            label: 'correlativos Factura Alquitrack',
+                            description: ''
+                        },
+                        resolve:{
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'modules/facturacion/facturaService.js',
+                                            'modules/facturacion/verFacturasController.js'
                                         ]
                                     })
                                 }

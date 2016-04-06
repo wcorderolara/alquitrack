@@ -3,7 +3,7 @@ alquitrackApp.service('correlativosFacturaService', function ($http, $q, baseSer
 	var base = baseService;
 	var self = this;
 
-	self.getRegistros = function(){
+	self.getRegistros = function(PaiId){
 		var data = {
 			url: '/correlativosFactura/get/all'
 		}

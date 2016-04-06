@@ -255,8 +255,8 @@ alquitrackApp.controller('catalogoTractoresPedidoController', function ($scope, 
 	}
 
 	$scope.restaFechas = function(dt1, dt2){
-		var aFecha1 = dt1.split('/'); 
-		var aFecha2 = dt2.split('/'); 
+		var aFecha1 = dt1.split('-'); 
+		var aFecha2 = dt2.split('-'); 
 		var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
 		var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]); 
 		var dif = fFecha2 - fFecha1;
@@ -285,7 +285,7 @@ alquitrackApp.controller('catalogoTractoresPedidoController', function ($scope, 
 		var of = fecha.split('-');
 		var newDate = of[1] + '-' + of[0] + '-' + of[2];
 
-		return new Date(newDate);
+		return String(new Date(newDate));
 	}
 
 	$scope.agregarTractorPedido = function(item){		
@@ -293,12 +293,13 @@ alquitrackApp.controller('catalogoTractoresPedidoController', function ($scope, 
 			item.formError = "todos los campos son requeridos";
 			return false;
 		}
+
 		var _newItem = {
 			id: item.id, //es el Id del Tractor
 			nombre: item.nombre,
 			horometro: item.horometro,
-			fechaDespacho: dateClienteToServer(item.fechaDespacho),
-			fechaRegreso: dateClienteToServer(item.fechaRegreso),
+			fechaDespacho: $scope.dateClienteToServer(item.fechaDespacho),
+			fechaRegreso: $scope.dateClienteToServer(item.fechaRegreso),
 			tipoAlquilerId: item.tipoAlquilerId,
 			tipoAlquiler: item.tipoAlquiler,
 			horasAlquiler: item.totalHorasAlquilado,

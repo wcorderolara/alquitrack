@@ -9,9 +9,8 @@ exports.getCorrelativosFactura = function(req, res){
 		include:[
 			{
 				model: models.Pais,
-				attributes: ['descripcion','id'],
 				where:{
-					status: 1
+					status: 1,
 				}
 			}
 		]
@@ -33,9 +32,8 @@ exports.getCorrelativoFactura = function(req, res){
 		include:[
 			{
 				model: models.Pais,
-				attributes: ['descripcion','id'],
 				where:{
-					status: 1
+					status: 1,
 				}
 			}
 		]
@@ -51,9 +49,9 @@ exports.getCorrelativoFactura = function(req, res){
 exports.postCorrelativoFactura = function(req, res){
 	models.correlativosFactura.create({
 		serie: req.body.serie,
-		cantidadDisponibles: req.body.cantidadDisponibles,
+		cantidadAprobadas: req.body.cantidadAprobadas,
 		resolucion: req.body.resolucion,
-		PaiId: req.body.PaiId,
+		PaiId: req.body.PaiId ,
 		status: 1
 	}).then(function (registro){
 		if(!registro){
@@ -67,7 +65,7 @@ exports.postCorrelativoFactura = function(req, res){
 exports.putCorrelativoFactura = function(req,res){
 	models.correlativosFactura.update({
 		serie: req.body.serie,
-		cantidadDisponibles: req.body.cantidadDisponibles,
+		cantidadAprobadas: req.body.cantidadAprobadas,
 		resolucion: req.body.resolucion,
 		PaiId: req.body.PaiId,
 	},{

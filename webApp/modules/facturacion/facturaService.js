@@ -14,16 +14,7 @@ alquitrackApp.service('facturaService', function ($http, $q, baseService, authSe
 
 	self.getRegistrosBySede = function(sedeId){
 		var data = {
-			url: '/pedido/get/all/' + sedeId
-		}
-
-		var result = base.get(data);
-		return result;
-	}
-
-	self.getRegistrosByEmpleado = function(empleadoId){
-		var data = {
-			url: '/pedido/get/empleado/' + empleadoId
+			url: '/factura/get/all/' + sedeId
 		}
 
 		var result = base.get(data);
@@ -32,7 +23,7 @@ alquitrackApp.service('facturaService', function ($http, $q, baseService, authSe
 
 	self.postRegistro = function(params){
 		var data = {
-			url: '/pedido/post',
+			url: '/factura/post',
 			params: params
 		}
 
@@ -44,7 +35,7 @@ alquitrackApp.service('facturaService', function ($http, $q, baseService, authSe
 
 	self.deleteRegistro = function(params){
 		var data = {
-			url: '/pedido/delete/' + params.id,
+			url: '/factura/delete/' + params.id,
 			params: {}
 		}
 
@@ -53,12 +44,32 @@ alquitrackApp.service('facturaService', function ($http, $q, baseService, authSe
 		return result;
 	}
 
-	self.getDetalleRegistro = function(EmpleadoId){
+	self.getDetalleRegistro = function(facturaId){
 		var data = {
-			url: '/pedido/detalle/get/' + EmpleadoId
+			url: '/factura/detalle/' + facturaId
 		}
 
 		var result = base.get(data);
+		return result;
+	}
+
+	self.postCaja = function(params){
+		var data = {
+			url: '/caja/post',
+			params: params
+		}
+
+		var result = base.post(data);
+		return result;
+	}
+
+	self.postCuentaCorriente = function(params){
+		var data = {
+			url: '/cuentaCorriente/post',
+			params: params
+		}
+
+		var result = base.post(data);
 		return result;
 	}
 

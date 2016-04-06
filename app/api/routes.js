@@ -109,8 +109,8 @@ var routesController = function(server){
 	server.get("/tipoPago/get/all", auth, controllers.tipoPago.getTiposPago);
 	
 	//Tipo Operacion
-	server.get("/tipoOperacion/get/factura", auth, controllers.tipoPago.getTipoOperacionFactura);
-	server.get("/tipoOperacion/get/abono", auth, controllers.tipoPago.getTipoOperacionAbono);
+	server.get("/tipoOperacion/get/factura", auth, controllers.tipoOperacion.getTipoOperacionFactura);
+	server.get("/tipoOperacion/get/abono", auth, controllers.tipoOperacion.getTipoOperacionAbono);
 
 	//Tipos de Cliente
 	server.get("/tipoCliente/get/all", auth, controllers.tipoCliente.getTiposCliente);
@@ -223,11 +223,18 @@ var routesController = function(server){
 	server.put("/payProtection/delete/:id", auth, controllers.payProtection.deletePayProtection);
 
 	//Facturas
-	server.get("/factura/get/all/:SedeId", auth, controllers.factura.getFacturas);
+	server.get("/factura/get/all", auth, controllers.factura.getFacturas);
+	server.get("/factura/get/all/:SedeId", auth, controllers.factura.getFacturasBySede);
 	server.get("/factura/get/:id", auth, controllers.factura.getFactura);
 	server.get("/factura/detalle/:id", auth, controllers.factura.getDetalleFactura);
 	server.post("/factura/post", auth, controllers.factura.postFactura);
 	server.put("/factura/delete/:id", auth, controllers.factura.deleteFactura);	
+
+	//Caja
+	server.post("/caja/post", auth, controllers.caja.postCaja);
+
+	//Cuenta Corriente
+	server.post("/cuentaCorriente/post", auth, controllers.cuentaCorriente.postCuentaCorriente);
 }
 
 module.exports = routesController;

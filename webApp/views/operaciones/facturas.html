@@ -1,20 +1,14 @@
 <div class="col-lg-12 col-sm-12 col-xs-12">
 
-	<h1 class="row-title before-yellow">
+	<h3 class="row-title before-yellow">
 		<i class="fa fa-th-list yellow"></i>
 		Pedidos pendientes por facturar 
-	</h1>	
+	</h3>	
 
 	<div class="row">
 		<div class="col-lg-12 col-sm-12 col-xs-12">
 			<div class="bordered-well-container">
 				<div class="well bordered-top bordered-warning">
-					<div class="clearfix" style="padding: 0">
-						<button class="btn btn-default btn-md margin-bottom-20 clearfix" 
-								ng-click="nuevoRegistro()">
-							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
-						</button>
-					</div>
 					<div ng-show="listItems.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
@@ -36,7 +30,7 @@
 										{{item.estadoPedido.descripcion}}
 									</td>	
 									<td>
-										{{item.reservaDetalle.Total}}
+										{{item.reservaDetalles[0].Total | currency: moneda}}
 									</td>
 									<td>
 										<button class="btn btn-success"
@@ -53,7 +47,7 @@
 									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
 								</select> registros por p&aacute;gina.
 							</div>
-							<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+							<div class="col-lg-5 col-sm-5 col-xs-5 text-align-right margin-top-5">
 								Total de Registros: {{totalItems}} 
 							</div>
 						</div>

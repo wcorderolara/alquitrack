@@ -1,9 +1,9 @@
 <div class="col-lg-12 col-sm-12 col-xs-12">
 
-	<h1 class="row-title before-yellow">
+	<h3 class="row-title before-yellow">
 		<i class="fa fa-edit yellow"></i>
 		Crear nuevo Pedido
-	</h1>
+	</h3>
 
 	<div class="row">
 		<div class="col-lg-12 col-sm-12 col-xs-12">
@@ -95,8 +95,8 @@
 									</td>
 									<!-- <td>{{item.descripcion}}</td> -->
 									<td>{{item.horometro}}</td>
-									<td>{{item.fechaDespacho}}</td>
-									<td>{{item.fechaRegreso}}</td>
+									<td>{{item.fechaDespacho | customDate}}</td>
+									<td>{{item.fechaRegreso | customDate}}</td>
 									
 									<td >
 										{{item.tipoAlquiler}}

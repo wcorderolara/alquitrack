@@ -6,7 +6,7 @@ alquitrackApp.service('tipoOperacionService', function ($http, $q, baseService, 
 	self.getRegistrosFactura = function(){
 		var data = {
 			url: '/tipoOperacion/get/factura'
-
+		}
 		var result = base.get(data);
 		return result;
 	}

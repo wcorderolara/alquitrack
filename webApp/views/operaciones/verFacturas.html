@@ -2,38 +2,32 @@
 
 	<h3 class="row-title before-yellow">
 		<i class="fa fa-th-list yellow"></i>
-		Listado de Pedidos 
+		Listado de Facturas 
 	</h3>	
 
 	<div class="row">
 		<div class="col-lg-12 col-sm-12 col-xs-12">
 			<div class="bordered-well-container">
 				<div class="well bordered-top bordered-warning">
-					<div class="clearfix" style="padding: 0">
-						<button class="btn btn-default btn-md margin-bottom-20 clearfix" 
-								ng-click="nuevoRegistro()">
-							<i class="fa fa-plus-circle"></i> Agregar nuevo registro
-						</button>
-					</div>
+					
 					<div ng-show="listItems.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
-								<th style="width: 150px !important">No Pedido</th>
+								<th style="width: 150px !important">No Factura</th>
 								<!-- <th>Descripci&oacute;n</th> -->
-								<th style="width: 300px !important">Cliente</th>
-								<th style="width: 200px !important">Fecha Pedido</th>
-								<th style="width: 200px !important">Estado Pedido</th>
-								<th style="width: 150px !important">Acciones</th>
+								<th style="width: 250px !important">Cliente</th>
+								<th style="width: 125px !important">Fecha Factura</th>
+								<th style="width: 200px !important">Estado Factura</th>
+								<th style="width: 100px !important">Acciones</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-									<td>{{item.id}}</td>
+									<td> {{item.Pai.correlativosFacturas[0].serie}}-{{item.correlativo}}</td>
 									<td>{{item.Cliente.nombre}} {{item.Cliente.apellido}}</td>
-									<td>{{item.fechaReservacion | customDate  }}</td>
+									<td>{{item.fechaCreacion | date: 'dd-MM-yyyy'  }}</td>
 									<td>
-										<estado-pedido estado="item.estadoPedido.descripcion">
-										</estado-pedido>
-										{{item.estadoPedido.descripcion}}
+										<span ng-bind-html="item.status | estadoFacturaFilter"></span>
+										<!-- {{}} -->
 									</td>	
 									<td>
 										<button class="btn btn-info"
@@ -50,7 +44,7 @@
 									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
 								</select> registros por p&aacute;gina.
 							</div>
-							<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+							<div class="col-lg-5 col-sm-5 col-xs-5 text-align-right margin-top-5">
 								Total de Registros: {{totalItems}} 
 							</div>
 						</div>
@@ -66,9 +60,9 @@
 	</div>
 </div>
 
-<script type="text/ng-template" id="crudForm.html">
+<script type="text/ng-template" id="verFacturasDetalle.html">
 	<div class="modal-header">
-	  <h3 class="modal-title blue"></i>Detalle del Pedido #{{pedido}}</h3>
+	  <h3 class="modal-title blue"></i>Detalle del Factura # {{pedido}}</h3>
 	</div>
 	<div class="modal-body">
 		<form role="form">
@@ -78,18 +72,12 @@
 						<table class="table table-striped">
 							<thead>
 								<th style="width: 200px !important">Tractor</th>
-								<!-- <th>Descripci&oacute;n</th> -->
-								<!--th style="width: 150px !important">Hor&oacute;metro</th-->
 								<th style="width: 150px !important">Fecha despacho</th>
 								<th style="width: 150px !important">Fecha regreso</th>
 
 								<th style="width: 150px !important">
 									Tipo alquiler
 								</th>
-								<th style="width: 100px !important">
-									Horas
-								</th>
-
 								<th style="width: 150px !important">
 									Sub Total 
 								</th>								
@@ -99,9 +87,6 @@
 									<td>
 										{{item.Tractor.nombre}}
 									</td>
-									<!-- <td>{{item.descripcion}}</td> -->
-									<!--td>{{item.horometro}}</td-->
-
 									<td>{{item.fechaSale | customDate}}</td>
 									<td>{{item.fechaRegresa | customDate}}</td>
 									
@@ -109,14 +94,11 @@
 										{{item.tipoAlquiler.descripcion}}
 									</td>
 									<td>
-										{{item.cantidadHoras}}
-									</td>
-									<td>
 										{{item.subTotal | currency: 'Q.' }}
 									</td>								
 								</tr>								
 			                    <tr>
-			                        <td colspan="4" class="invisible bg-snow"></td>
+			                        <td colspan="3" class="invisible bg-snow"></td>
 			                        <td class="text-center"><strong>Total</strong></td>
 			                        <td class="text-left ">
 			                        	<strong>{{ totalDetallePedido | currency: 'Q.'}}</strong>

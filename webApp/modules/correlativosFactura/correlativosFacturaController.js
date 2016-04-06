@@ -3,6 +3,8 @@ alquitrackApp.controller('correlativosFacturaController', function($scope, $wind
 											    $modal){
 
 	var service = correlativosFacturaService;
+	var factory = ShareData;
+	var info = factory.value;
 	
 	$scope.listItems = [];
 	$scope.viewby = 10;
@@ -19,6 +21,7 @@ alquitrackApp.controller('correlativosFacturaController', function($scope, $wind
 	$scope.getCorrelativosFactura = function(){
 		service.getRegistros().then(
 			function (data){
+				console.log(data);
 				$scope.listItems = data.data;
 				$scope.totalItems = $scope.listItems.length;
 			}
@@ -112,7 +115,7 @@ alquitrackApp.controller('crudCorrelativosFacturaController', function ($scope, 
 	
 	$scope.serie = model.serie || "";
 	$scope.resolucion = model.resolucion || "";
-	$scope.cantidadDisponibles = model.cantidadDisponibles || "";
+	$scope.cantidadAprobadas = model.cantidadAprobadas || "";
 	$scope.PaiId = $scope.state == 'nuevo' ? "" : model.PaiId;
 
 	paisService.getPaises().then(
@@ -124,16 +127,16 @@ alquitrackApp.controller('crudCorrelativosFacturaController', function ($scope, 
     $scope.postRegistro = function(){
     	$scope.formError = "";
 
-    	if(!$scope.serie || !$scope.resolucion || !$scope.cantidadDisponibles || !$scope.PaiId){
+    	if(!$scope.serie || !$scope.resolucion || !$scope.cantidadAprobadas || !$scope.PaiId){
     		$scope.formError = "Todos los campos son obligatorios";
     		return false;
     	}
 
     	if($scope.state == 'nuevo'){
     		var params = {
-    			precio: $scope.serie,
+    			serie: $scope.serie,
     			resolucion: $scope.resolucion,
-    			cantidadDisponibles: $scope.cantidadDisponibles,
+    			cantidadAprobadas: $scope.cantidadAprobadas,
     			PaiId: $scope.PaiId
     		}
     		service.postRegistro(params).then(
@@ -144,9 +147,9 @@ alquitrackApp.controller('crudCorrelativosFacturaController', function ($scope, 
     	}else{
     		var params = {
     			id: model.id,
-    			precio: $scope.precio,
+    			serie: $scope.serie,
     			resolucion: $scope.resolucion,
-    			cantidadDisponibles: $scope.cantidadDisponibles,
+    			cantidadAprobadas: $scope.cantidadAprobadas,
     			PaiId: $scope.PaiId
     		}
     		service.putRegistro(params).then(

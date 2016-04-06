@@ -1,9 +1,9 @@
 <div class="col-lg-12 col-sm-12 col-xs-12">
 
-	<h1 class="row-title before-yellow">
+	<h3 class="row-title before-yellow">
 		<i class="fa fa-list-alt yellow"></i>
 		Mantenimiento Correlativos Factura
-	</h1>	
+	</h3>	
 
 	<div class="row">
 		<div class="col-lg-12 col-sm-12 col-xs-12">
@@ -30,8 +30,8 @@
 									<td>{{item.Pai.descripcion}}</td>
 									<td>{{item.serie}}</td>
 									<td>{{item.resolucion}}</td>
-									<td>{{item.cantidadDisponibles}}</td>
-									<td>{{item.cantidadAprobadas}}</td>									
+									<td>{{item.cantidadAprobadas | number}}</td>									
+									<td>{{item.cantidadDisponibles | number}}</td>
 									<td>
 										<button class="btn btn-primary" ng-click="openModal('edit', item)">
 											<i class="fa fa-edit"></i>Editar</button>
@@ -74,7 +74,7 @@
 			<span class="input-icon icon-right inverted">
 			  <input ng-model="serie" type="text" class="form-control" 
 			  		 placeholder="Numero serie Facturas">
-			  <i class="fa fa-money bg-warging"></i>
+			  <i class="fa fa-th-list bg-warning"></i>
 			</span>
 		</div>
 
@@ -82,22 +82,22 @@
 			<span class="input-icon icon-right inverted">
 			  <input ng-model="resolucion" type="text" class="form-control" 
 			  placeholder="Resolucion de Facturas">
-			  <i class="fa fa-money bg-warging"></i>
+			  <i class="fa fa-th-list bg-warning"></i>
 			</span>
 		</div>
 
 		<div class="form-group">
 			<span class="input-icon icon-right inverted">
-			  <input ng-model="cantidadDisponibles" type="text" class="form-control" 
+			  <input ng-model="cantidadAprobadas" type="text" class="form-control" 
 			  		 placeholder="Cantidad de Facturas Emitidas">
-			  <i class="fa fa-money bg-warging"></i>
+			  <i class="fa fa-th-list bg-warning"></i>
 			</span>
 		</div>
 
 	  	<div class="form-group clearfix">
 	    	<select ng-model="PaiId" name="cmbPais" class="col-sm-12"
 	      	id="cmbPais" ng-options="pais.id as pais.descripcion for pais in listPaises">
-	      		<option value="">Pais sede</option>
+	      		<option value="">Pais Facturas</option>
 	    	</select>
 	  	</div>
 

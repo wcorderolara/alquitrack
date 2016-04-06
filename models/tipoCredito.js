@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
-		}
+		},
 		diasCredito:{
 			type: DataTypes.INTEGER,
 			allowNull: true

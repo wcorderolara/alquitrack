@@ -90,15 +90,18 @@ select * from monedapais;
 
 
 
+select * from reserva where status =1;
+select * from reservadetalle where reservaId = 13;
+select * from factura;
+select * from facturadetalle;
+
+
+select * from tipopago;
 
 
 
-
-
-
-
-
-select * from reserva;
+select * from reserva where status = 1;
+update reserva set fechaReservacion = NOW() where id = 13;
 
 select * from reservadetalle;
 
@@ -110,7 +113,17 @@ select * from precioequipo;
 
 select * from estadoequipo;
 
-update reserva set status = 0 where id in (1,2,3,4,5,6,7,8,9,10);
-update reservadetalle set status = 0 where id in (1,2,3,4,5,6,7,8,9,10);
+update reserva set status = 0 where id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+update reservadetalle set status = 0 where id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
 update tractor set estadoEquipoId = 1 where id =1;
+
+ INSERT INTO `reservaDetalle` (`id`,`observacion`,`status`,`fechaSale`,`fechaRegresa`,`subTotal`,`cantidadHoras`,`createdAt`,`updatedAt`,`ReservaId`,`TractorId`,`tipoAlquilerId`) 
+ VALUES (DEFAULT,NULL,true,'2016-04-04','2016-04-08',15000,44,'2016-04-05 03:09:31','2016-04-05 03:09:31',10,1,3);
+ 
+ 
+ select * from correlativosfactura;
+ 
+ select * from tipopago;
+ select * from reservadetalle where status = 1;
+ 
 

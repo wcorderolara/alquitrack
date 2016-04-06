@@ -53,9 +53,9 @@ alquitrackApp.service('pedidoService', function ($http, $q, baseService, authSer
 		return result;
 	}
 
-	self.getDetalleRegistro = function(EmpleadoId){
+	self.getDetalleRegistro = function(pedidoId){
 		var data = {
-			url: '/pedido/detalle/get/' + EmpleadoId
+			url: '/pedido/detalle/get/' + pedidoId
 		}
 
 		var result = base.get(data);

@@ -17,9 +17,9 @@ module.exports = function(sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				facturaDetalle.belongsTo(models.Factura, {foreignKey: {allowNull: false}});
-				facturaDetalle.belongsTo(models.Tractor, {foreignKey: {allowNull: false}});
-				facturaDetalle.belongsTo(models.tipoAlquiler, {foreignKey: {allowNull: false}});
+				facturaDetalle.belongsTo(models.Factura, {foreignKey: {allowNull: true}});
+				facturaDetalle.belongsTo(models.Tractor, {foreignKey: {allowNull: true}});
+				facturaDetalle.belongsTo(models.tipoAlquiler, {foreignKey: {allowNull: true}});
 			}
 		},
 		freezeTableName: true,

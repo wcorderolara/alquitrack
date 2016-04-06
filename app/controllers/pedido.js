@@ -1,17 +1,18 @@
 var models = require('../../models');
 var service = require('../services/service');
 var moment = require('moment');
+var sequelize = require('sequelize')
 
 exports.getPedidos = function(req, res){
 	models.Reserva.findAll({
 		where: {
-			status: 1
+			status: 1,
+			estadoPedido: 1
 		},
 		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
 		include:[
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email','numeroTributacion','direccion'],
 				where:{
 					status: 1
 				}
@@ -65,10 +66,17 @@ exports.getPedidosBySede = function(req, res){
 			},
 			{
 				model: models.Cliente,
-				attributes: ['nombre','apellido', 'telefono', 'email','numeroTributacion','direccion'],
 				where:{
 					status: 1
-				}
+				},
+				include:[
+					{
+						model: models.tipoCredito,
+						where:{
+							status: 1
+						}
+					}
+				]
 			},
 			{
 				model: models.Sede,
