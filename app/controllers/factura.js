@@ -289,7 +289,7 @@ exports.postFactura = function(req, res){
 					})
 				})
 			})
-			service.sendJSONresponse(res, 200, {"type":true, "message": "Registro creado exitosamente","factura": factura.id})
+			service.sendJSONresponse(res, 200, {"type":true, "message": "Registro creado exitosamente","factura": factura })
 		}
 	})
 }

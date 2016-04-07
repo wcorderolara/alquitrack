@@ -49,6 +49,25 @@ exports.postCaja = function(req, res){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
 		}else{
+			var descripcion = "";
+			if (req.body.numeroCheque == ""){
+				descripcion: "Recibi del Cliente: " + req.body.cliente + " la cantidad de: " + req.body.monto + " por Cancelacion de la Factura # " + req.body.correlativo;
+			}else{
+				descripcion: "Recibi del Cliente: " + req.body.cliente + " la cantidad de: " + req.body.monto + " por Cancelacion de la Factura # " + req.body.correlativo + "con cheque No." + req.body.numeroCheque + " de fecha " + moment(req.body.fechaCobroCheque).format('DD-MM-YYYY');
+			}
+			models.Recibo.create({
+				descripcion: descripcion,
+				monto: registro.monto,
+				status: 1,
+				FacturaId: registro.FacturaId,
+				ClienteId: registro.ClienteId,
+				tipoPagoId: registro.tipoPagoId,
+				tipoOperacionId: registro.tipoOperacionId
+			}).then(function (recibo){
+				if(!recibo){
+					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el recibo"});
+				}
+			});
 			service.sendJSONresponse(res, 200, {"type":true, "message": "Registro creado exitosamente"})
 		}
 	})
@@ -67,6 +86,26 @@ exports.postAbonoCaja = function(req, res){
 		if(!registro){
 			service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el registro"});
 		}else{
+			var descripcion = "";
+			if (req.body.numeroCheque == ""){
+				descripcion: "Recibi del Cliente: " + req.body.cliente + " la cantidad de: " + req.body.monto + " por Abono/Cancelacion de la Factura Serie # " + req.body.serie + '-' + req.body.correlativo;
+			}else{
+				descripcion: "Recibi del Cliente: " + req.body.cliente + " la cantidad de: " + req.body.monto + " por Abono/Cancelacion de la Factura Serie # " + req.body.serie + '-' + req.body.correlativo + "con cheque No." + req.body.numeroCheque + " de fecha " + moment(req.body.fechaCobroCheque).format('DD-MM-YYYY');
+			}
+			models.Recibo.create({
+				descripcion: descripcion,
+				monto: registro.monto,
+				status: 1,
+				FacturaId: registro.FacturaId,
+				ClienteId: registro.ClienteId,
+				tipoPagoId: registro.tipoPagoId,
+				tipoOperacionId: registro.tipoOperacionId				
+			}).then(function (recibo){
+				if(!recibo){
+					service.sendJSONresponse(res, 500, {"type":false, "message": "Error al crear el recibo"});
+				}
+			});
+
 			if(req.body.tipoOperacionId == 4){
 				models.cuentaCorriente.update({
 					status: 0,

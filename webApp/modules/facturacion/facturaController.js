@@ -220,7 +220,9 @@ alquitrackApp.controller('facturarPedidoController', function ($scope, $modalIns
 							tipoOperacionId: $scope.tipoOperacionId,
 							tipoPagoId: $scope.tipoPagoId,
 							ClienteId: model.Cliente.id,
-							FacturaId: parseInt(data.factura)
+							FacturaId: parseInt(data.factura.id),
+							correlativo: parseInt(data.factura.correlativo),
+							cliente: model.Cliente.nombre + ' ' + model.Cliente.apellido
 						}
 
 						service.postCaja(cajaObj).then(

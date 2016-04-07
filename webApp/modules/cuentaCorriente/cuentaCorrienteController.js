@@ -196,6 +196,9 @@ alquitrackApp.controller('abonoCuentaCorrienteController', function ($scope, $mo
 			tipoPagoId: $scope.tipoPagoId,
 			ClienteId: model.Cliente.id,
 			FacturaId: model.Factura.id
+			correlativo: parseInt(model.Factura.correlativo),
+			cliente: model.Cliente.nombre + ' ' + model.Cliente.apellido,
+			serie: model.Factura.Pai.correlativosFacturas[0].serie
 		}
 
 		service.postAbonoCaja(cajaObj).then(

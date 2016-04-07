@@ -98,9 +98,9 @@
 									<td>{{item.tipoOperacion.descripcion}}</td>
 									<td>{{item.tipoPago.descripcion}}</td>
 									<td>{{item.Cliente.nombre}} {{item.Cliente.apellido}} </td>
-									<td >{{item.createdAt | date: 'dd-MM-yyyy'}}</td>
+									<td >{{item.createdAt | customDate}}</td>
 									<td >{{item.numeroCheque}}</td>
-									<td >{{item.fechaCobroCheque | date: 'dd-MM-yyyy'}}</td>
+									<td >{{item.fechaCobroCheque | customDate}}</td>
 									<td>{{item.monto | currency: 'Q.' }}</td>								
 								</tr>								
 			                    <tr>
