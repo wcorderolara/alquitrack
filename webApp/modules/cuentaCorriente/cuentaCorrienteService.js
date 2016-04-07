@@ -63,4 +63,13 @@ alquitrackApp.service('cuentaCorrienteService', function ($http, $q, baseService
 		return result;
 	}
 
+	self.getMovimientosCaja = function(FacturaId){
+		var data = {
+			url: '/caja/get/movimientos/' + FacturaId
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
 })

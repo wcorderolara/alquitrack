@@ -233,6 +233,7 @@ var routesController = function(server){
 	//Caja
 	server.post("/caja/post", auth, controllers.caja.postCaja);
 	server.post("/caja/post/abono", auth, controllers.caja.postAbonoCaja);
+	server.get("/caja/get/movimientos/:FacturaId", auth, controllers.caja.getMovimientosCajaByFactura);
 
 	//Cuenta Corriente
 	server.get("/cuentaCorriente/get/all", auth, controllers.cuentaCorriente.getCuentasCorrientes);

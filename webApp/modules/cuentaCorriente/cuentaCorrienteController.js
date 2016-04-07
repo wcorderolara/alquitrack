@@ -74,6 +74,50 @@ alquitrackApp.controller('cuentaCorrienteController', function($scope, $window, 
 
 	}
 
+	$scope.verMovimiento = function(item){
+		var modalInstance = $modal.open({
+			windowClass: '',
+			templateUrl:'verCuentaCorrienteMovimiento.html',
+			controller: 'movimientosCuentaCorrienteController',
+			size: 'lg',
+			resolve: {
+				model: function(){
+					return item;
+				},
+				objInfo: function(){
+					return info
+				}
+			}
+		});
+	}
+
+})
+
+alquitrackApp.controller('movimientosCuentaCorrienteController', function ($scope, $modalInstance, model, objInfo,
+															cuentaCorrienteService, blockUI){
+
+	var service = cuentaCorrienteService;
+	$scope.listItemsDetalle = [];
+	$scope.totalDetallePedido = 0;
+	$scope.pedido = model.Factura.Pai.correlativosFacturas[0].serie + '-' + model.Factura.correlativo;
+	$scope.serieFactura = model.Factura.Pai.correlativosFacturas[0].serie;
+
+	service.getMovimientosCaja(model.FacturaId).then(
+		function (data){
+			$scope.listItemsDetalle = data.data
+			$scope.listItemsDetalle.forEach(function (item){
+				$scope.totalDetallePedido = parseFloat($scope.totalDetallePedido) + parseFloat(item.monto);
+			})
+		}
+	)
+
+    $scope.cancel = function($event){
+    	$event.preventDefault();
+		$event.stopPropagation();
+
+    	$modalInstance.dismiss('cancel');
+    }
+
 })
 
 alquitrackApp.controller('abonoCuentaCorrienteController', function ($scope, $modalInstance, model, objInfo,
@@ -109,7 +153,7 @@ alquitrackApp.controller('abonoCuentaCorrienteController', function ($scope, $mo
 	$scope.dateClientServer = function(dt){
 		var dtt = dt.split('-');
 		var newf = new Date(dtt[2] + '-' + dtt[1] + '-' + dtt[0]);
-		return moment(newf).format('YYY-MM-DD');
+		return moment(newf).format('YYYY-MM-DD');
 	}
 
 	$scope.crearAbono = function(){
@@ -131,7 +175,7 @@ alquitrackApp.controller('abonoCuentaCorrienteController', function ($scope, $mo
 				return false;
 			}
 		}else if($scope.tipoPagoId == 2){
-			if(!$scope.numeroCheque || !$scope.fechaCheque || !scope.montoPagado){
+			if(!$scope.numeroCheque || !$scope.fechaCheque || !$scope.montoPagado){
 				$scope.formError = "Ingrese los campos correspondientes al Cheque";
 				return false;
 			}
@@ -154,33 +198,14 @@ alquitrackApp.controller('abonoCuentaCorrienteController', function ($scope, $mo
 			FacturaId: model.Factura.id
 		}
 
-		service.postCaja(cajaObj).then(
+		service.postAbonoCaja(cajaObj).then(
 			function (data){
 				$modalInstance.close(data);							
 			}
 		)
 	}
 
-})
-
-alquitrackApp.controller('detalleFacturaController', function ($scope, $modalInstance, model, objInfo,
-															cuentaCorrienteService, blockUI){
-
-	var service = cuentaCorrienteService;
-	$scope.listItemsDetalle = [];
-	$scope.totalDetallePedido = 0;
-	$scope.pedido = model.Pai.correlativosFacturas[0].serie + '-' +model.id;
-
-	service.getDetalleRegistro(model.id).then(
-		function (data){
-			$scope.listItemsDetalle = data.data
-			$scope.listItemsDetalle.forEach(function (item){
-				$scope.totalDetallePedido = parseFloat($scope.totalDetallePedido) + parseFloat(item.subTotal);
-			})
-		}
-	)
-
-    $scope.cancel = function($event){
+	$scope.cancel = function($event){
     	$event.preventDefault();
 		$event.stopPropagation();
 
@@ -188,3 +213,4 @@ alquitrackApp.controller('detalleFacturaController', function ($scope, $modalIns
     }
 
 })
+

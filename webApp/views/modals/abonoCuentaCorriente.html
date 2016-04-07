@@ -1,6 +1,17 @@
 <div class="modal-header">
-  <h3 class="modal-title blue"></i>
-  	Abono Factura # {{item.Pai.correlativosFacturas[0].serie}}-{{item.Factura.correlativo}}</h3>
+	<div class="row">
+		<div class="col-md-5 pull-left">
+		  <h4 class="modal-title blue">
+		  	Abono Factura # {{item.Factura.Pai.correlativosFacturas[0].serie}}-{{item.Factura.correlativo}}
+		  </h4>
+		</div>
+		<div class="col-md-5 pull-right">
+			<h4 class="modal-title blue">
+		  	Saldo Pendiente: <br/> {{item.saldoFactura | currency: 'Q. '}}
+		  </h4>
+		</div>
+	</div>
+
 </div>
 <div class="modal-body">
 	<div class="row">
@@ -63,15 +74,15 @@
 	            	</form>
 	            </div>
 			</div>
+			<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+			    {{formError}}
+			</alert>
 		</div>
-		<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
-		    {{formError}}
-		</alert>
 	</div>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-success" ng-click="facturarPedido()">
-  		<i class="fa fa-times"></i>Facturar Pedido
+	<button class="btn btn-success" ng-click="crearAbono()">
+  		<i class="fa fa-money"></i>Abonar a Cuenta
   	</button>
   	<button class="btn btn-danger" ng-click="cancel($event)">
   		<i class="fa fa-times"></i>Cancelar Operaci&oacute;n

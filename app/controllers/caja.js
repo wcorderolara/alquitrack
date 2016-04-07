@@ -1,6 +1,41 @@
 var models = require('../../models');
 var service = require('../services/service');
 
+exports.getMovimientosCajaByFactura = function(req, res){
+	models.Caja.findAll({
+		where:{
+			FacturaId: req.params.FacturaId
+		},
+		include:[
+			{
+				model: models.tipoOperacion,
+				attributes: ['descripcion','id'],
+				where:{status: 1}
+			},
+			{
+				model: models.tipoPago,
+				attributes: ['descripcion','id'],
+				where:{status: 1}
+			},
+			{
+				model: models.Cliente,
+				attributes: ['nombre','apellido','id'],
+				where: {status: 1}
+			},
+			{
+				model: models.Factura,
+				attributes: ['correlativo','id']
+			}
+		]
+	}).then(function (registros){
+		if(!registros){
+			service.sendJSONresponse(res, 500, {"type":false, "data": "Error al obtener los registros"});
+		}else{
+			service.sendJSONresponse(res, 200, {"type":true, "data": registros})
+		}
+	})
+}
+
 exports.postCaja = function(req, res){
 	models.Caja.create({
 		monto: req.body.monto,

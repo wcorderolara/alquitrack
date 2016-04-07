@@ -13,21 +13,21 @@
 					<div ng-show="listItems.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
-								<th style="width: 130px !important">No Factura</th>
+								<th style="width: 100px !important">No Factura</th>
 								<th style="width: 130px !important">Saldo Pendiente</th>
 								<!-- <th>Descripci&oacute;n</th> -->
 								<th style="width: 200px !important">Cliente</th>
-								<th style="width: 175px !important">D&iacute;as Cr&eacute;dito</th>
-								<th style="width: 125px !important">Fecha Vencimiento</th>
+								<th style="width: 100px !important">D&iacute;as Cr&eacute;dito</th>
+								<th style="width: 150px !important">Fecha Vencimiento</th>
 								
-								<th style="width: 125px !important">Estado Cuenta</th>
+								<th style="width: 150px !important">Estado Cuenta</th>
 								
 								<th style="width: 250px !important">Acciones</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-									<td> {{item.Pai.correlativosFacturas[0].serie}}-{{item.Factura.correlativo}}</td>
-									<td> {{item.saldoFactura}} </td>
+									<td> {{item.Factura.Pai.correlativosFacturas[0].serie}}-{{item.Factura.correlativo}}</td>
+									<td> {{item.saldoFactura | currency: 'Q.'}} </td>
 									<td>{{item.Cliente.nombre}} {{item.Cliente.apellido}}</td>
 									<td>{{item.diasCredito}}</td>
 									<td>{{ item.fechaVencimiento | date: 'dd-MM-yyyy' }}</td>
@@ -74,7 +74,7 @@
 
 <script type="text/ng-template" id="verCuentaCorrienteMovimiento.html">
 	<div class="modal-header">
-	  <h3 class="modal-title blue"></i>Detalle del Factura # {{pedido}}</h3>
+	  <h3 class="modal-title blue"></i>Abonos Factura # {{pedido}}</h3>
 	</div>
 	<div class="modal-body">
 		<form role="form">
@@ -83,35 +83,29 @@
 					<div ng-show="listItemsDetalle.length>0" class="table-scrollable">
 						<table class="table table-striped">
 							<thead>
-								<th style="width: 200px !important">Tractor</th>
-								<th style="width: 150px !important">Fecha despacho</th>
-								<th style="width: 150px !important">Fecha regreso</th>
-
-								<th style="width: 150px !important">
-									Tipo alquiler
-								</th>
-								<th style="width: 150px !important">
-									Sub Total 
-								</th>								
+								<th style="width: 100px !important">No Factura</th>
+								<th style="width: 100px !important">Operaci&oacute;n</th>
+								<th style="width: 100px !important">Tipo Pago</th>
+								<th style="width: 200px !important">Cliente</th>
+								<th style="width: 150px !important">Fecha Abono</th>
+								<th style="width: 150px !important">No. Cheque</th>
+								<th style="width: 150px !important">Fecha Cheque</th>
+								<th style="width: 100px !important">Monto</th>								
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItemsDetalle">
-									<td>
-										{{item.Tractor.nombre}}
-									</td>
-									<td>{{item.fechaSale | customDate}}</td>
-									<td>{{item.fechaRegresa | customDate}}</td>
-									
-									<td >
-										{{item.tipoAlquiler.descripcion}}
-									</td>
-									<td>
-										{{item.subTotal | currency: 'Q.' }}
-									</td>								
+									<td>{{serieFactura}}-{{item.Factura.correlativo}}</td>
+									<td>{{item.tipoOperacion.descripcion}}</td>
+									<td>{{item.tipoPago.descripcion}}</td>
+									<td>{{item.Cliente.nombre}} {{item.Cliente.apellido}} </td>
+									<td >{{item.createdAt | date: 'dd-MM-yyyy'}}</td>
+									<td >{{item.numeroCheque}}</td>
+									<td >{{item.fechaCobroCheque | date: 'dd-MM-yyyy'}}</td>
+									<td>{{item.monto | currency: 'Q.' }}</td>								
 								</tr>								
 			                    <tr>
-			                        <td colspan="3" class="invisible bg-snow"></td>
-			                        <td class="text-center"><strong>Total</strong></td>
+			                        <td colspan="6" class="invisible bg-snow"></td>
+			                        <td class="text-center"><strong>Total Pagos</strong></td>
 			                        <td class="text-left ">
 			                        	<strong>{{ totalDetallePedido | currency: 'Q.'}}</strong>
 			                        </td>

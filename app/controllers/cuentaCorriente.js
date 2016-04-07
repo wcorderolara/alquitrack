@@ -11,7 +11,7 @@ exports.getCuentaCorrienteBySede = function (req, res){
 				model: models.Factura,
 				attributes: ['correlativo', 'monto','fechaCreacion','PaiId','SedeId', 'id'],
 				where: {
-					status: 0
+					status: 1
 				},
 				include: [
 					{
@@ -29,8 +29,8 @@ exports.getCuentaCorrienteBySede = function (req, res){
 						},
 						include:[
 							{
-								model. models.correlativosFactura,
-								attributes: ['serie','id']
+								model: models.correlativosFactura,
+								attributes: ['serie','id'],
 								where:{
 									status: 1
 								}
@@ -41,7 +41,7 @@ exports.getCuentaCorrienteBySede = function (req, res){
 			},
 			{
 				model: models.Cliente,
-				attributes: ['nombre', 'apellido', 'id']
+				attributes: ['nombre', 'apellido', 'id'],
 				where:{
 					status: 1
 				}
@@ -76,7 +76,7 @@ exports.getCuentasCorrientes = function (req, res){
 						where:{
 							status: 1,
 						}
-					}
+					},
 					{
 						model: models.Pais,
 						where:{
@@ -84,8 +84,8 @@ exports.getCuentasCorrientes = function (req, res){
 						},
 						include:[
 							{
-								model. models.correlativosFactura,
-								attributes: ['serie','id']
+								model: models.correlativosFactura,
+								attributes: ['serie','id'],
 								where:{
 									status: 1
 								}
@@ -96,7 +96,7 @@ exports.getCuentasCorrientes = function (req, res){
 			},
 			{
 				model: models.Cliente,
-				attributes: ['nombre', 'apellido', 'id']
+				attributes: ['nombre', 'apellido', 'id'],
 				where:{
 					status: 1
 				}
