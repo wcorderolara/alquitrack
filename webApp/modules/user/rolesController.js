@@ -5,7 +5,8 @@ alquitrackApp.controller('rolesController', function($scope,$window, userService
 	var factory = ShareData;
 	var userId = auth.getUserLogged();
 	var empId = auth.getEmpleadoLogged();
-	var datosGenerales = {};
+	var datosGenerales = {};	
+	$scope.userRol = "";
 
 
 	service.getUsuarioInfo(userId).then(
@@ -13,6 +14,7 @@ alquitrackApp.controller('rolesController', function($scope,$window, userService
 			console.log('usuario Informacion');
 			console.log(data);
 			datosGenerales = data.data;
+			$scope.userRol = datosGenerales.Rol.descripcion
 			factory.value = {
 				empleado: datosGenerales.EmpleadoId,
 				rolId: datosGenerales.RolId,

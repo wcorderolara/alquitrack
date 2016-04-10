@@ -1,13 +1,6 @@
 <div ng-controller="rolesController">
-    <!-- Page Sidebar Header-->
-    <div class="sidebar-header-wrapper">
-        <input type="text" class="searchinput" />
-        <i class="searchicon fa fa-search"></i>
-        <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
-    </div>
-    <!-- /Page Sidebar Header -->
     <!-- Sidebar Menu -->
-    <ul class="nav sidebar-menu">
+    <ul class="nav sidebar-menu" ng-show="userRol=='Administrador'">
         <!--Dashboard-->
         <li ui-sref-active="active">
             <a ui-sref="app.dashboard">
@@ -212,6 +205,143 @@
                 <i class="menu-icon fa fa-file-text"></i>
                 <span class="menu-text"> Reportes </span>
             </a>
+        </li>
+
+    </ul>
+
+    <!-- Menu de Vendedores -->
+    <ul class="nav sidebar-menu" ng-show=" userRol=='Vendedor' || userRol=='Facturador' ">
+        <!--Dashboard-->
+        <!-- <li ui-sref-active="active">
+            <a ui-sref="app.dashboardVendedor">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+        </li> -->
+        <!-- Facturacion -->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-calculator"></i>
+                <span class="menu-text">Operaciones</span>
+
+                <i class="menu-expand"></i>
+            </a>
+
+            <ul class="submenu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.clientes">
+                        <span class="menu-text">Clientes</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.tractores">
+                        <span class="menu-text">Tractores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-dropdown">
+                        <span class="menu-text">
+                            Pedidos
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.verPedidos">
+                                <i class="menu-icon fa fa-shopping-cart"></i>
+                                <span class="menu-text">Ver Pedidos</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.pedidos">
+                                <i class="menu-icon fa fa-cart-plus"></i>
+                                <span class="menu-text">Crear Pedido</span>
+                            </a>
+                        </li>
+                    </ul>                    
+                </li>
+
+                <li>
+                    <a href="#" class="menu-dropdown">
+                        <span class="menu-text">
+                            Facturaci&oacute;n
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.facturacion">
+                                <span class="menu-text">Generar Factura</span>
+                            </a>
+                        </li>
+
+                        <li  ui-sref-active="active">
+                            <a ui-sref="app.verFacturas">
+                                <span class="menu-text">ver Facturas</span>
+                            </a>
+                        </li>
+
+                        <!-- <li ui-sref-active="active">
+                            <a ui-sref="app.payprotection">
+                                <span class="menu-text">Contrase&ntilde;as de Pago</span>
+                            </a>
+                        </li> -->
+                        
+                    </ul>                    
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- Navegacion de Reportes -->
+    <ul class="nav sidebar-menu" ng-show="userRol=='Reportes'">    
+        <li ui-sref-active="active">
+            <a ui-sref="app.propiedades">
+                <i class="menu-icon fa fa-file-text"></i>
+                <span class="menu-text"> Reportes </span>
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- Navegacion de Cobros -->
+    <ul class="nav sidebar-menu" ng-show="userRol=='Administrador'">
+        <!-- Cobros y Pagos -->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-money"></i>
+                <span class="menu-text">Cobros y Pagos</span>
+
+                <i class="menu-expand"></i>
+            </a>
+
+            <ul class="submenu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.cuentaCorriente">
+                        <span class="menu-text">Cuenta Corriente</span>
+                    </a>
+                </li>
+                <!-- <li ui-sref-active="active">
+                    <a ui-sref="app.cobradores">
+                        <span class="menu-text">Cobradores</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.rutasCobro">
+                        <span class="menu-text">Rutas de Cobro</span>
+                    </a>
+                </li> -->
+                <li ui-sref-active="active">
+                    <a ui-sref="app.recibos">
+                        <span class="menu-text">Recibos Generados</span>
+                    </a>
+                </li>
+                <!-- <li ui-sref-active="active">
+                    <a ui-sref="app.estadosCuenta">
+                        <span class="menu-text">Estados de Cuenta</span>
+                    </a>
+                </li> -->
+            </ul>
         </li>
 
     </ul>

@@ -12,6 +12,7 @@ alquitrackApp.controller('clienteController', function($scope, $window, $locatio
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = $scope.viewby;
 	$scope.maxSize = 5; //Number of pager buttons to show
+	$scope.userRol = info.rol;
 
 	$scope.setItemsPerPage = function(num) {
 		$scope.itemsPerPage = num;

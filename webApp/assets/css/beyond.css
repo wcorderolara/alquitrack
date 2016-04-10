@@ -1456,7 +1456,7 @@ a:active {
   position: relative;
   /*background: #2dc3e8;*/
   background: #fff;
-  border-bottom: 5px solid #0d6378;
+  border-bottom: 5px solid #f1c40f;
 }
 .navbar .navbar-inner .navbar-container {
   padding-left: 10px;
@@ -2045,7 +2045,7 @@ a:active {
 .navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area section h2 span {
   display: block;
   /*color: #fff;*/
-  color: #0d6378;
+  color: #f1c40f;
   overflow: hidden;
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
@@ -2235,7 +2235,7 @@ a:active {
   cursor: pointer;
   font-size: 18px;
   /*color: #ffffff;*/
-  color: #0d6378;
+  color: #f1c40f;
   padding: 11px 5px;
   line-height: 22px;
   position: relative;
@@ -13341,7 +13341,7 @@ left:calc(50% - 25px);
 }
 .login-container .logobox {
   width: 550px !important;
-  height: 50px !important;
+  height: 145px !important;
   padding: 5px;
   margin-top: 15px;
   -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);

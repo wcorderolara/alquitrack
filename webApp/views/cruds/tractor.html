@@ -31,7 +31,7 @@
 									Sede
 								</th>
 								
-								<th style="width: 350px !important">Acciones</th>
+								<th style="width: 350px !important" ng-show="userRol == 'Administrador'">Acciones</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="item in listItems.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
@@ -52,11 +52,11 @@
 										{{item.Sede.descripcion}}
 									</td>
 									
-									<td>
-										<button class="btn btn-info"
+									<td ng-show="userRol == 'Administrador'">
+										<!-- <button class="btn btn-info"
 											    ng-click="showInfo(item)">
 											<i class="fa fa-eye"></i> Ver
-										</button>
+										</button> -->
 										<button class="btn btn-primary" 
 												ng-show="userRol == 'Administrador'"
 												ng-click="openModal('edit', item)">
@@ -72,12 +72,12 @@
 							</tbody>
 						</table>
 						<div class="row margin-top-5">
-							<div class="col-lg-6 col-sm-6 col-xs-6">
+							<div class="col-lg-5 col-sm-5 col-xs-5">
 								Ver <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
 									<option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option>
 								</select> registros por p&aacute;gina.
 							</div>
-							<div class="col-lg-6 col-sm-6 col-xs-6 text-align-right margin-top-5">
+							<div class="col-lg-5 col-sm-5 col-xs-5 text-align-right margin-top-5">
 								Total de Registros: {{totalItems}} 
 							</div>
 						</div>

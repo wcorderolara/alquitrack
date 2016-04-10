@@ -78,6 +78,9 @@ values('Facturador',1,NOW(),NOW());
 Insert into tipousuario (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Reportes',1,NOW(),NOW());
 
+Insert into tipousuario (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Cobros',1,NOW(),NOW());
+
 /*Roles*/
 Insert into rol (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Administrador',1,NOW(),NOW());
@@ -93,6 +96,9 @@ values('Reportes',1,NOW(),NOW());
 
 Insert into rol (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Supervisor',1,NOW(),NOW());
+
+Insert into rol (`descripcion`,`status`,`createdAt`,`updatedAt`)
+values('Cobrador',1,NOW(),NOW());
 
 -- tipo credito
 insert into tipocredito (`descripcion`, `status`, `createdAt`, `updatedAt`,`diasCredito`)
