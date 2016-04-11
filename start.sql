@@ -1,4 +1,4 @@
-CREATE SCHEMA `alquitrack` ;
+CREATE SCHEMA `alquitrack`;
 
 CREATE USER 'usAlquitrack'@'localhost' IDENTIFIED BY 'ALQUITRACKAdmin1';
 
