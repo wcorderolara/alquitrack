@@ -7,10 +7,17 @@ exports.getPedidos = function(req, res){
 	models.Reserva.findAll({
 		where: {
 			status: 1,
-			estadoPedido: 1
+			estadoPedidoId: 1
 		},
-		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId'],
+		attributes:['id','fechaReservacion','ClienteId', 'SedeId', 'estadoPedidoId','empleadoId', 'createdAt'],
 		include:[
+			{
+				model: models.reservaDetalle,
+				attributes: [ [ sequelize.fn('SUM', sequelize.col('subTotal')), 'Total' ] ],
+				where:{
+					status: 1
+				}
+			},
 			{
 				model: models.Cliente,
 				where:{
@@ -28,13 +35,6 @@ exports.getPedidos = function(req, res){
 				model: models.estadoPedido,
 				attributes: ['descripcion', 'id'],
 				where:{
-					status: 1
-				}
-			},
-			{
-				model: models.Empleado,
-				attributes: ['nombre', 'apellido', 'id'],
-				where: {
 					status: 1
 				}
 			}

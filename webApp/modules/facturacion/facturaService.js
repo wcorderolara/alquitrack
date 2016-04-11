@@ -5,7 +5,7 @@ alquitrackApp.service('facturaService', function ($http, $q, baseService, authSe
 
 	self.getRegistros = function(){
 		var data = {
-			url: '/pedido/get/all'
+			url: '/factura/get/all'
 		}
 
 		var result = base.get(data);

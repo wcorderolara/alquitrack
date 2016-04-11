@@ -67,7 +67,7 @@ exports.getCuentasCorrientes = function (req, res){
 				model: models.Factura,
 				attributes: ['correlativo', 'monto','fechaCreacion','PaiId','SedeId', 'id'],
 				where: {
-					status: 0
+					status: 1
 				},
 				include: [
 					{

@@ -21,7 +21,15 @@ exports.getFacturas = function(req, res){
 				attributes: ['descripcion','id'],
 				where: {
 					status: 1
-				}
+				},
+				include:[
+					{
+						model: models.correlativosFactura,
+						where:{
+							status: 1
+						}
+					}
+				]
 			},
 			{
 				model: models.tipoPago,
