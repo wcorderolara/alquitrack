@@ -131,7 +131,7 @@ var routesController = function(server){
 	server.get("/usuario/get/all", auth, controllers.usuario.getUsuarios);
 	server.get("/usuario/get/sede/:SedeId", auth, controllers.usuario.getUsuariosBySede);
 	server.get("/usuario/get/:id", auth, controllers.usuario.getUsuario);
-	server.post("/usuario/post", auth, controllers.usuario.postUsuario);
+	server.post("/usuario/post", controllers.usuario.postUsuario);
 	server.put("/usuario/delete/:id", auth, controllers.usuario.deleteUsuario);
 	server.post("/login/user", controllers.usuario.loginUser);
 
