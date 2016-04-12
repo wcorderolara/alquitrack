@@ -1,7 +1,7 @@
 angular.module('alquitrackApp')
   .constant("alquitrackConf", {
   api: {
-    // url: "http://ec2-52-37-254-25.us-west-2.compute.amazonaws.com",
+    // url: "http://ec2-52-36-59-182.us-west-2.compute.amazonaws.com",
     url: "http://localhost:3000",
     format: "format=json"
   },

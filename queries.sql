@@ -161,7 +161,6 @@ insert into tipoPago (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('cheque',1,NOW(),NOW());
 
 --tipo Operacion
-
 insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Pago de Contado',1,NOW(),NOW());
 
@@ -173,6 +172,10 @@ values('Abono',1,NOW(),NOW());
 
 insert into tipoOperacion (`descripcion`,`status`,`createdAt`,`updatedAt`)
 values('Pago Total',1,NOW(),NOW());
+
+--Monedas
+INSERT INTO monedaPais (`descripcion`,`simbolo`,`status`,`createdAt`,`updatedAt`,`paisId`)
+VALUES('Quetzal','Q.',1,NOW(),NOW(),1);
 
 
 
